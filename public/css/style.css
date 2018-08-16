@@ -1,0 +1,13 @@
+body {
+    margin: 0;
+    font-family: 'Roboto';
+    background: #eaeaea;
+}
+
+.login {
+    box-sizing: border-box;
+    padding: 10px 30px;
+    height: 290px;
+    margin-bottom: 20px;
+    position: relative;
+}
