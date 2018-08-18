@@ -4,10 +4,21 @@ body {
     background: #eaeaea;
 }
 
-.login {
+.Login {
     box-sizing: border-box;
     padding: 10px 30px;
     height: 290px;
     margin-bottom: 20px;
-    position: relative;
+    position: absolute;
+    width: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.captcha{
+    margin: 10px 30px;
+}
+
+.boton{
+    margin-top: 100px;
 }
