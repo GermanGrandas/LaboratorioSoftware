@@ -3,13 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "materialize-css": "^1.0.0-rc.2",
+    "prettier": "^1.14.2",
+    "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-google-recaptcha": "^0.14.2",
+    "react-image": "^1.4.1",
     "react-materialize": "^2.4.2",
     "react-recaptcha": "^2.3.10",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "react-scroll-to-component": "^1.0.2",
+    "validate": "^4.5.1"
   },
   "scripts": {
     "start": "react-scripts start",

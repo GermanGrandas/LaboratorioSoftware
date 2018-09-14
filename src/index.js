@@ -1,12 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {render} from 'react-dom';
+import { BrowserRouter} from "react-router-dom";
 
-import Login from './components/login';
+import Home from './components/home'
+
+import 'materialize-css/dist/css/materialize.min.css'
+
+
 const App = ()=>{
     return (
-        <Login/>
+        <BrowserRouter>
+            <Home/>
+        </BrowserRouter>
     )
 }
-
-ReactDOM.render(<App />, document.getElementById('root'));
+render(<App />, document.getElementById('root'));
 

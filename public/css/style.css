@@ -1,24 +1,28 @@
 body {
-    margin: 0;
     font-family: 'Roboto';
-    background: #eaeaea;
+    background: white;
+    margin: 0;
 }
 
-.Login {
-    box-sizing: border-box;
-    padding: 10px 30px;
-    height: 290px;
-    margin-bottom: 20px;
-    position: absolute;
-    width: 500px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.captcha{
+.section{
+    height: 600px;
     margin: 10px 30px;
 }
 
-.boton{
-    margin-top: 100px;
+#font{
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.parallax-container img{
+    max-width: 100%;
+    height: auto;
+    transform: translate(0%,-30%);
+}
+
+.center {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
