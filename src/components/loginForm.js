@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
+import ReCAPTCHA from 'react-google-recaptcha';
 import FormInlineMessage from './FormInlineMessage';
+import isEmail from 'validator/lib/isEmail';
 
 class LoginForm extends Component {
 	state = {
 		data: {
 			documento: '',
 			email: '',
-			password: ''
+			password: '',
+			captcha: false
 		},
 		loading: false,
 		errors: {}
@@ -31,18 +33,24 @@ class LoginForm extends Component {
 	};
 	validate = (data) => {
 		const errors = {};
-		//if(!isEmail(data.email)) errors.email = 'Invalid Email Address';
+		if (!isEmail(data.email)) errors.email = 'Email invalido';
 		if (!data.documento) errors.documento = 'Debe ingresar el documento';
 		if (!data.email) errors.email = 'Debe ingresar el email';
 		if (!data.password) errors.password = 'Debe ingresar la Contraseña';
+		if (!data.captcha) errors.captcha = 'Debe confirmar el captcha';
 		return errors;
 	};
+
+	onChangeCaptcha = () => {
+		this.setState({ data: { ...this.state.data, captcha: true } });
+	};
+	
 	render() {
 		const { data, errors } = this.state;
 		return (
 			<div className="container">
 				<form className="col s6" onSubmit={this.handleSubmit}>
-					<h2 className="header">Login</h2>
+					<h3 className="header">Login</h3>
 					<div className="input-field col s12 m10">
 						<input
 							type="text"
@@ -85,11 +93,23 @@ class LoginForm extends Component {
 						</label>
 						<FormInlineMessage content={errors.password} type="error" />
 					</div>
-					<Link to='#' className='link'>recuperar la contraseña</Link>
-
-					<button className="btn black waves-effect waves-light" type="submit">
-						Ingresar
-					</button>
+					<div className="col s12">
+						<ReCAPTCHA
+							ref="recaptcha"
+							sitekey="6LdwoGoUAAAAAOIjSUoj1TO5KKeDEt-TBKs2oHXz"
+							onChange={this.onChangeCaptcha}
+							className="s12 captcha"
+						/>
+						<FormInlineMessage content={errors.captcha} type="error" />
+					</div>
+					<div className="link">
+						<Link to="#">recuperar la contraseña</Link>
+					</div>
+					<div className="col s12 m10">
+						<button className="btn black waves-effect waves-light" type="submit">
+							Ingresar
+						</button>
+					</div>
 				</form>
 			</div>
 		);

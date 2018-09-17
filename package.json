@@ -16,7 +16,8 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "react-scroll-to-component": "^1.0.2",
-    "validate": "^4.5.1"
+    "validate": "^4.5.1",
+    "validator": "^10.7.1"
   },
   "scripts": {
     "start": "react-scripts start",
