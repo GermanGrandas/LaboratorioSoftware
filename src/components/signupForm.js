@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import FormInlineMessage from './FormInlineMessage';
+
 import isEmail from 'validator/lib/isEmail';
+import ReCAPTCHA from 'react-google-recaptcha';
+
+
+import FormInlineMessage from './FormInlineMessage';
 
 class SignForm extends Component {
 	state = {
@@ -11,7 +15,9 @@ class SignForm extends Component {
 			nombre: '',
 			apellido: '',
 			password: '',
-			passwordValidation: ''
+			passwordValidation: '',
+			fechaNacimiento : '',
+			captcha: true
 		},
 		loading: false,
 		errors: {}
@@ -27,8 +33,7 @@ class SignForm extends Component {
 		this.setState({ errors });
 		if (Object.keys(errors).length === 0) {
 			this.setState({ loading: true });
-			console.log(this.state.data);
-			//this.props.submit(this.state.data);
+			this.props.submit(this.state.data);
 			//alert('UserSaved');.catch(err=> this.setState({errors:err.response.data.errors, loading:false}));
 		}
 	};
@@ -40,6 +45,7 @@ class SignForm extends Component {
 		if (!data.apellido) errors.apellido = 'Debe ingresar un apellido';
 		if (!data.email) errors.email = 'Debe ingresar el email';
 		if (!data.password) errors.password = 'Debe ingresar la Contraseña';
+		if (!data.captcha) errors.captcha = 'Debe confirmar el captcha';
 		if (data.passwordValidation !== data.password) {
 			errors.passwordValidation = 'Las contraseñas no coínciden';
 			errors.password = 'Las contraseñas no coínciden';
@@ -132,7 +138,7 @@ class SignForm extends Component {
 						</div>
 					</div>
 					<div className="row">
-						<div className="input-field col s6">
+						<div className="input-field col s5">
 							<input
 								id="password"
 								type="password"
@@ -146,7 +152,7 @@ class SignForm extends Component {
 							</label>
 							<FormInlineMessage content={errors.password} type="error" />
 						</div>
-						<div className="input-field col s6">
+						<div className="input-field col s5">
 							<input
 								id="passwordValidation"
 								type="password"
@@ -161,7 +167,15 @@ class SignForm extends Component {
 							<FormInlineMessage content={errors.passwordValidation} type="error" />
 						</div>
 					</div>
-
+					<div className="col s10 m5 xs5">
+						<ReCAPTCHA
+							ref="recaptcha"
+							sitekey="6LdwoGoUAAAAAOIjSUoj1TO5KKeDEt-TBKs2oHXz"
+							onChange={this.onChangeCaptcha}
+							className="s12 captcha"
+						/>
+						<FormInlineMessage content={errors.captcha} type="error" />
+					</div>
 					<div className="col s12 m10">
 						<button className="btn black waves-effect waves-light" type="submit">
 							Crear Usuario

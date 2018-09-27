@@ -5,7 +5,7 @@ const TopNav = () => {
 	return (
 		<div className="parallax-container">
 			<Img className="parallax" src="./images/desk.jpg" alt="tablero" />
-			<h1 className="header center white-text">DocentAssist</h1>
+			<h1 className="header center white-text">DocentHelper</h1>
 		</div>
 	);
 };

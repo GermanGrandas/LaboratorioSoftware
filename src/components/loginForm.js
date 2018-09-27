@@ -26,8 +26,7 @@ class LoginForm extends Component {
 		this.setState({ errors });
 		if (Object.keys(errors).length === 0) {
 			this.setState({ loading: true });
-			console.log(this.state.data);
-			//this.props.submit(this.state.data);
+			this.props.submit(this.state.data);
 			//alert('UserSaved');.catch(err=> this.setState({errors:err.response.data.errors, loading:false}));
 		}
 	};
@@ -93,7 +92,7 @@ class LoginForm extends Component {
 						</label>
 						<FormInlineMessage content={errors.password} type="error" />
 					</div>
-					<div className="col s12">
+					<div className="col s10">
 						<ReCAPTCHA
 							ref="recaptcha"
 							sitekey="6LdwoGoUAAAAAOIjSUoj1TO5KKeDEt-TBKs2oHXz"
@@ -103,7 +102,7 @@ class LoginForm extends Component {
 						<FormInlineMessage content={errors.captcha} type="error" />
 					</div>
 					<div className="link">
-						<Link to="#">recuperar la contraseña</Link>
+						<Link to="/recuperar">recuperar la contraseña</Link>
 					</div>
 					<div className="col s12 m10">
 						<button className="btn black waves-effect waves-light" type="submit">

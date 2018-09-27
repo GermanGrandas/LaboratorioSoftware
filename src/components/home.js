@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import LoginForm from './LoginPage';
+import SignForm from './signup';
 
-import TopComponent from './TopComponent';
-import LoginForm from './loginForm';
-import SignForm from './signupForm';
-import Footer from './FooterComponent';
-
-class Home extends Component {
+class Home extends Component{
 	state = {
 		e : "login"
 	}
@@ -14,10 +12,8 @@ class Home extends Component {
 		this.setState({e : e.target.name});
 	}
 	render(){
-		return (
-			<div>
-				<TopComponent />
-				<div className="section white">
+		return(
+			<div className="section white">
 					<div className='white medium-nav'>
 						<ul className='right'>
 							<li>
@@ -29,13 +25,14 @@ class Home extends Component {
 						</ul>
 					</div>
 					{
-						this.state.e ==='login' ? <LoginForm/> : <SignForm/>
+						this.state.e ==='login' ? <LoginForm login={this.login} setMessage={this.setMessage}/> : <SignForm setMessage={this.setMessage} />
 					}
-				</div>
-				<Footer />
 			</div>
-		);
-	}
+		)
+	}				
 }
 
+Home.propTypes = {
+    setMessage : PropTypes.func.isRequired
+}
 export default Home;
