@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
+import DatePicker from 'react-date-picker';
+import Select from 'react-select';
 
 import isEmail from 'validator/lib/isEmail';
 import ReCAPTCHA from 'react-google-recaptcha';
+import country from 'country-state-city';
 
+//https://www.npmjs.com/package/react-country-region-selector
+//http://country-regions.github.io/react-country-region-selector/
+//https://www.npmjs.com/package/country-state-city
 
 import FormInlineMessage from './FormInlineMessage';
 
@@ -17,16 +23,53 @@ class SignForm extends Component {
 			password: '',
 			passwordValidation: '',
 			fechaNacimiento : '',
-			captcha: true
+			paisNacimiento : '',
+			regionNacimiento : '',
+			ciudadNacimiento : '',
+			captcha: false
 		},
 		loading: false,
-		errors: {}
+		errors: {},
 	};
+
+	countryData = {}
 	handleStringChange = (e) => {
 		this.setState({
 			data: { ...this.state.data, [e.target.name]: e.target.value }
 		});
 	};
+	handleCountryChange = (data)=>{
+		this.setState({
+			data: { ...this.state.data, paisNacimiento: data }
+		});
+		let states = country.getStatesOfCountry(data.id);
+		let c =states.map((x)=>{
+			return {value : x.name,label :x.name , id : x.id}
+		});
+		this.countryData.states = c;
+	}
+	handleStateChange = (data)=>{
+		this.setState({
+			data: { ...this.state.data, regionNacimiento: data }
+		});
+		let cities = country.getCitiesOfState(data.id);
+		let c =cities.map((x)=>{
+			return {value : x.name,label :x.name , id : x.id}
+		});
+		this.countryData.cities = c;
+	}
+	handleCitiesChange = (data)=>{
+		this.setState({
+			data: { ...this.state.data, ciudadNacimiento: data }
+		});
+	}
+	componentWillMount(){
+		let data = country.getAllCountries();
+		let c =data.map((x)=>{
+			return {value : x.name,label :x.name , id : x.id}
+		});
+		this.countryData.pais = c;
+	}
 	handleSubmit = (e) => {
 		e.preventDefault();
 		const errors = this.validate(this.state.data);
@@ -52,13 +95,17 @@ class SignForm extends Component {
 		}
 		return errors;
 	};
-
 	onChangeCaptcha = () => {
 		this.setState({ data: { ...this.state.data, captcha: true } });
 	};
-
+	handleDateChange=(date)=>{
+		this.setState({
+			data: { ...this.state.data, fechaNacimiento: date }
+		});
+	}
 	render() {
-		const { data, errors } = this.state;
+		const { data, errors} = this.state;
+		const today = new Date(Date.now());
 		return (
 			<div className="container">
 				<form className="col s6" onSubmit={this.handleSubmit}>
@@ -138,7 +185,7 @@ class SignForm extends Component {
 						</div>
 					</div>
 					<div className="row">
-						<div className="input-field col s5">
+						<div className="input-field col s4">
 							<input
 								id="password"
 								type="password"
@@ -152,7 +199,7 @@ class SignForm extends Component {
 							</label>
 							<FormInlineMessage content={errors.password} type="error" />
 						</div>
-						<div className="input-field col s5">
+						<div className="input-field col s4">
 							<input
 								id="passwordValidation"
 								type="password"
@@ -166,15 +213,60 @@ class SignForm extends Component {
 							</label>
 							<FormInlineMessage content={errors.passwordValidation} type="error" />
 						</div>
+						<div className="col s4">
+								<label id="font" htmlFor="fechaNacimiento">
+									Fecha Nacimiento
+								</label>	
+								<DatePicker
+									locale = 'es-CO'
+									minDate = {new Date(today.getFullYear()-100,today.getDate(),today.getDay())}
+									maxDate = {new Date(today.getFullYear()-20,today.getDate(),today.getDay())}
+									onChange={this.handleDateChange}
+									value={data.fechaNacimiento}
+								/>
+						</div>
+					</div>
+					<div className='row'>
+						<div className="col s4">
+							<label id="font" htmlFor="paisNacimiento">
+										País Nacimiento
+							</label>
+							<Select
+								value={data.paisNacimiento}
+								onChange={this.handleCountryChange}
+								options={this.countryData.pais}
+							/>
+						</div>
+						<div className="col s4">
+							<label id="font" htmlFor="paisNacimiento">
+										Estado Nacimiento
+							</label>
+							<Select
+								value={data.regionNacimiento}
+								onChange={this.handleStateChange}
+								options={this.countryData.states}
+							/>
+						</div>
+						<div className="col s4">
+							<label id="font" htmlFor="paisNacimiento">
+										Ciudad Nacimiento
+							</label>
+							<Select
+								value={data.ciudadNacimiento}
+								onChange={this.handleCitiesChange}
+								options={this.countryData.cities}
+							/>
+						</div>
 					</div>
 					<div className="col s10 m5 xs5">
+						<FormInlineMessage content={errors.captcha} type="error" />
 						<ReCAPTCHA
 							ref="recaptcha"
 							sitekey="6LdwoGoUAAAAAOIjSUoj1TO5KKeDEt-TBKs2oHXz"
 							onChange={this.onChangeCaptcha}
 							className="s12 captcha"
 						/>
-						<FormInlineMessage content={errors.captcha} type="error" />
+						
 					</div>
 					<div className="col s12 m10">
 						<button className="btn black waves-effect waves-light" type="submit">

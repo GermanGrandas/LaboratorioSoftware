@@ -4,11 +4,13 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "country-state-city": "^0.0.5",
     "materialize-css": "^1.0.0-rc.2",
     "prettier": "^1.14.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-country-region-selector": "^1.4.1",
+    "react-date-picker": "^6.12.1",
     "react-dom": "^16.4.2",
     "react-google-recaptcha": "^0.14.2",
     "react-image": "^1.4.1",
@@ -18,6 +20,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "react-scroll-to-component": "^1.0.2",
+    "react-select": "^2.0.0",
     "validate": "^4.5.1",
     "validator": "^10.7.1"
   },

@@ -24,7 +24,6 @@ class Main extends Component {
 		message : ""
 		
 	}
-
     setMessage = message => this.setState({message});
     login = token =>{
         this.setState({user : {token}});
@@ -54,8 +53,7 @@ class Main extends Component {
                     </div>
                 )}
                 <Route path='/' exact 
-                    render={props => (<HomeComponent {...props} setMessage={this.setMessage}/>)}/>
-                
+                    render={props => (<HomeComponent {...props} login={this.login} setMessage={this.setMessage}/>)}/>
                 <Route path='/recuperar' exact component={RecuperarPage}></Route>
             	<Footer />
 			</div>
