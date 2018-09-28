@@ -8,6 +8,7 @@ class LoginPage extends Component{
         token =>{
             this.props.login(token);
             this.props.setMessage("You have been sucessfully login up");
+            this.props.history.push('/');
         });
     render(){
         return(

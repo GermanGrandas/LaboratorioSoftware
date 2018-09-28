@@ -3,6 +3,8 @@ var Usuario= require("../modelos/modelousuarios.js");
 
 //para poder encriptar 
 var bcrypt = require("bcrypt-nodejs")
+var token = require('../token/token');
+
 
 function controladorusuario(req,res){
 	res.status(200).send({mensaje: "probando controlador de usuarios"})
@@ -42,29 +44,32 @@ function crearUsuario(req,res){
 
 function loginUsuario(req,res){
 	var parametros = req.body;
-	var documento=parametros.documento;
-	var email=parametros.email;
-	var password= parametros.password;
-
-	//metodo FindOne me permite seleccionar un dato que este en la base de datos, recibe como primer parametro los valores que queremos que busque coincidencia y una funcion flecha
-	Usuario.findOne({email:email,documento:documento}, (error, usuarioencontrado)=>{
+	var documento=parametros.credentials.documento;
+	var email=parametros.credentials.email;
+	var password= parametros.credentials.password;
+	
+	Usuario.findOne({email:email,documento : documento}, (error, usuarioencontrado)=>{
 		if(error){
-			res.status(500).send({mensaje: "error al encontrar al usuario"})
+			res.status(500).send({documento: "error al encontrar al usuario"})
 		}
-
 		else{
-			if(!email){
-				res.status(404).json({mensaje: " el usuario no existe o no ha sido creado"})
+			if(!usuarioencontrado){
+
+				res.status(404).json({documento: " el usuario no existe o no ha sido creado"})
 			}
 			else{
-				//res.status(200).send({usuarioencontrado})
-				bcrypt.compare(password, usuarioencontrado.password, function(error, ok){
 
+				bcrypt.compare(password, usuarioencontrado.password, function(error, ok){
+					if(error) throw error;
 					if (ok){
-						res.status(200).send({usuarioencontrado})
+						if(!parametros.token){
+
+							//Devolvemos un token de JWT
+							res.status(200).send({token: token.crearToken(usuarioencontrado)});
+						}
 					}
 					else{
-						res.status(404).send({mensaje: "El usuario no ha podido ingresar"})
+						res.status(404).send({documento: "El usuario no ha podido ingresar"})
 					}
 				})
 			}

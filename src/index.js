@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
-import { BrowserRouter} from "react-router-dom";
+import { MemoryRouter} from "react-router-dom";
 
 import Main from './components/main'
 
@@ -9,9 +9,9 @@ import 'materialize-css/dist/css/materialize.min.css'
 
 const App = ()=>{
     return (
-        <BrowserRouter>
+        <MemoryRouter>
             <Main/>
-        </BrowserRouter>
+        </MemoryRouter>
     )
 }
 render(<App />, document.getElementById('root'));

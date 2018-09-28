@@ -1,11 +1,39 @@
 import React from 'react';
 import Img from 'react-image';
 
+
 const Footer = () => {
 	return (
-		<div className="parallax-container">
-			<Img className="parallax" src="./images/tablero.jpg" alt="calendario" />
-		</div>
+		<footer className="page-footer black">
+			<div className='section'>
+				<h5 className='special'>
+					Maked by a group of noobs
+				</h5>
+				<div className='poll_container'>
+					<div className='poll_item'>
+						<Img className="circle" src="./images/yo.jpg" alt="yo" />
+						<h4>Germán Grandas</h4>
+					</div>
+					<div className='poll_item'>
+						<Img className="circle responsive-img" src="./images/GitHub-Mark-Light-64px.png" alt="github" />
+						<h4>Jhoan Marín</h4>
+					</div>
+					<div className='poll_item'>
+						<Img className="circle responsive-img" src="./images/GitHub-Mark-Light-64px.png" alt="github" />
+						<h4>Mauricio Castaño</h4>
+					</div>
+				</div>
+			</div>
+			<div className="footer-copyright">
+				<div className="container">
+				© 2018 Copyright 
+				<a className="right" href="https://github.com/GermanGrandas/LaboratorioSoftware" rel='noopener noreferer' target="_blank">
+					<Img className="gitLogo" src="./images/GitHub-Mark-Light-64px.png" alt="github" />
+				</a>
+				</div>
+          	</div>
+		</footer>
+		
 	);
 };
 

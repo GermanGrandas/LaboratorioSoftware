@@ -25,7 +25,7 @@ class Home extends Component{
 						</ul>
 					</div>
 					{
-						this.state.e ==='login' ? <LoginForm login={this.props.login} setMessage={this.props.setMessage}/> : <SignForm setMessage={this.props.setMessage} />
+						this.state.e ==='login' ? <LoginForm history={this.props.history} login={this.props.login} setMessage={this.props.setMessage}/> : <SignForm history={this.props.history} setMessage={this.props.setMessage} />
 					}
 			</div>
 		)

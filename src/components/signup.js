@@ -7,7 +7,8 @@ class SignupPage extends Component{
     submit = data =>{
         api.users.create(data).then(()=> {
             this.props.setMessage("You have been sucessfully signed up");
-            this.props.history.push("/")});
+            this.props.history.push('/');
+        });
     };
     render(){
         return(

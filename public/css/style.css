@@ -3,7 +3,14 @@ body {
 	background: white;
 	margin: 0;
 }
+h1 {
+	font-family : 'Courgette','Pacifico';
+}
 
+.special{
+	font-family: 'Pacifico';
+	font-size: 1.25em;
+}
 .section {
 	height: 650px;
 	margin: 10px 30px;
@@ -42,7 +49,39 @@ body {
     display: inline;
 }
 
+/*
+* FOOTER
+*/
+footer .section{
+	height: 300px;
+}
 
+.poll_container {
+    display: -ms-flex;
+	display: -webkit-flex;
+	display: flex;
+	width: 300px;
+}
+.poll_container .poll_item{
+    padding:10px;
+	flex-grow: 1;
+	margin: 20px 50px;
+}
+
+.poll_container .poll_item img{
+   width: 100px;
+}
+
+.poll_container .poll_item img:hover{
+	opacity: 0.7;
+}
+.poll_container .poll_item h4 {
+    font-family: 'Pacifico', sans-serif;
+    font-size: 18px;
+}
+/***
+	RESPONSIVE
+*/
 @media only screen and (max-width: 403px) {
 	.header {
 		font-size: 2.5rem;
