@@ -55,7 +55,7 @@ function loginUsuario(req,res){
 		else{
 			if(!usuarioencontrado){
 
-				res.status(404).json({documento: " el usuario no existe o no ha sido creado"})
+				res.status(404).json({err: " el usuario no existe o no ha sido creado"})
 			}
 			else{
 
@@ -65,11 +65,11 @@ function loginUsuario(req,res){
 						if(!parametros.token){
 
 							//Devolvemos un token de JWT
-							res.status(200).send({token: token.crearToken(usuarioencontrado)});
+							res.status(200).json({token: token.crearToken(usuarioencontrado)});
 						}
 					}
 					else{
-						res.status(404).send({documento: "El usuario no ha podido ingresar"})
+						res.status(404).json({err: "El usuario no ha podido ingresar"})
 					}
 				})
 			}

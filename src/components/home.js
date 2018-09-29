@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+
 import LoginForm from './LoginPage';
 import SignForm from './signup';
+import TopComponent from './TopComponent';
+import Footer from './FooterComponent';
 
 class Home extends Component{
 	state = {
@@ -13,26 +15,27 @@ class Home extends Component{
 	}
 	render(){
 		return(
-			<div className="section white">
-					<div className='white medium-nav'>
-						<ul className='right'>
-							<li>
-								<Link to="#" name='login' className='black-text'onClick={this.update}>Login</Link>
-							</li>
-							<li>
-								<Link to="#" name='sign' className='black-text' onClick={this.update}>Sign Up</Link>
-							</li>
-						</ul>
-					</div>
-					{
-						this.state.e ==='login' ? <LoginForm history={this.props.history} login={this.props.login} setMessage={this.props.setMessage}/> : <SignForm history={this.props.history} setMessage={this.props.setMessage} />
-					}
+			<div>
+				<TopComponent />
+				<div className="section white">
+						<div className='white medium-nav'>
+							<ul className='right'>
+								<li>
+									<Link to="#" name='login' className='black-text'onClick={this.update}>Login</Link>
+								</li>
+								<li>
+									<Link to="#" name='sign' className='black-text' onClick={this.update}>Sign Up</Link>
+								</li>
+							</ul>
+						</div>
+						{
+							this.state.e ==='login' ? <LoginForm history={this.props.history} login={this.props.login}/> : <SignForm history={this.props.history}/>
+						}
+				</div>
+				<Footer />
 			</div>
 		)
 	}				
 }
 
-Home.propTypes = {
-    setMessage : PropTypes.func.isRequired
-}
 export default Home;

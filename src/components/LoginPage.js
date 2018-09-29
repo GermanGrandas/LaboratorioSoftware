@@ -6,10 +6,14 @@ import api from '../api';
 class LoginPage extends Component{
     submit = data=> api.users.login(data).then(
         token =>{
-            this.props.login(token);
-            this.props.setMessage("You have been sucessfully login up");
-            this.props.history.push('/');
+            if (!token.err) {
+                this.props.login(token)
+                this.props.history.push('/home');
+            } else {
+                this.props.history.push('/');
+            }
         });
+
     render(){
         return(
             <LoginForm submit={this.submit}/>
@@ -18,7 +22,7 @@ class LoginPage extends Component{
 }
 LoginPage.propTypes = {
     login : PropTypes.func.isRequired,
-    setMessage : PropTypes.func.isRequired
+    history : PropTypes.object.isRequired
 }
 
 export default LoginPage

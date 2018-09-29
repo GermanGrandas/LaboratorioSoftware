@@ -1,7 +1,6 @@
 import React from 'react';
 import Img from 'react-image';
 
-
 const Footer = () => {
 	return (
 		<footer className="page-footer black">
@@ -27,7 +26,7 @@ const Footer = () => {
 			<div className="footer-copyright">
 				<div className="container">
 				© 2018 Copyright 
-				<a className="right" href="https://github.com/GermanGrandas/LaboratorioSoftware" rel='noopener noreferer' target="_blank">
+				<a className="right" href="https://github.com/GermanGrandas/LaboratorioSoftware" rel="noreferrer noopener" target="_blank">
 					<Img className="gitLogo" src="./images/GitHub-Mark-Light-64px.png" alt="github" />
 				</a>
 				</div>

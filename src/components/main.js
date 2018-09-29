@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {Route} from 'react-router-dom';
 
-import TopComponent from './TopComponent';
 import HomeComponent from './home';
 import RecuperarPage from './recuperarComponent';
-import Footer from './FooterComponent';
+import AdminRoute from './adminroute';
+import Materias from './mainMaterias';
 
 import axios from 'axios';
 
@@ -12,21 +12,18 @@ const setAuthorizationHeader = (token = null) =>{
     if(token){
         axios.defaults.headers.common.Authorization = `Bearer ${token}`;
     }else{
-        delete axios.defaults.headers.common.Authorization
+        delete axios.defaults.headers.common.Authorization;
     }
 }
 class Main extends Component {
 	state = {
-		e : "login",
-		user : {
-			token : null
-		},
-		message : ""
-		
+        user :{
+            token : null
+        }
 	}
-    setMessage = message => this.setState({message});
     login = token =>{
         this.setState({user : {token}});
+        console.log('hola login',this.state);
         localStorage.testToken = token;
         setAuthorizationHeader(token);
 	};
@@ -34,28 +31,25 @@ class Main extends Component {
         this.setState({user : {token : null}});
         setAuthorizationHeader();
         localStorage.removeItem('testToken');
+
     }
-    componentDidMount(){
+    componentWillMount(){
         if(localStorage.testToken){
-            this.setState({user: {token : localStorage.testToken} });
+            this.setState({user : {token: localStorage.testToken}});
             setAuthorizationHeader(localStorage.testToken);
+        }else{
+            this.setState({user : {token : null}});
         }
     }
-	
 	render(){
 		return (
 			<div>
-				<TopComponent />
-				{this.state.message && (
-                    <div className='card-content white-text'>
-                        <i className='mdi-navigation-check' onClick={()=>this.setMessage("")}/>
-                        {this.state.message}
-                    </div>
-                )}
                 <Route path='/' exact 
-                    render={props => (<HomeComponent {...props} login={this.login} setMessage={this.setMessage}/>)}/>
+                    render={props => (<HomeComponent {...props} login={this.login}/>)}/>
                 <Route path='/recuperar' exact component={RecuperarPage}></Route>
-            	<Footer />
+                <AdminRoute path='/home' exact
+                    user={this.state.user}
+                    render={props => (<Materias {...props} logout={this.logout}/>)}/>
 			</div>
 		);
 	}
