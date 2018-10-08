@@ -5,7 +5,7 @@ import HomeComponent from './home';
 import RecuperarPage from './recuperarComponent';
 import AdminRoute from './adminroute';
 import Materias from './mainMaterias';
-
+import ChangePassword from './changeForm';
 import axios from 'axios';
 
 const setAuthorizationHeader = (token = null) =>{
@@ -23,7 +23,6 @@ class Main extends Component {
 	}
     login = token =>{
         this.setState({user : {token}});
-        console.log('hola login',this.state);
         localStorage.testToken = token;
         setAuthorizationHeader(token);
 	};
@@ -46,7 +45,11 @@ class Main extends Component {
 			<div>
                 <Route path='/' exact 
                     render={props => (<HomeComponent {...props} login={this.login}/>)}/>
-                <Route path='/recuperar' exact component={RecuperarPage}></Route>
+                <Route path='/recuperar' exact 
+                    render={props => (<RecuperarPage {...props} saveToken={this.login}/>)}/>
+                <Route path='/changePassword' exact 
+                    render={props => (<ChangePassword {...props}/>)}/>
+                    
                 <AdminRoute path='/home' exact
                     user={this.state.user}
                     render={props => (<Materias {...props} logout={this.logout}/>)}/>

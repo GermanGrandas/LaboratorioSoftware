@@ -6,6 +6,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import FormInlineMessage from './FormInlineMessage';
 import TopComponent from './TopComponent';
 import Footer from './FooterComponent';
+import api from '../api';
 
 class Recuperar extends Component{
     state = {
@@ -13,11 +14,20 @@ class Recuperar extends Component{
             email :'',
             documento : '',
             username : '',
-            captcha : false
+            captcha : true
         },
         loading: false,
 		errors: {}
     }
+
+    submit = data=> api.users.recuperar(data).then((params)=>{
+        /**token =>{
+            if (!token.err) {
+                this.props.login(token)
+            }*/
+            console.log(params);
+            this.props.history.push('/');
+        });
 
     handleStringChange = (e) => {
 		this.setState({
@@ -30,8 +40,9 @@ class Recuperar extends Component{
 		const errors = this.validate(this.state.data);
 		this.setState({ errors });
 		if (Object.keys(errors).length === 0) {
-			this.setState({ loading: true });
-			this.props.submit(this.state.data);
+            this.setState({ loading: true });
+            console.log('hello ');
+			this.submit(this.state.data);
 			//alert('UserSaved');.catch(err=> this.setState({errors:err.response.data.errors, loading:false}));
 		}
 	};
