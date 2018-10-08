@@ -2,7 +2,7 @@
 var Usuario= require("../modelos/modelousuarios.js");
 
 var token = require('../token/token');
-var correoautenticacion = require("../tokens/autenticationemail.js");
+var correoautenticacion = require("../token/tokencorreo.js");
 //para poder encriptar 
 var bcrypt = require("bcrypt-nodejs");
 var nodemailer = require("nodemailer");
@@ -131,15 +131,14 @@ function actualizarusuario(req,res){
 
 function cambiarcontrasena(req,res){
 	var parametros = req.body;
-	var correo = parametros.email;
+	var correo = parametros.credentials.email;
+	
 	Usuario.find({email:correo}, (error,correoencontrado)=>{
 		if(error){
-			console.log("hola mundo")
 			res.status(404).send({mensaje: "no se puede acceder a la peticion"})
 		}
 		else{
 			if(!correoencontrado){
-				console.log("hooooooooolaaaaaaaa")
 				res.status(500).send({mensaje:"el correo no existe en la base de datos"})
 			}
 			else{
@@ -158,9 +157,9 @@ function cambiarcontrasena(req,res){
 				//definimos el destino
 				var mailOption = {
 					from: 'nodejs',
-					to: 'mansleobenitez@gmail.com',
-					subjet: 'test',
-					text: "omita este mensaje"
+					to: correoencontrado[0].email,//'mansleobenitez@gmail.com',
+					subjet: 'Recuperar Contraseña Docent-Helper',
+					text: "http://localhost:3000/changePassword"
 				};
 
 				//enviamos el email
@@ -172,7 +171,7 @@ function cambiarcontrasena(req,res){
 					}
 					else{
 						console.log("mensaje enviado")
-						res.status(200).json(parametros)
+						res.status(200).json({token: correoautenticacion.crearToken(correoencontrado)})
 					}
 				})
 
