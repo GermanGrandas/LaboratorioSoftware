@@ -6,7 +6,7 @@ const Footer = () => {
 		<footer className="page-footer black">
 			<div className='section'>
 				<h5 className='special'>
-					Maked by a group of noobs
+					Made by a group of noobs
 				</h5>
 				<div className='poll_container'>
 					<div className='poll_item'>

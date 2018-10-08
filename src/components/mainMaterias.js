@@ -1,19 +1,21 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
-
-
+import Menu from './sideMenu';
 
 class Materias extends Component{
-
     render(){
         return(
-            <nav className='orange darken-1'>
-                <div className="nav-wrapper">
-                <ul id="nav-mobile" className="right hide-on-med-and-down">
-                    <li><Link to='/' onClick={this.props.logout}>Logout</Link></li>
-                </ul>
+            <div>
+                <div id='App'>            
+                    <Menu pageWrapId={"page-wrap"} outerContainerId={"App"}/>
+                    <div className='nav-wrapper white' id="page-wrap">
+                        <h1>Docent Helper</h1>
+                    </div>
+                    <div className='section'>
+                            hi
+                    </div>
                 </div>
-            </nav>
+            </div>
+            
         );
     }
 }
