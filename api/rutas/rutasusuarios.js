@@ -5,7 +5,7 @@ var express = require("express");
 
 //cargamos el modulo del controlador
 var ControladorDeUsuarios = require("../controladores/controladorusuario.js");
-var authentication = require("../tokens/aut.js");
+var authentication = require("../token/aut.js");
 
 //cargar el router de express js y con esto podemos crear rutas para nuestra API
 var api = express.Router();
