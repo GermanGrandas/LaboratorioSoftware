@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import {Route} from 'react-router-dom';
+import axios from 'axios';
 
 import HomeComponent from './home';
 import RecuperarPage from './recuperarComponent';
 import AdminRoute from './adminroute';
 import Materias from './mainMaterias';
 import ChangePassword from './changeForm';
-import axios from 'axios';
+
+import CrearMateria from './crearMateria';
+
 
 const setAuthorizationHeader = (token = null) =>{
     if(token){
@@ -53,6 +56,10 @@ class Main extends Component {
                 <AdminRoute path='/home' exact
                     user={this.state.user}
                     render={props => (<Materias {...props} logout={this.logout}/>)}/>
+
+                <AdminRoute path='/crearMateria' exact
+                    user={this.state.user}
+                    render={props => (<CrearMateria {...props} logout={this.logout}/>)}/>
 			</div>
 		);
 	}

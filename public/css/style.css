@@ -3,7 +3,7 @@ body {
 	background: white;
 	margin: 0;
 }
-h1 {
+h1,h3 {
 	font-family : 'Courgette','Pacifico';
 }
 
@@ -85,7 +85,6 @@ footer .section{
 */
 #App {
 	font-family: sans-serif;
-  
 	/* Give app full page to work with */
 	height: 20vh;
 	
@@ -93,7 +92,7 @@ footer .section{
   
 #page-wrap {
 	text-align: center;
-  
+	
 	/* Prevent sidebar from showing a scrollbar on page */
 	overflow: auto;
 }

@@ -25,7 +25,6 @@ class Recuperar extends Component{
             if (!token.err) {
                 this.props.login(token)
             }*/
-            console.log(params);
             this.props.history.push('/');
         });
 
@@ -41,7 +40,6 @@ class Recuperar extends Component{
 		this.setState({ errors });
 		if (Object.keys(errors).length === 0) {
             this.setState({ loading: true });
-            console.log('hello ');
 			this.submit(this.state.data);
 			//alert('UserSaved');.catch(err=> this.setState({errors:err.response.data.errors, loading:false}));
 		}

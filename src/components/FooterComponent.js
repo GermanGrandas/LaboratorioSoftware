@@ -14,11 +14,11 @@ const Footer = () => {
 						<h4>Germán Grandas</h4>
 					</div>
 					<div className='poll_item'>
-						<Img className="circle responsive-img" src="./images/GitHub-Mark-Light-64px.png" alt="github" />
+						<Img className="circle responsive-img" src="./images/jhoan.jpg" alt="jhoan" />
 						<h4>Jhoan Marín</h4>
 					</div>
 					<div className='poll_item'>
-						<Img className="circle responsive-img" src="./images/GitHub-Mark-Light-64px.png" alt="github" />
+						<Img className="circle responsive-img" src="./images/mauro.jpg" alt="mauro" />
 						<h4>Mauricio Castaño</h4>
 					</div>
 				</div>
