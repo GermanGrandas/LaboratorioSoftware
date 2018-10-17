@@ -11,7 +11,7 @@ var clave = "clave_secreta";
 
 //creamos un middleware
 
-function autenticacion(req, res, next){
+exports.autenticacion = function(req, res, next){
 
 	if(!req.headers.authorization){
 		res.status(403).send({mensaje: " la peticion no tiene cabecera de autenticacion"})
@@ -47,8 +47,4 @@ function autenticacion(req, res, next){
 		req.usuariotoken = cargartoken;
 		next();
 	}
-}
-
-module.exports = {
-	autenticacion
 }

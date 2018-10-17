@@ -108,7 +108,7 @@ class SignForm extends Component {
 		const today = new Date(Date.now());
 		return (
 			<div className="container">
-				<form className="col s6" onSubmit={this.handleSubmit}>
+				<form className="col s12" onSubmit={this.handleSubmit}>
 					<h3 className="header">Sign Up</h3>
 					<div className="row">
 						<div className="col s4">

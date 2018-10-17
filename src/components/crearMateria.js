@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom';
 
 import Menu from './sideMenu';
 import FormInlineMessage from './FormInlineMessage';
+import api from '../api';
 /**
  * Código Materia
  * Nombre Materia
@@ -38,25 +39,42 @@ class MateriaForm extends Component{
 		},
 		loading: false,
 		errors: {},
-	};
+    };
+    submit = data =>{
+        api.materias.create(data).then(data=> {
+            console.log(data);
+           // this.props.history.push('/home');
+        });
+    };
+
     handleStringChange = (e) => {
 		this.setState({
 			data: { ...this.state.data, [e.target.name]: e.target.value }
 		});
     };
     validate = (data) => {
-		const errors = {};
+        const errors = {};
+        const today = new Date(Date.now());
+        const year = today.getFullYear();
 		if (!data.codigo) errors.codigo = 'Debe ingresar el codigo';
 		if (!data.nombre) errors.nombre = 'Debe ingresar un nombre';
-		if (!data.year) errors.year = 'Debe ingresar el Año';
+        if (!data.year) errors.year = 'Debe ingresar el Año';
+        if( parseInt(data.year,10) < year) errors.year= 'El año debe ser mayor al Actual';
 		if (!data.fInicio) errors.fInicio = 'Debe ingresar la Fecha de Inicio';
 		if (!data.fFin) errors.fFin = 'Debe ingresar la Fecha de Finalización';
 		if (!data.institucion) errors.institucion = 'Debe ingresar la Institución';
         if (!data.horario) errors.horario = 'Debe ingresar el horario';
         if (!data.dias) errors.dias = 'Debe ingresar los días';
-        if (!data.creditos) errors.creditos = 'Debe ingresar el número de créditos';
-        if (!data.teoPrac) errors.teoPrac = 'Debe ingresar el tipo de Materia';
+       
         if (!data.tipoM) errors.tipoM = 'Debe ingresar el tipo de Materia';
+        if(data.tipoM.value === 'Universidad'){
+            if (!data.creditos) errors.creditos = 'Debe ingresar el número de créditos';
+            if(parseInt(data.creditos,10)<=0) errors.creditos = 'Los creditos deben ser mayores a 0';
+            if (!data.teoPrac) errors.teoPrac = 'Debe ingresar el tipo de Materia';
+        }else{
+            if(!data.grado) errors.grado = 'Debe ingresar un grado';
+            if(parseInt(data.grado,10) <0 | parseInt(data.grado,10) >12) errors.grado = 'El grado no debe ser menor a 0 o mayor a 12';
+        }
 		return errors;
 	};
     handleSubmit = (e) => {
@@ -64,8 +82,8 @@ class MateriaForm extends Component{
 		const errors = this.validate(this.state.data);
 		this.setState({ errors });
 		if (Object.keys(errors).length === 0) {
-			this.setState({ loading: true });
-			this.props.submit(this.state.data);
+            this.setState({ loading: true });
+			//this.submit(this.state.data);
 			//alert('UserSaved');.catch(err=> this.setState({errors:err.response.data.errors, loading:false}));
 		}
     };
@@ -142,6 +160,7 @@ class MateriaForm extends Component{
                                         type="number"
                                         id="year"
                                         name="year"
+                                        min={today.getFullYear()}
                                         className={errors.year ? 'validate invalid' : 'validate'}
                                         value={data.year}
                                         onChange={this.handleStringChange}
@@ -201,6 +220,8 @@ class MateriaForm extends Component{
                                             type="text"
                                             id="grado"
                                             name="grado"
+                                            min = '0'
+                                            max='12'
                                             className={errors.grado ? 'validate invalid' : 'validate'}
                                             value={data.grado}
                                             onChange={this.handleStringChange}
@@ -216,6 +237,8 @@ class MateriaForm extends Component{
                                                 type="number"
                                                 id="creditos"
                                                 name="creditos"
+                                                min='1'
+                                                max='6'
                                                 className={errors.creditos ? 'validate invalid' : 'validate'}
                                                 value={data.creditos}
                                                 onChange={this.handleStringChange}
@@ -259,7 +282,7 @@ class MateriaForm extends Component{
                                         </label>	
                                         <DatePicker
                                             locale = 'es-CO'
-                                            minDate = {new Date(today.getFullYear(),0,20)}
+                                            minDate = {data.fInicio}
                                             maxDate = {new Date(today.getFullYear(),10,30)}
                                             onChange={this.handleDateChangeFin}
                                             value={data.fFin}
@@ -267,6 +290,9 @@ class MateriaForm extends Component{
                                         <FormInlineMessage content={errors.fFin} type="error" />
                                 </div>
                                 <div className="input-field col s3">
+                                    <label htmlFor='horario'>
+                                        Horario
+                                    </label>
                                     <TimePicker
                                         label='Horario'
                                         id="horario"
@@ -275,9 +301,6 @@ class MateriaForm extends Component{
                                         className={errors.horario ? 'validate invalid' : 'validate'}
                                         value={data.horario}
                                     />
-                                    <label id="font" htmlFor="horario">
-                                        Horario
-                                    </label>
                                     <FormInlineMessage content={errors.horario} type="error" />
                                 </div>
                             </div>      
