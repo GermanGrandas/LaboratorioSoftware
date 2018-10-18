@@ -19,7 +19,7 @@ class ChangePassword extends Component{
 		errors: {}
     }
 
-    submit = data=> api.users.recuperar(data).then((params)=>{
+    submit = data=> api.users.cambiar(data).then((params)=>{
         /**token =>{
             if (!token.err) {
                 this.props.login(token)

@@ -12,13 +12,16 @@ h1,h3 {
 	font-size: 1.25em;
 }
 .section {
-	height: 650px;
+	height: 120vh;
 	margin: 10px 30px;
 }
 
 #font {
-	font-size: 1.5rem;
+	font-size: 1.0rem;
 	margin-bottom: 20px;
+}
+#top {
+	height: 300px;
 }
 
 .parallax-container img {

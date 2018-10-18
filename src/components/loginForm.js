@@ -11,7 +11,7 @@ class LoginForm extends Component {
 			email: '',
 			password: '',
 			token : '',
-			captcha: true
+			captcha: false
 			
 		},
 		loading: false,
@@ -104,7 +104,7 @@ class LoginForm extends Component {
 						<FormInlineMessage content={errors.captcha} type="error" />
 					</div>
 					<div className="link">
-						<Link to="/recuperar">recuperar la contraseña</Link>
+						<Link to="/recuperar">Recuperar la contraseña</Link>
 					</div>
 					<div className="col s12 m10">
 						<button className="btn black waves-effect waves-light" type="submit">

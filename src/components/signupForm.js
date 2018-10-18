@@ -40,7 +40,7 @@ class SignForm extends Component {
 	};
 	handleCountryChange = (data)=>{
 		this.setState({
-			data: { ...this.state.data, paisNacimiento: data }
+			data: { ...this.state.data, paisNacimiento: data,regionNacimiento: '', ciudadNacimiento: ''}
 		});
 		let states = country.getStatesOfCountry(data.id);
 		let c =states.map((x)=>{
@@ -50,7 +50,7 @@ class SignForm extends Component {
 	}
 	handleStateChange = (data)=>{
 		this.setState({
-			data: { ...this.state.data, regionNacimiento: data }
+			data: { ...this.state.data, regionNacimiento: data,ciudadNacimiento: '' }
 		});
 		let cities = country.getCitiesOfState(data.id);
 		let c =cities.map((x)=>{
@@ -89,6 +89,13 @@ class SignForm extends Component {
 		if (!data.email) errors.email = 'Debe ingresar el email';
 		if (!data.password) errors.password = 'Debe ingresar la Contraseña';
 		if (!data.captcha) errors.captcha = 'Debe confirmar el captcha';
+		if(!data.fechaNacimiento) errors.fechaNacimiento = 'Debe Elegir una fecha de nacimiento';
+		if(!data.paisNacimiento) errors.paisNacimiento = 'Debe ingresar un País de nacimiento';
+		if(this.countryData.cities){
+			if(!data.ciudadNacimiento && !(this.countryData.cities.length===0)) errors.ciudadNacimiento = 'Debe seleccionar una ciudad de nacimiento';
+		}
+		if(!data.regionNacimiento) errors.regionNacimiento = 'Debe ingresar un Estado de nacimiento';
+		if(!data.Tdocumento) errors.Tdocumento = 'Debe seleccionar un Tipo de Documento'
 		if (data.passwordValidation !== data.password) {
 			errors.passwordValidation = 'Las contraseñas no coínciden';
 			errors.password = 'Las contraseñas no coínciden';
@@ -124,6 +131,7 @@ class SignForm extends Component {
 								<option value="cedula">Cédula</option>
 								<option value="pasaporte">Pasaporte</option>
 							</select>
+							<FormInlineMessage content={errors.Tdocumento} type="error" />
 						</div>
 						<div className="input-field col s4">
 							<input
@@ -224,6 +232,7 @@ class SignForm extends Component {
 									onChange={this.handleDateChange}
 									value={data.fechaNacimiento}
 								/>
+								<FormInlineMessage content={errors.fechaNacimiento} type="error" />
 						</div>
 					</div>
 					<div className='row'>
@@ -236,6 +245,7 @@ class SignForm extends Component {
 								onChange={this.handleCountryChange}
 								options={this.countryData.pais}
 							/>
+							<FormInlineMessage content={errors.paisNacimiento} type="error" />
 						</div>
 						<div className="col s4">
 							<label id="font" htmlFor="paisNacimiento">
@@ -246,6 +256,7 @@ class SignForm extends Component {
 								onChange={this.handleStateChange}
 								options={this.countryData.states}
 							/>
+							<FormInlineMessage content={errors.regionNacimiento} type="error" />
 						</div>
 						<div className="col s4">
 							<label id="font" htmlFor="paisNacimiento">
@@ -256,6 +267,7 @@ class SignForm extends Component {
 								onChange={this.handleCitiesChange}
 								options={this.countryData.cities}
 							/>
+							<FormInlineMessage content={errors.ciudadNacimiento} type="error" />
 						</div>
 					</div>
 					<div className="col s10 m5 xs5">

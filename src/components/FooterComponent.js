@@ -3,7 +3,7 @@ import Img from 'react-image';
 
 const Footer = () => {
 	return (
-		<footer className="page-footer black">
+		<footer className="page-footer black white-font">
 			<div className='section'>
 				<h5 className='special'>
 					Made by a group of noobs
