@@ -16,23 +16,19 @@ class Recuperar extends Component{
             email :'',
             documento : '',
             username : '',
-            captcha : true
+            captcha : false
         },
         loading: false,
 		errors: {}
     }
 
     submit = data=> api.users.recuperar(data).then(token=>{
-        console.log(token)
-        if (!token.mensaje) {
+       	if (!token.mensaje) {
+			alert(token.Mensaje);
             this.props.history.push('/');
         } else {
             this.setState({errors : {mensaje : token.mensaje}});
-        }
-        /**token =>{
-            if (!token.err) {
-                this.props.login(token)
-            }*/
+        	}
         });
 
     handleStringChange = (e) => {

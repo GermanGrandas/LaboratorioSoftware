@@ -224,65 +224,18 @@ function cambiarcontrasena(req,res,next){
 			  };
 			  smtpTransport.sendMail(mailOptions, function(err) {
 				//req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
-				res.status(200).json({Mensaje: "Se ha enviado un correo a la dirección de email proporcionada"});
+				if(user){
+					res.status(200).send({Mensaje: "Se ha enviado un correo a la dirección de email proporcionada"});
+					return;
+				}
 				done(err, 'done');
 			  });
 			}
 		  ], function(err) {
 			if (err) return next(err);
-			res.status(400).json({Mensaje: "Algo ha ocurrido"});
+				res.status(400).send({Mensaje: "Algo ha ocurrido"});
+				return;
 		  });
-	/*var parametros = req.body;
-	var correo = parametros.credentials.email;
-	
-	Usuario.find({email:correo}, (error,correoencontrado)=>{
-		if(error){
-			res.status(404).send({mensaje: "no se puede acceder a la peticion"})
-		}
-		else{
-			if(!correoencontrado){
-				res.status(500).send({mensaje:"el correo no existe en la base de datos"})
-			}
-			else{
-				//definimos el transporte
-				var transporter = nodemailer.createTransport({
-					service: 'Gmail',
-					auth:{
-						user: 'nodejs1234npmstart@gmail.com',
-						pass: '1234jhoan'
-					},
-					tls: {
-						rejectUnauthorized : false
-					}
-				}
-			);
-				//definimos el destino
-				var mailOption = {
-					from: 'nodejs',
-					to: correoencontrado[0].email,//'mansleobenitez@gmail.com',
-					subjet: 'Recuperar Contraseña Docent-Helper',
-					text: "http://localhost:3000/changePassword"
-				};
-
-				//enviamos el email
-
-				transporter.sendMail(mailOption, function(error, info){
-					if(error){
-						console.log(error)
-						res.status(500).send({correoencontrado})
-					}
-					else{
-						console.log("mensaje enviado")
-						res.status(200).json({token: correoautenticacion.crearToken(correoencontrado)})
-					}
-				})
-
-			}
-
-		}
-	})
-
- */
 }
 
 
@@ -297,24 +250,26 @@ function reset(req,res){
 }
 
 function guardarCambio(req,res){
+	
 	async.waterfall([
 		function(done) {
-		  Usuario.findOne({ resetPasswordToken: 'a1335febf0bbc31e21e7543ab9818630ed19820a', resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-			if (!user) {
-				res.status(500).send({error : 'Password reset token is invalid or has expired.'}); 
-			}
-			console.log(req.params.id);
-
+			let { data , token } = req.body.data;
 			
-			user.password = req.body.Newpass.password;
+		  Usuario.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+			if (!user) {
+				res.status(500).send({error : 'El token enviado es inválido o no coíncide.'}); 
+				return;
+			}
+			
+			user.password = data;
 			user.resetPasswordToken = undefined;
 			user.resetPasswordExpires = undefined;
 	
 			user.save(function(err) {
 			  req.logIn(user, function(err) {
-				done(err, user);
-			  });
-			});
+					done(err, user);
+			  	});
+				});
 		  });
 		},
 		function(user, done) {
@@ -336,12 +291,17 @@ function guardarCambio(req,res){
 			  'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
 		  };
 		  smtpTransport.sendMail(mailOptions, function(err) {
-			res.status(200).send({message : 'Ok'})
+			if(user){
+				res.status(200).send({Message : 'La contraseña ha sido cambiada correctamente'});
+				return;
+			}
 			done(err);
 		  });
 		}
 	  ], function(err) {
-		res.status(500).send({message : 'Algo ha ocurrido'})
+				if (err) return err;
+				res.status(500).send({message : 'Algo ha ocurrido'});
+				return
 	  });
 }
 module.exports = {

@@ -28,7 +28,7 @@ api.post("/login", ControladorDeUsuarios.loginUsuario)
 api.post("/recuperar-contrasena", ControladorDeUsuarios.cambiarcontrasena)
 
 api.get('/resetP/:id', ControladorDeUsuarios.reset)
-api.post('/resetP/:id',ControladorDeUsuarios.guardarCambio)
+api.post('/resetP',ControladorDeUsuarios.guardarCambio)
 api.put("/actualizar-usuario/:id", authentication.autenticacion, ControladorDeUsuarios.actualizarusuario)
 //exportamos api
 

@@ -14,20 +14,22 @@ class ChangePassword extends Component{
         data :{
             password :'',
             confirmPassword : '',
-            captcha : true
-        },
+            captcha : false
+		},
+		token : '',
         loading: false,
 		errors: {}
     }
 
-    submit = data=> api.users.cambiar(data).then((params)=>{
-        /**token =>{
-            if (!token.err) {
-                this.props.login(token)
-            }*/
-            console.log(params);
-            //this.props.history.push('/');
-        });
+    submit = data=> api.users.cambiar(data).then(params=>{
+			console.log(params);
+			if(!params.error){
+				alert(params.Message)
+				this.props.history.push('/');
+			}else{
+				this.setState({errors : {error : params.error}})
+			}
+		});
 
     handleStringChange = (e) => {
 		this.setState({
@@ -41,10 +43,15 @@ class ChangePassword extends Component{
 		this.setState({ errors });
 		if (Object.keys(errors).length === 0) {
             this.setState({ loading: true });
-            console.log('hello ');
-			this.submit(this.state.data);
+			let {data, token} = this.state
+			let {password} = data;
+			this.submit({data : password,token : token});
 			//alert('UserSaved');.catch(err=> this.setState({errors:err.response.data.errors, loading:false}));
 		}
+	};
+	componentDidMount(){
+		let token = this.props.match.params.token;
+		this.setState({token});
 	};
     validate = (data) => {
 		const errors = {};
@@ -52,7 +59,6 @@ class ChangePassword extends Component{
         if (!data.captcha) errors.captcha = 'Debe confirmar el captcha';
         if (data.confirmPassword !== data.password) {
 			errors.confirmPassword = 'Las contraseñas no coínciden';
-			errors.password = 'Las contraseñas no coínciden';
 		}
 		return errors;
     };
@@ -67,6 +73,7 @@ class ChangePassword extends Component{
 			Object.keys(errors).forEach(
 				key=> errorsList.push(errors[key]));
 		}
+		
         return(
             <div>
                 <TopComponent />
@@ -79,8 +86,8 @@ class ChangePassword extends Component{
 					}
 					`}
 				</style>
-				<Grid textAlign='center' style={{ height: '100%', top : '70%'}} verticalAlign='middle'>
-					<Grid.Column style={{ maxWidth: 500 }}>
+				<Grid textAlign='center' style={{ height: '100%', top : '75%'}} verticalAlign='middle'>
+					<Grid.Column style={{ maxWidth: 560 }}>
 						<Header as='h2' content='Recuperar Contraseña' className="header"/>
 						<Form size='large' error={Object.keys(errors).length !== 0 ? true : false} onSubmit={this.handleSubmit}>
 							<Segment stacked>
