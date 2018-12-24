@@ -4,8 +4,8 @@ import axios from 'axios';
 
 import HomeComponent from './home';
 import RecuperarPage from './recuperarComponent';
-//import AdminRoute from './adminroute';
-//import Materias from './mainMaterias';
+import AdminRoute from './adminroute';
+import Materias from './materiasComponent';
 import ChangePassword from './resetComponent';
 
 //import CrearMateria from './crearMateria';
@@ -54,6 +54,9 @@ class Main extends Component {
                     render={props => (<ChangePassword {...props}/>)}/>
                 <Route path='/recuperar' exact 
                     render={props => (<RecuperarPage {...props} saveToken={this.login}/>)}/>
+                <AdminRoute path='/home' exact
+                    user={this.state.user}
+                    render={props => (<Materias {...props} user={this.state.user.userC} logout={this.logout}/>)}/>
 			</div>
 		);
 	}
@@ -67,9 +70,7 @@ export default Main;
                 <Route path='/changePassword' exact 
                     render={props => (<ChangePassword {...props}/>)}/>
                     
-                <AdminRoute path='/home' exact
-                    user={this.state.user}
-                    render={props => (<Materias {...props} user={this.state.user.userC} logout={this.logout}/>)}/>
+                
 
                 <AdminRoute path='/crearMateria' exact
                     user={this.state.user}
