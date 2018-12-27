@@ -1,30 +1,40 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import {Button,Container,Divider,Grid,Header,Icon,Image,List,Menu,Responsive,
-    Segment,
-    Sidebar,
-    Visibility,
-  } from 'semantic-ui-react';
 
-  const Heading = ({mobile})=>(
-    <Container text>
+import React from 'react';
+import {Segment,Header,Menu,Icon, Dropdown} from 'semantic-ui-react';
+
+const Heading = ({changeClick,logout})=>(
+    <Segment style={{ height: 100}}  inverted vertical>
+        <Menu secondary inverted attached="top">
+            <Menu.Item onClick={changeClick}>
+            <Icon name="sidebar" size='big'/>
+            </Menu.Item>
+            <Menu.Menu position='right'>           
+                <Dropdown item icon='user' size='big' simple>
+                    <Dropdown.Menu>
+                        <Dropdown.Item>
+                            Configuración
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={logout}>
+                            Salir
+                        </Dropdown.Item>
+                    </Dropdown.Menu>    
+                </Dropdown>
+            </Menu.Menu>         
+        </Menu>
         <Header
             as='h1'
             content='Docent Helper'
+            textAlign ='center'
             inverted
             style={{
-                fontSize: mobile ? '2em' : '4em',
-                fontWeight: 'normal',
+                position: 'absolute',
+                top: '40%',
+                left: '50%',
+                transform: 'translate(-50%, -80%)',
+                fontFamily: "Courgette,Pacifico",
                 marginBottom: 0,
-                marginTop: mobile ? '1.5em' : '3em',
             }}
         />
-    </Container>
+    </Segment>
   )
-
-Heading.propTypes = {
-    mobile : PropTypes.bool,
-}
-
-
 export default Heading;

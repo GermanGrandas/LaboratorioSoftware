@@ -31,7 +31,7 @@ class Main extends Component {
         localStorage.user = user;
         setAuthorizationHeader(token);
 	};
-	logout = ()=>{
+	logout = ()=>{        
         this.setState({user : {token : null, userC : null}});
         setAuthorizationHeader();
         localStorage.removeItem('testToken');
@@ -64,7 +64,10 @@ class Main extends Component {
 
 export default Main;
 
-/*
+/*  
+<Route path='/home' exact 
+                    render={props => (<Materias {...props} user={this.state.user.userC} logout={this.logout}/>)}/>
+    
     <Route path='/recuperar' exact 
                     render={props => (<RecuperarPage {...props} saveToken={this.login}/>)}/>
                 <Route path='/changePassword' exact 

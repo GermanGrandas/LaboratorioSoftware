@@ -17,15 +17,15 @@ const Footer = ()=>(
           <Grid.Row>
             <Grid.Column width={3}>
               <Image src="../images/yo.jpg" alt="yo" circular size='tiny'/>
-              <Header style={{fontFamily: 'Pacifico',fontSize: '1.5em'}} inverted as='h4' content='Germán Grandas'/>
+              <Header style={{fontFamily: 'Courgette',fontSize: '1.5em'}} inverted as='h4' content='Germán Grandas'/>
             </Grid.Column>
             <Grid.Column width={3}>
                 <Image src="../images/jhoan.jpg" alt="Jhoan" circular size='tiny'/>
-                <Header style={{fontFamily: 'Pacifico',fontSize: '1.5em'}} inverted as='h4' content='Jhoan Marín'/>
+                <Header style={{fontFamily: 'Courgette',fontSize: '1.5em'}} inverted as='h4' content='Jhoan Marín'/>
             </Grid.Column>
             <Grid.Column width={3}>
                 <Image src="../images/mauro.jpg" alt="mauro" circular size='tiny'/>
-                <Header style={{fontFamily: 'Pacifico',fontSize: '1.5em'}} inverted as='h4' content='Mauricio Castaño'/>
+                <Header style={{fontFamily: 'Courgette',fontSize: '1.5em'}} inverted as='h4' content='Mauricio Castaño'/>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>

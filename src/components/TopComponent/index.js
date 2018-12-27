@@ -12,10 +12,9 @@ const TopComp = ()=>{
                     content='Docent Helper'
                     className='center'
                     textAlign='center'
+                    inverted
                     style={{
                         fontSize: '4em',
-                        fontWeight: 'normal',
-                           color:'white',
                         fontFamily: "'Courgette','Pacifico'",
                     }}
                 />
