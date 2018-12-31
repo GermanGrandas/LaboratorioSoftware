@@ -8,6 +8,7 @@ export default {
         cambiar : data => axios.post(`/api/resetP`,{data}).then(res => res.data).catch(err=> err.response.data)
     },
     materias :{
-        create : data => axios.post(`/api/crear-materia`,{data})
+        create : data => axios.post(`/api/crear-materia`,{data}).then(res => res.data).catch(err=> err.response.data),
+        getMaterias : data => axios.post(`/api/materias`,{data}).then(res=>res.data).catch(err=> err.response.data),
     }
 };

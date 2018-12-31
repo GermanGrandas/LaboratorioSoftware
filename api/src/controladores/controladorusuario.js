@@ -150,7 +150,7 @@ function actualizarusuario(req,res){
 	//tomamos los datos del formulario
 	var actualizar = req.body;
 
-	if(id != req.usuariotoken.sub){
+	if(id !== req.usuariotoken.sub){
 
 		console.log(id)
 		console.log(req.usuariotoken.sub)

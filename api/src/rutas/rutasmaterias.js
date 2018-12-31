@@ -7,7 +7,7 @@ var ControladorDeMaterias = require("../controladores/controladormaterias.js");
 
 var api = express.Router();
 
-api.get("/materias", ControladorDeMaterias.controlmaterias);
+api.post("/materias", ControladorDeMaterias.getMaterias);
 api.post("/crear-materia",ControladorDeMaterias.crearMateria);
 
 

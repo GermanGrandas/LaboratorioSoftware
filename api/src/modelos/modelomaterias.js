@@ -9,17 +9,17 @@ var Schema = mongoose.Schema;
 
 var materiaschema = Schema ({
 
-	codigodemateria: String,
-	nombredemateria: String,
+	codigo: String,
+	nombre: String,
+	tipoM: String,
+	grado : String,
 	year: String,
-	fechadeinicio: Date,
-	tipo: String,
+	datesRange: String,
+	institucion: String,
+	hInicio : String,
+	hFin : String,
 	creditos: String,
 	dias: String,
-	institucion: String,
-	Fechadefinalizacion: Date,
-	horario: String,
-	grado : String,
 	teoPrac : String,
 	creator :{ type : Schema.Types.ObjectId, ref : "usuarios"}
 })

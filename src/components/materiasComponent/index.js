@@ -3,15 +3,21 @@ import React, { Component } from 'react'
 import {Segment,Menu,Header,Sidebar} from 'semantic-ui-react';
 
 import TopHeader from './heading';
+import MainMaterias from  './materias';
 
 class Materias extends Component{
     state = { menuVisible: false , activeItem : 'home'}
 
-  handleClick = () => this.setState({ menuVisible: !this.state.menuVisible })
+  handleClick = () => {
+        this.setState({ menuVisible: !this.state.menuVisible })
+    }
+  handleClick2 = () => {
+        this.setState({ menuVisible: false })
+    }
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
   render() {
     const { menuVisible,activeItem } = this.state
-    const { logout} = this.props
+    const { logout, user} = this.props
     return (
         <div>
         <TopHeader changeClick={this.handleClick} logout={logout}/>
@@ -46,20 +52,12 @@ class Materias extends Component{
             />
           </Sidebar>
 
-          <Sidebar.Pusher dimmed={menuVisible} onClick={this.handleClick} style={{margin : '0 0'}}>
+          <Sidebar.Pusher dimmed={menuVisible} onClick={this.handleClick2}>
             <Segment basic style={{margin : '0 0', height : 500}}>
                 {
                     activeItem === 'home' ?
-                        <Header 
-                            as='h1'
-                            content='puto'
-                            textAlign='center'
-                        /> : activeItem === 'materias' ?
-                        <Header 
-                            as='h1'
-                            content='puto2'
-                            textAlign='center'
-                        /> : activeItem === 'estudiantes' ?
+                        <MainMaterias user={user}/> : activeItem === 'materias' ?
+                        <MainMaterias user={user}/> : activeItem === 'estudiantes' ?
                         <Header 
                             as='h1'
                             content='puto3'

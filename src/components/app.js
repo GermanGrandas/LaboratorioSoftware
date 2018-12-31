@@ -54,9 +54,11 @@ class Main extends Component {
                     render={props => (<ChangePassword {...props}/>)}/>
                 <Route path='/recuperar' exact 
                     render={props => (<RecuperarPage {...props} saveToken={this.login}/>)}/>
+                
                 <AdminRoute path='/home' exact
                     user={this.state.user}
                     render={props => (<Materias {...props} user={this.state.user.userC} logout={this.logout}/>)}/>
+               
 			</div>
 		);
 	}
@@ -65,6 +67,9 @@ class Main extends Component {
 export default Main;
 
 /*  
+ <AdminRoute path='/home' exact
+                    user={this.state.user}
+                    render={props => (<Materias {...props} user={this.state.user.userC} logout={this.logout}/>)}/>
 <Route path='/home' exact 
                     render={props => (<Materias {...props} user={this.state.user.userC} logout={this.logout}/>)}/>
     
