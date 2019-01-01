@@ -35,6 +35,7 @@ class NuevaMateria extends Component{
     submit = data =>{
         api.materias.create(data).then(data=> {            
             if(!data.error){
+                this.props.update();
                 this.setState({modalOpen : false});
             }else{
                 this.setState({errors : {input : data.error}});
