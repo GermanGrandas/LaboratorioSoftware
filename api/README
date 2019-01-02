@@ -1,2 +1,0 @@
-# laboratorio-software
-laboratorio software
