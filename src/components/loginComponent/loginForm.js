@@ -6,7 +6,7 @@ import {Grid,Segment, Button,Form, Message, Header } from 'semantic-ui-react'
 import isEmail from 'validator/lib/isEmail';
 
 
-import {captchaDev} from '../../config/config';
+import {captchaProd as captcha} from '../../config/config';
 class LoginForm extends Component {
 	state = {
 		data: {
@@ -121,7 +121,7 @@ class LoginForm extends Component {
 								<Form.Field error={errors.captcha ? true : false}>
 									<ReCAPTCHA
 										ref="recaptcha"
-										sitekey={captchaDev}
+										sitekey={captcha}
 										onChange={this.onChangeCaptcha}
 										className="captcha"
 									/>

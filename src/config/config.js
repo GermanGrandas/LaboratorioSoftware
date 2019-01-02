@@ -6,6 +6,7 @@
  module.exports = {
 	 dbUrl : "mongodb://grandas:98020655860@ds111123.mlab.com:11123/prueba",
 	 captchaDev : "6LdwoGoUAAAAAOIjSUoj1TO5KKeDEt-TBKs2oHXz",
+	 captchaProd : "6LcbuXUUAAAAAAKBWaUKNTfRmXxJFh_iH0c6Zeeq",
      particlesParams : {
         "particles": {
 	        "number": {

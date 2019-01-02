@@ -8,7 +8,7 @@ import TopComponent from '../TopComponent';
 import Footer from '../footerComponent';
 import api from '../../api';
 
-import {captchaDev} from '../../config/config';
+import {captchaProd} from '../../config/config';
 
 class Recuperar extends Component{
     state = {
@@ -97,7 +97,7 @@ class Recuperar extends Component{
 								<Form.Field error={errors.captcha ? true : false}>
 									<ReCAPTCHA
 										ref="recaptcha"
-										sitekey={captchaDev}
+										sitekey={captchaProd}
 										onChange={this.onChangeCaptcha}
 										className="captcha"
 									/>

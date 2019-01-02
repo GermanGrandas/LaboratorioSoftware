@@ -7,7 +7,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import country from 'country-state-city';
 
 
-import {captchaDev} from '../../config/config';
+import {captchaProd} from '../../config/config';
 
 
 const genderOp = [{ key: 'm', text: 'Masculino', value: 'masculino' },
@@ -308,7 +308,7 @@ class SignForm extends Component {
 								>
 									<ReCAPTCHA
 										ref="recaptcha"
-										sitekey={captchaDev}
+										sitekey={captchaProd}
 										onChange={this.onChangeCaptcha}
 										className="captcha"
 									/>
