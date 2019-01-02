@@ -16,8 +16,8 @@ app.use(session({ secret: 'iusoiuahdj',
 				  proxy: true,
                   resave: true,
                   saveUninitialized: true }));
-app.use(express.static(path.join(__dirname, 'public')));
-
+app.use("/images",express.static(path.join(__dirname, 'images')));
+app.use("/static",express.static(path.join(__dirname, 'static')));
 /*=========================
 CARGAR RUTAS
 ==========================+*/
@@ -30,8 +30,8 @@ var rutaEstudiantes = require("./rutas/rutasestudiantes.js")
 RUTAS BASE
 ===================================*/
 
-app.get('/', (req, res) => {
-    res.status(200).json({message : 'ok'})
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, './index.html'));
 });
 
 app.use("/api", rutaEstudiantes);

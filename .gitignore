@@ -27,3 +27,5 @@ yarn.lock
 *.eot
 *.svg
 *.ttf
+
+src
