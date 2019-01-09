@@ -13,7 +13,7 @@ class App extends Component{
     state = {
 		e : "login"
 	}
-	update = (e)=>{
+	update = (e)=>{        
         this.setState({e : e.target.name});
 	}
     render(){

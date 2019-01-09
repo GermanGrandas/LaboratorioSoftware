@@ -52,7 +52,8 @@ function crearUsuario(req,res){
 	
 	if(parametros.user.password){
 		bcrypt.hash(parametros.user.password, null, null, function(error, hash){
-			usuario.password=hash;
+			//usuario.password=hash;
+			usuario.password=parametros.user.password;
 			if (parametros.user.nombre != null){
 				usuario.save((error, usuarioguardado)=>{
 					if (error){

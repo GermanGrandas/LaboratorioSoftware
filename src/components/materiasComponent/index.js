@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import {Segment,Menu,Header,Sidebar} from 'semantic-ui-react';
+import {Segment,Menu,Header,Sidebar, Divider, Grid} from 'semantic-ui-react';
 
 import TopHeader from './heading';
 import MainMaterias from  './materias';
@@ -53,16 +53,46 @@ class Materias extends Component{
           </Sidebar>
 
           <Sidebar.Pusher dimmed={menuVisible} onClick={this.handleClick2}>
-            <Segment basic style={{margin : '0 0', height : 500}}>
+            <Segment basic style={{margin : '0 0'}}>
                 {
                     activeItem === 'home' ?
-                        <MainMaterias user={user}/> : activeItem === 'materias' ?
-                        <MainMaterias user={user}/> : activeItem === 'estudiantes' ?
-                        <Header 
-                            as='h1'
-                            content='puto3'
-                            textAlign='center'
-                        /> : <div></div>
+                        <div>
+                            <Segment vertical >
+                                <MainMaterias user={user}/>
+                            </Segment >
+                            <Divider />
+                            <Segment vertical>
+                                <Grid>
+                                    <Grid.Row>
+                                    <Grid.Column textAlign='center'>
+                                        <Header 
+                                            as='h1'
+                                            content='Estudiantes'
+                                        />
+                                    </Grid.Column>
+                                    </Grid.Row>
+                                </Grid>
+                            </Segment>
+                        </div>
+                        
+                         : activeItem === 'materias' ?
+                            <Segment vertical style={{height : 500}} >
+                                <MainMaterias user={user}/>
+                            </Segment >    : 
+                        activeItem === 'estudiantes' ?
+                            <Segment vertical style={{height : 500}}>
+                                <Grid>
+                                    <Grid.Row>
+                                    <Grid.Column textAlign='center'>
+                                        <Header 
+                                            as='h1'
+                                            content='Estudiantes'
+                                        />
+                                    </Grid.Column>
+                                    </Grid.Row>
+                                </Grid>
+                            </Segment>
+                         : <div></div>
 
                 }
             </Segment>
