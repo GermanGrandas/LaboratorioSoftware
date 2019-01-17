@@ -36,7 +36,11 @@ class SignForm extends Component {
 		errors: {},
 	};
 
-	countryData = {}
+	countryData = {
+		pais : [],
+		states : [],
+		cities : []
+	}
 	handleStringChange = (e,{value}) => {		
 		this.setState({
 			data: { ...this.state.data, [e.target.name]: value }

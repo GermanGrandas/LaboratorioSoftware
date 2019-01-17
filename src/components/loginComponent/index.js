@@ -9,10 +9,8 @@ class LoginPage extends Component{
     }
     submit = data=> api.users.login(data).then(
         token =>{
-            console.log(token);
-            
             if (!token.error) {
-                this.props.login(token)
+                this.props.login(token);
                 this.props.history.push('/home');
             } else {
                 this.setState({errors : token.error});

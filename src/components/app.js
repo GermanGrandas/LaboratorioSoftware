@@ -8,7 +8,7 @@ import AdminRoute from './adminroute';
 import Materias from './materiasComponent';
 import ChangePassword from './resetComponent';
 
-//import CrearMateria from './crearMateria';
+
 
 
 const setAuthorizationHeader = (token = null) =>{
@@ -24,8 +24,9 @@ class Main extends Component {
             token : null,
             userC : null
         }
+    
 	}
-    login = ({token,user} )=>{
+    login = ({token,user})=>{
         this.setState({user : {token, user}});
         localStorage.testToken = token;
         localStorage.user = user;

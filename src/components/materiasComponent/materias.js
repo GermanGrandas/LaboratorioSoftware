@@ -10,17 +10,20 @@ class Materias extends Component{
         user : '',
         materias : []
     }
-    componentDidUpdate(prevProps){
-		if(prevProps.user !== this.props.user){
-			this.setState({user : this.props.user});
-		}
-	}
-    componentDidMount(){
+    componentWillMount(){
         let {user} = this.props;
-        this.setState({user});
-        api.materias.getMaterias(user).then(materias=>{
-            this.setState({materias});
-        });
+        if(user === "" | user === undefined){
+            user = localStorage.user
+            this.setState({user});
+            console.log(user);
+            api.materias.getMaterias(user).then(materias=>{
+                this.setState({materias});
+            });
+        }else{
+            api.materias.getMaterias(user).then(materias=>{
+                this.setState({materias});
+            });
+        }
     }
     update = ()=>{
         let {user} = this.state;
@@ -29,27 +32,32 @@ class Materias extends Component{
         });
     }
 
-    columns = materias=>(
-        materias.map((i,e)=>(
-            <Grid.Column key={e} >
-                <Card>
-                    <Card.Content>
-                        <Card.Header>{i.nombre}</Card.Header>
-                        <Card.Meta>
-                            <span>{i.dias}</span>
-                        </Card.Meta>
-                        <Card.Description>
-                            <span>{i.hInicio}-{i.hFin}</span>
-                        </Card.Description>
-                      
-                        <span style={{display: 'inline-block'}}> Código: {i.codigo}<br />{i.institucion}</span>.
-                    </Card.Content>
-                    <Card.Content extra>
-                        <span style={{display: 'inline-block'}}>Rango de fechas:<br /> {i.datesRange}</span>
-                    </Card.Content>
-                </Card>
-            </Grid.Column>
-    )));
+    columns = materias=>{
+        if(materias.length === 0){
+            return(
+                <div></div>
+            )}else{
+                return(
+                    materias.map((i,e)=>(
+                        <Grid.Column key={e} >
+                            <Card>
+                                <Card.Content>
+                                    <Card.Header>{i.nombre}</Card.Header>
+                                    <Card.Meta>
+                                        <span>{i.dias}</span>
+                                    </Card.Meta>
+                                    <Card.Description>
+                                        <span>{i.hInicio}-{i.hFin}</span>
+                                    </Card.Description>
+                                
+                                    <span style={{display: 'inline-block'}}> Código: {i.codigo}<br />{i.institucion}</span>.
+                                </Card.Content>
+                                <Card.Content extra>
+                                    <span style={{display: 'inline-block'}}>Rango de fechas:<br /> {i.datesRange}</span>
+                                </Card.Content>
+                            </Card>
+                        </Grid.Column>
+    )))}};
     renderList = materias =>{
         let rowsNumber = Math.trunc(materias.length / 5);
         let rowsList = [];
@@ -64,8 +72,9 @@ class Materias extends Component{
     }
     render(){
         let {materias} = this.state;
-        let {user} = this.props
+        let {user} = this.props;
         const rows = this.renderList(materias)
+        console.log(rows.length);
         return(
             <Segment basic >
                 <Grid>
