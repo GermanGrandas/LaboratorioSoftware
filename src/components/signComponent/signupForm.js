@@ -3,6 +3,9 @@ import DatePicker from 'react-date-picker';
 
 import {Grid,Segment, Button,Form, Message, Header, Select } from 'semantic-ui-react'
 import isEmail from 'validator/lib/isEmail';
+import isNumeric from 'validator/lib/isNumeric';
+import isAlpha from 'validator/lib/isAlpha';
+import matches from 'validator/lib/matches';
 import ReCAPTCHA from 'react-google-recaptcha';
 import country from 'country-state-city';
 
@@ -27,7 +30,7 @@ class SignForm extends Component {
 			genero : '',
 			passwordValidation: '',
 			fechaNacimiento : '',
-			paisNacimiento : 'Colombia',
+			paisNacimiento : '',
 			regionNacimiento : '',
 			ciudadNacimiento : '',
 			captcha: false
@@ -41,6 +44,11 @@ class SignForm extends Component {
 		states : [],
 		cities : []
 	}
+	async componentDidUpdate(prevProps){
+		if(prevProps.errors !== this.props.errors){
+			this.setState({errors : this.props.errors});
+		}
+	}
 	handleStringChange = (e,{value}) => {		
 		this.setState({
 			data: { ...this.state.data, [e.target.name]: value }
@@ -53,7 +61,7 @@ class SignForm extends Component {
 	handleGeneroChange = (e,{value})=>{
 		this.setState({ data: { ...this.state.data, genero: value } });
 	}
-	handleCountryChange = (e,{value})=>{
+	 handleCountryChange = (e,{value})=>{
 		
 		let pais = country.getCountryById(parseInt(value,10)-1)
 		let name = pais.name
@@ -96,10 +104,7 @@ class SignForm extends Component {
 		const errors = this.validate(this.state.data);
 		this.setState({ errors });
 		if (Object.keys(errors).length === 0) {
-			this.setState({ loading: true });
-			this.props.submit(this.state.data);
-			alert('UserSaved');
-			//alert('UserSaved');.catch(err=> this.setState({errors:err.response.data.errors, loading:false}));
+			//this.props.submit(this.state.data);
 		}
 	};
 	validate = (data) => {
@@ -107,6 +112,8 @@ class SignForm extends Component {
 		if (!isEmail(data.email)) errors.email = 'Email invalido';
 		if (!data.documento) errors.documento = 'Debe ingresar el documento';
 		if (!data.nombre) errors.nombre = 'Debe ingresar un nombre';
+		if(!isAlpha(data.nombre,'es-ES')) errors.nombre = 'Debe ingresar solo letras en el nombre';
+		if(!isAlpha(data.apellido,'es-ES')) errors.apellido = 'Debe ingresar solo letras en el apellido';
 		if (!data.apellido) errors.apellido = 'Debe ingresar un apellido';
 		if (!data.email) errors.email = 'Debe ingresar el email';
 		if (!data.password) errors.password = 'Debe ingresar la Contraseña';
@@ -119,6 +126,14 @@ class SignForm extends Component {
 		}
 		if(!data.regionNacimiento) errors.regionNacimiento = 'Debe ingresar un Estado de nacimiento';
 		if(!data.Tdocumento) errors.Tdocumento = 'Debe seleccionar un Tipo de Documento'
+		
+		if(data.Tdocumento === 'cedula'){
+			if(!isNumeric(data.documento)) errors.documento = 'El documento debe contener solo caracteres numéricos'
+		}
+		if(data.Tdocumento === 'Pasaporte'){
+			if(!matches(data.documento,/^[A-Z]{3}[0-9]{6}/)) errors.documento = 'El documento no cumple con el formato'
+		}
+		if(data.password.length < 8) errors.password = 'La contraseña debe ser mínimo de 8 Caracteres';
 		if (data.passwordValidation !== data.password) {
 			errors.passwordValidation = 'Las contraseñas no coínciden';
 			errors.password = 'Las contraseñas no coínciden';

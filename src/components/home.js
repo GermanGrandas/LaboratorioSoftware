@@ -15,6 +15,9 @@ class App extends Component{
 	}
 	update = (e)=>{        
         this.setState({e : e.target.name});
+    }
+    updateS = (e)=>{        
+        this.setState({e});
 	}
     render(){
         return(
@@ -31,7 +34,7 @@ class App extends Component{
                         </List>
                     </div>
                     {
-							this.state.e ==='login' ? <Login history={this.props.history} login={this.props.login}/> : <Sign history={this.props.history}/>
+							this.state.e ==='login' ? <Login history={this.props.history} login={this.props.login}/> : <Sign update={this.updateS} history={this.props.history}/>
 					}
                 </Segment>
                 <FooterComp/>

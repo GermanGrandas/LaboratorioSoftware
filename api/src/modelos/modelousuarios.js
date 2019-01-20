@@ -17,12 +17,12 @@ var usuarioschema = Schema({
 	email: String,
 	genero: String,
 	password: String,
-	fNacimiento : String,
+	fNacimiento : Date,
 	pNacimiento : String,
-	dNacimiento : Date,
+	dNacimiento : String,
 	cNacimiento : String,
 	resetPasswordToken: String,
-  	resetPasswordExpires: Date
+  resetPasswordExpires: Date
 })
 usuarioschema.pre('save', function(next) {
 	var user = this;
