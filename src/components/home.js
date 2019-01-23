@@ -25,7 +25,7 @@ class App extends Component{
                 <TopComp/>
                 <Segment vertical 
                     style={{
-                        height: this.state.e ==='login' ? 600 : 700,}}
+                        height: this.state.e ==='login' ? 600 : 900,}}
                 >
                     <div style={{padding:20}}>
                         <List link horizontal floated='right' size='massive'>

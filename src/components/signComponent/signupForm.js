@@ -167,7 +167,7 @@ class SignForm extends Component {
 					}
 					`}
 				</style>
-				<Grid textAlign='center' style={{ height: '100%', top : '60%', width : '80%'}} verticalAlign='middle'>
+				<Grid textAlign='center' style={{ height: '100%', top : '40%', width : '80%'}} verticalAlign='middle'>
 					<Grid.Column style={{ maxWidth: 800 }}>
 						<Header as='h2' content='Registrarse' className="header"/>
 						<Form size='massive' error={Object.keys(errors).length !== 0 ? true : false} onSubmit={this.handleSubmit}>

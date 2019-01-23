@@ -86,7 +86,7 @@ class ChangePassword extends Component{
 					}
 					`}
 				</style>
-				<Grid textAlign='center' style={{ height: '100%', top : '75%'}} verticalAlign='middle'>
+				<Grid textAlign='center' style={{ height: '100%', top : '50%'}} verticalAlign='middle'>
 					<Grid.Column style={{ maxWidth: 560 }}>
 						<Header as='h2' content='Recuperar Contraseña' className="header"/>
 						<Form size='large' error={Object.keys(errors).length !== 0 ? true : false} onSubmit={this.handleSubmit}>
