@@ -4,14 +4,23 @@ import api from '../../api';
 import './index.css';
 
 class SignupPage extends Component{
+    state ={
+        errors : {}
+    }
     submit = data =>{
-        api.users.create(data).then(()=> {
-            this.props.history.push('/');
-        });
+        api.users.create(data).then(
+            token =>{
+                if (!token.error) {
+                    this.props.update('login');
+                } else {
+                    this.setState({errors :{error :token.error }});
+                }
+            });
     };
     render(){
+        let {errors} = this.state
         return(
-        <SignupForm submit={this.submit}/>
+        <SignupForm errors={errors} submit={this.submit}/>
         )
     }
 }

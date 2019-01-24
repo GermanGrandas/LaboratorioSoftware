@@ -10,7 +10,7 @@ class Materias extends Component{
         user : '',
         materias : []
     }
-    componentWillMount(){
+    async componentWillMount(){
         let {user} = this.props;
         if(user === "" | user === undefined){
             user = localStorage.user
@@ -73,8 +73,7 @@ class Materias extends Component{
     render(){
         let {materias} = this.state;
         let {user} = this.props;
-        const rows = this.renderList(materias)
-        console.log(rows.length);
+        const rows = this.renderList(materias);
         return(
             <Segment basic >
                 <Grid>
