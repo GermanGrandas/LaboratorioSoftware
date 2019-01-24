@@ -1,7 +1,7 @@
 
 var Usuario= require("../modelos/modelousuarios.js");
 var crypto = require('crypto');
-var token = require('../token/token');
+//var token = require('../token/token');
 //var correoautenticacion = require("../token/tokencorreo.js");
 //para poder encriptar 
 var bcrypt = require("bcrypt-nodejs");

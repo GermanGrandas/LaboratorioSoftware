@@ -5,14 +5,14 @@ var express = require("express");
 
 //cargamos el modulo del controlador
 var ControladorDeUsuarios = require("../controladores/controladorusuario.js");
-var authentication = require("../token/aut.js");
+//var authentication = require("../token/aut.js");
 
 //cargar el router de express js y con esto podemos crear rutas para nuestra API
 var api = express.Router();
 
 //creamos la ruta con el metodo get, para pasar el metodo que va a tener que cargar la pagina cuando hagamos la peticion http de esa ruta
 
-api.get("/usuarios",authentication.autenticacion, ControladorDeUsuarios.controladorusuario)
+api.get("/usuarios" ,ControladorDeUsuarios.controladorusuario)
 
 
 api.get('/',(req,res)=>{
@@ -29,7 +29,7 @@ api.post("/recuperar-contrasena", ControladorDeUsuarios.cambiarcontrasena)
 
 api.get('/resetP/:id', ControladorDeUsuarios.reset)
 api.post('/resetP',ControladorDeUsuarios.guardarCambio)
-api.put("/actualizar-usuario/:id", authentication.autenticacion, ControladorDeUsuarios.actualizarusuario)
+api.put("/actualizar-usuario/:id", ControladorDeUsuarios.actualizarusuario)
 //exportamos api
 
 module.exports= api;

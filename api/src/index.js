@@ -23,7 +23,7 @@ CARGAR RUTAS
 ==========================+*/
 var rutaUsuario = require("./rutas/rutasusuarios.js");
 var rutaMaterias = require ("./rutas/rutasmaterias.js");
-var rutaEstudiantes = require("./rutas/rutasestudiantes.js")
+//var rutaEstudiantes = require("./rutas/rutasestudiantes.js")
 
 
 /*==================================
@@ -34,7 +34,7 @@ app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, './index.html'));
 });
 
-app.use("/api", rutaEstudiantes);
+//app.use("/api", rutaEstudiantes);
 app.use("/api", rutaUsuario);
 app.use("/api", rutaMaterias);
 
