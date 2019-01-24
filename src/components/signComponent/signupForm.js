@@ -4,7 +4,6 @@ import DatePicker from 'react-date-picker';
 import {Grid,Segment, Button,Form, Message, Header, Select } from 'semantic-ui-react'
 import isEmail from 'validator/lib/isEmail';
 import isNumeric from 'validator/lib/isNumeric';
-import isAlpha from 'validator/lib/isAlpha';
 import matches from 'validator/lib/matches';
 import ReCAPTCHA from 'react-google-recaptcha';
 import country from 'country-state-city';
@@ -14,7 +13,8 @@ import {captchaProd} from '../../config/config';
 
 
 const genderOp = [{ key: 'm', text: 'Masculino', value: 'masculino' },
-							{ key: 'f', text: 'Femenino', value: 'femenino' },]
+							{ key: 'f', text: 'Femenino', value: 'femenino' },
+							{ key: 'o', text: 'Otro', value: 'otro' }]
 
 const documentOp = [{ key: 'c', text: 'Cedula', value: 'cedula' },
 							{ key: 'p', text: 'Pasaporte', value: 'Pasaporte' },]
@@ -104,16 +104,17 @@ class SignForm extends Component {
 		const errors = this.validate(this.state.data);
 		this.setState({ errors });
 		if (Object.keys(errors).length === 0) {
-			//this.props.submit(this.state.data);
+			this.props.submit(this.state.data);
 		}
 	};
 	validate = (data) => {
 		const errors = {};
+		let reg =/[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}/;
 		if (!isEmail(data.email)) errors.email = 'Email invalido';
 		if (!data.documento) errors.documento = 'Debe ingresar el documento';
 		if (!data.nombre) errors.nombre = 'Debe ingresar un nombre';
-		if(!isAlpha(data.nombre,'es-ES')) errors.nombre = 'Debe ingresar solo letras en el nombre';
-		if(!isAlpha(data.apellido,'es-ES')) errors.apellido = 'Debe ingresar solo letras en el apellido';
+		if(!matches(data.nombre,reg)) errors.nombre = 'Debe ingresar solo letras en el nombre';
+		if(!matches(data.apellido,reg)) errors.apellido = 'Debe ingresar solo letras en el apellido';
 		if (!data.apellido) errors.apellido = 'Debe ingresar un apellido';
 		if (!data.email) errors.email = 'Debe ingresar el email';
 		if (!data.password) errors.password = 'Debe ingresar la Contraseña';
