@@ -78,15 +78,7 @@ class ChangePassword extends Component{
             <div>
                 <TopComponent />
                 <div style={{ height: 500}} className='login-form'>
-				<style>{`
-					body > div,
-					body > div > div,
-					body > div > div > div.login-form {
-						height: 100%;
-					}
-					`}
-				</style>
-				<Grid textAlign='center' style={{ height: '100%', top : '65%'}} verticalAlign='middle'>
+				<Grid textAlign='center' style={{ height: '100%', top : '35%'}} verticalAlign='middle'>
 					<Grid.Column style={{ maxWidth: 560 }}>
 						<Header as='h2' content='Recuperar Contraseña' className="header" style={{marginTop: 40,}}/>
 						<Form size='large' error={Object.keys(errors).length !== 0 ? true : false} onSubmit={this.handleSubmit}>
