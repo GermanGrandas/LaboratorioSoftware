@@ -24,8 +24,7 @@ class App extends Component{
             <Segment vertical>
                 <TopComp/>
                 <Segment vertical 
-                    style={{
-                        height: this.state.e ==='login' ? 600 : 900,}}
+                    className ={this.state.e ==='login' ? 'login' : 'signUp'}
                 >   
                     <Grid stackable columns={2}>
                         <Grid.Row >

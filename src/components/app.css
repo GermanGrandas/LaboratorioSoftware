@@ -8,19 +8,40 @@
     padding: 30;
 }
 
+.login{
+    height : 600px
+}
+.signUp{
+    height : 900px  
+}
 .homeContainer > .login-form > .grid > .column{
-    top: 850%
+    top: 60%
 }
 
+.login-form > .rec > .column{
+    top: 85%
+}
 
   @media only screen and (min-width :500px ) and (max-width: 800px) {
     .homeContainer > .login-form > .grid > .column{
-        top: 20vh
+        top: 10vh
        }
+    .login-form > .rec > .column{
+        top: 35%
+    }
+    .signUp{
+        height : 1100px  
+    }
   }
 
   @media only screen and (min-width :200px ) and (max-width: 500px) {
     .homeContainer > .login-form > .grid > .column{
-        top: 20vh
-       }
+        top: 10vh
+    }
+    .login-form > .rec > .column{
+        top: 35%
+    }
+    .signUp{
+        height : 1100px  
+    }
   }

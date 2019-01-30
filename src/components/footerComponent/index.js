@@ -36,15 +36,6 @@ const Footer = ()=>(
                         inverted
                     />
               </Grid.Column>
-              <Grid.Column floated='right'>
-                    <Image 
-                        src='../images/GitHub-Mark-Light-64px.png' alt="github" size='small' 
-                        circular as='a'
-                        href='https://github.com/GermanGrandas/LaboratorioSoftware'
-                        target='_blank'
-                        />
-              </Grid.Column>
-            
           </Grid.Row>
         </Grid>
         </Container>

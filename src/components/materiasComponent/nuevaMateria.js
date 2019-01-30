@@ -47,7 +47,11 @@ class NuevaMateria extends Component{
 		const errors = this.validate(this.state.data);
         this.setState({ errors});
 		if (Object.keys(errors).length === 0) {
-			this.submit({data : this.state.data,user: this.props.user});
+            let {user} = this.props;
+            if(user === "" | user === undefined){
+                user = localStorage.user
+            }
+			this.submit({data : this.state.data,user});
 		}
     };
     handleSelectChange = (e,{value}) =>{

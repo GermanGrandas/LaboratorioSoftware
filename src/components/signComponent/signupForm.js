@@ -160,8 +160,8 @@ class SignForm extends Component {
 		}
 		return (
 			<div className='login-form'>
-				<Grid textAlign='center' style={{ height: '100%', top : '35%', width : '60%'}} verticalAlign='middle'>
-					<Grid.Column style={{ maxWidth: 800 }}>
+				<Grid textAlign='center' style={{ height: '100%',width : '90%'}} verticalAlign='middle'>
+					<Grid.Column style={{ maxWidth: 900 }}>
 						<Header as='h2' content='Registrarse' className="header"/>
 						<Form size='massive' error={Object.keys(errors).length !== 0 ? true : false} onSubmit={this.handleSubmit}>
 							<Segment stacked>
@@ -321,6 +321,7 @@ class SignForm extends Component {
 									<ReCAPTCHA
 										ref="recaptcha"
 										sitekey={captchaProd}
+										size='compact'
 										onChange={this.onChangeCaptcha}
 										className="captcha"
 									/>
