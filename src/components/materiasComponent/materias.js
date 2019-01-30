@@ -26,6 +26,9 @@ class Materias extends Component{
     }
     update = ()=>{
         let {user} = this.props;
+        if(user === "" | user === undefined){
+            user = localStorage.user
+        }
         api.materias.getMaterias(user).then(materias=>{
             this.setState({materias});
         });
