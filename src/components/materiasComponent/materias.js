@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import {Segment,Header,Grid, Card} from 'semantic-ui-react';
-
-import NewMat from './nuevaMateria';
+import {Segment,Header,Grid, Card, Icon} from 'semantic-ui-react';
 
 import api from '../../api';
 
@@ -74,21 +72,23 @@ class Materias extends Component{
     }
     render(){
         let {materias} = this.state;
-        let {user} = this.props;
+        let {handle} = this.props;
         const rows = this.renderList(materias);
         return(
             <Segment basic >
                 <Grid>
                     <Grid.Row>
-                        <Grid.Column textAlign='center'>
+                        <Grid.Column floated='left'>
+                            <Icon size='big' onClick={()=>{handle('back');}}
+                                link name='arrow alternate circle left outline'/>
+                        </Grid.Column>
+                        <Grid.Column floated='left'>
                             <Header 
                                 as='h1'
                                 content='Materias'
                             />
                         </Grid.Column>
-                        <Grid.Column floated='right'>
-                            <NewMat user={user} update={this.update}/>
-                        </Grid.Column>
+                        
                     </Grid.Row>
                     {rows}
                 </Grid>                
