@@ -7,7 +7,7 @@ import RecuperarPage from './recuperarComponent';
 import AdminRoute from './adminroute';
 import Materias from './materiasComponent';
 import ChangePassword from './resetComponent';
-
+import SpecialRoute from './specialRoute';
 
 
 
@@ -49,8 +49,10 @@ class Main extends Component {
 	render(){
 		return (
 			<div>
-                <Route path='/' exact 
+                <SpecialRoute path='/' exact
+                    user={this.state.user}
                     render={props => (<HomeComponent {...props} login={this.login}/>)}/>
+                
                 <Route path='/reset/:token'  
                     render={props => (<ChangePassword {...props}/>)}/>
                 <Route path='/recuperar' exact 
@@ -66,3 +68,9 @@ class Main extends Component {
 }
 
 export default Main;
+
+/*
+    <Route path='/' exact 
+                    render={props => (<HomeComponent {...props} login={this.login}/>)}/>
+
+*/

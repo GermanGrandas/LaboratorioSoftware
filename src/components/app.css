@@ -28,7 +28,7 @@
 @media (min-width:1025px) and (max-width : 1281px){ 
     /* big landscape tablets, laptops, and desktops */ 
     .homeContainer > .login-form > .grid > .column{
-        top: 60%
+        top: 800%
     }
     .login-form > .rec > .column{
         top:  30%
