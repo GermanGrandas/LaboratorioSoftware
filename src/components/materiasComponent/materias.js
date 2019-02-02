@@ -1,8 +1,10 @@
-import React, { Component } from 'react'
-import {Segment,Header,Grid, Card, Icon} from 'semantic-ui-react';
-
+import React, { Component } from 'react';
+import {Segment,Header,Grid, Icon} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
 import api from '../../api';
+import './index.css';
 
+const colors = ['#372734','#36B4E1','#DB933A','#FDD654','#F4682D','#F0CC05','#F3E8CC','#021A5A','#0539A6']
 class Materias extends Component{
     state = {
         user : '',
@@ -31,49 +33,25 @@ class Materias extends Component{
             this.setState({materias});
         });
     }
-
-    columns = materias=>{
-        if(materias.length === 0){
-            return(
-                <div></div>
-            )}else{
-                return(
-                    materias.map((i,e)=>(
-                        <Grid.Column key={e} >
-                            <Card>
-                                <Card.Content>
-                                    <Card.Header>{i.nombre}</Card.Header>
-                                    <Card.Meta>
-                                        <span>{i.dias}</span>
-                                    </Card.Meta>
-                                    <Card.Description>
-                                        <span>{i.hInicio}-{i.hFin}</span>
-                                    </Card.Description>
-                                
-                                    <span style={{display: 'inline-block'}}> Código: {i.codigo}<br />{i.institucion}</span>.
-                                </Card.Content>
-                                <Card.Content extra>
-                                    <span style={{display: 'inline-block'}}>Rango de fechas:<br /> {i.datesRange}</span>
-                                </Card.Content>
-                            </Card>
-                        </Grid.Column>
-    )))}};
     renderList = materias =>{
-        let rowsNumber = Math.trunc(materias.length / 5);
-        let rowsList = [];
-        for (let index = 0; index <= rowsNumber; index++) {
-            rowsList.push(
-                <Grid.Row key={index} columns='equal'>
-                    {this.columns(materias.slice(index*5+0,(index+1)*5))}
-                </Grid.Row>
+        return materias.map(item =>{
+            let color = colors[Math.floor(Math.random() * colors.length)];
+            return(
+                <Link to={`/materia/${item.nombre}` } key={item.codigo} className="materia_item">
+                    <Segment compact inverted style={{backgroundColor : color}} className='box'>
+                        <Header 
+                            as='h3'
+                            content={item.nombre}
+                            textAlign='center'
+                        />
+                    </Segment>
+                </Link>
             )
-        }
-        return(rowsList)
+        })
     }
     render(){
         let {materias} = this.state;
         let {handle} = this.props;
-        const rows = this.renderList(materias);
         return(
             <Segment basic >
                 <Grid>
@@ -81,16 +59,19 @@ class Materias extends Component{
                         <Grid.Column floated='left'>
                             <Icon size='big' onClick={()=>{handle('back');}}
                                 link name='arrow alternate circle left outline'/>
-                        </Grid.Column>
-                        <Grid.Column floated='left'>
+                        </Grid.Column>                        
+                    </Grid.Row>
+                    <Grid.Row textAlign='center'>
+                        <Grid.Column>
                             <Header 
                                 as='h1'
                                 content='Materias'
                             />
                         </Grid.Column>
-                        
                     </Grid.Row>
-                    {rows}
+                    <Grid.Row className="materias_container">
+                        {this.renderList(materias)}
+                    </Grid.Row>
                 </Grid>                
             </Segment>
         )
