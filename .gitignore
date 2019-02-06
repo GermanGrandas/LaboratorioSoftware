@@ -11,7 +11,7 @@
 
 # production
 /build
-/development
+
 # misc
 .DS_Store
 .env.local
@@ -28,4 +28,5 @@ yarn.lock
 *.svg
 *.ttf
 
-src
+
+config.md

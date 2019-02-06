@@ -21,7 +21,8 @@ var materiaschema = Schema ({
 	creditos: String,
 	dias: String,
 	teoPrac : String,
-	creator :{ type : Schema.Types.ObjectId, ref : "usuarios"}
+	creator :{ type : Schema.Types.ObjectId, ref : "usuarios"},
+	estudiantes : [{type : Schema.Types.ObjectId, ref : 'estudiante'}]
 })
 
 module.exports = mongoose.model("materias", materiaschema);

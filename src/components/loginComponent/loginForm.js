@@ -67,7 +67,7 @@ class LoginForm extends Component {
 		return (
 			<div className='login-form'>
 				
-				<Grid textAlign='center' style={{ height: '100%',top : '35%'}} verticalAlign='middle'>
+				<Grid textAlign='center' style={{ height: '100%'}} verticalAlign='middle'>
 					<Grid.Column style={{ maxWidth: 500 }}>
 						<Header as='h2' content='Ingresar' className="header"/>
 						<Form size='large' error={Object.keys(errors).length !== 0 ? true : false} onSubmit={this.handleSubmit}>

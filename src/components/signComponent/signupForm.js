@@ -109,7 +109,7 @@ class SignForm extends Component {
 	};
 	validate = (data) => {
 		const errors = {};
-		let reg =/[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}/;
+		let reg =/^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]+(([',. -][a-zA-Z ñÑáéíóúÁÉÍÓÚüÜ])?[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]*)*$/;
 		if (!isEmail(data.email)) errors.email = 'Email invalido';
 		if (!data.documento) errors.documento = 'Debe ingresar el documento';
 		if (!data.nombre) errors.nombre = 'Debe ingresar un nombre';
@@ -321,7 +321,7 @@ class SignForm extends Component {
 									<ReCAPTCHA
 										ref="recaptcha"
 										sitekey={captchaProd}
-										size='compact'
+										size='normal'
 										onChange={this.onChangeCaptcha}
 										className="captcha"
 									/>

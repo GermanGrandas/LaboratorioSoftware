@@ -9,6 +9,6 @@ var api = express.Router();
 
 api.post("/materias", ControladorDeMaterias.getMaterias);
 api.post("/crear-materia",ControladorDeMaterias.crearMateria);
-
+api.post('/getMateria',ControladorDeMaterias.getMateria);
 
 module.exports=api;
