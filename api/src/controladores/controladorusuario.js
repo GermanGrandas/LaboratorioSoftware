@@ -39,37 +39,54 @@ function controladorusuario(req,res){
 	res.status(200).send({mensaje: "probando controlador de usuarios"})
 }
 
-function crearUsuario(req,res){
+function crearUsuario(req,res,next){
+			var usuario = new Usuario();
 
-	var usuario = new Usuario();
-
-	var parametros = req.body;
-	usuario.nombre = parametros.user.nombre;
-	usuario.apellido= parametros.user.apellido;
-	usuario.documento= parametros.user.documento;
-	usuario.tipodedocumento= parametros.user.Tdocumento;
-	usuario.email = parametros.user.email;
-	
-	if(parametros.user.password){
-		bcrypt.hash(parametros.user.password, null, null, function(error, hash){
-			usuario.password=hash;
-			if (parametros.user.nombre != null){
-				usuario.save((error, usuarioguardado)=>{
-					if (error){
-						console.log(error)
-						res.status(500).send({mensaje: "hubo un error en el guardado de usuario"})
-					}
-					else{
-						console.log(usuarioguardado);
-						
-						res.status(200).send({usuarioguardado})
-
-					}
-				})
+			var parametros = req.body;
+			var {user} = parametros;
+			usuario.Tdocumento= user.Tdocumento;
+			usuario.documento= user.documento;
+			usuario.nombre = user.nombre;
+			usuario.apellido = user.apellido;
+			usuario.genero = user.genero;
+			usuario.fNacimiento = user.fechaNacimiento;
+			usuario.pNacimiento = user.paisNacimiento;
+			usuario.dNacimiento = user.regionNacimiento;
+			usuario.cNacimiento = user.ciudadNacimiento;
+			usuario.email = user.email;
+			
+			if(!user.password){
+				res.status(500).json({error :'No se encontró una contraseña'});
+		  	return;
+				
+			}else{
+				usuario.password=user.password;
 			}
-		})
-	}
-	}
+			Promise.all([
+				Usuario.findOne({email:usuario.email}),
+				Usuario.findOne({documento : usuario.documento})
+			]).then(([r1,r2])=>{
+				if(r1) {
+					res.status(500).send({error: "El email ingresado ya se encuentra registrado"});
+					return
+				}else if(r2){
+					res.status(500).send({error: "El Documento ingresado ya se encuentra registrado"});
+					return
+				}
+				else{
+					usuario.save((err, usuarioguardado)=>{
+						if (err){
+							res.status(500).send({mensaje: "hubo un error en el guardado de usuario"})
+							return
+						}
+						else{
+							res.status(200).send({usuarioguardado});
+						}
+					})
+				}
+			});
+}
+
 
 function loginUsuario(req,res,next){
 	passport.authenticate('login', function(err, user, info) {
@@ -84,82 +101,15 @@ function loginUsuario(req,res,next){
 			return;
 		});
 	  })(req, res, next);
-	/** var parametros = req.body;
-	var documento=parametros.credentials.documento;
-	var email=parametros.credentials.email;
-	var password= parametros.credentials.password;
-	
-	Usuario.findOne({email:email,documento : documento}, (error, usuarioencontrado)=>{
-		if(error){
-			res.status(500).send({documento: "error al encontrar al usuario"})
-		}
-		else{
-			if(!usuarioencontrado){
-
-				res.status(404).json({err :
-					{errN: " el usuario no existe o no ha sido creado"}})
-			}
-			else{
-
-				bcrypt.compare(password, usuarioencontrado.password, function(error, ok){
-					if(error) throw error;
-					if (ok){
-						if(!parametros.token){
-
-							//Devolvemos un token de JWT
-							let userC = {
-								_id : usuarioencontrado._id,
-								nombre : usuarioencontrado.nombre,
-								apellido : usuarioencontrado.apellido,
-								documento : usuarioencontrado.documento,
-								email : usuarioencontrado.email,
-							}
-							res.status(200).json({token: token.crearToken(usuarioencontrado), userC});
-						}
-					}
-					else{
-						res.status(404).json({err: "El usuario no ha podido ingresar"})
-					}
-				})
-			}
-		}
-	})
-	*/
-
-}
-
-function getusuario(req,res){
-	Usuario.find({nombre:"Jhoan Sebastian"},(error, resp) =>{
-		if (error){
-			res.status(500).send({mensaje: "error"})
-		}
-
-		else{
-			console.log(resp)
-			res.status(200).json(resp)
-		}
-	})
 }
 
 function actualizarusuario(req,res){
-	//llamamos por parametro el atributo que queremos modificar
-	console.log("hola mundo")
-
 	var id = req.params.id;
-
-	//tomamos los datos del formulario
 	var actualizar = req.body;
-
 	if(id !== req.usuariotoken.sub){
-
-		console.log(id)
 		console.log(req.usuariotoken.sub)
-
 		return res.status(500).send({mensaje: "no tienes permisos para actualizar este usuario"})
 	}
-
-	//recorremos la base de datos con el metodo findByIdAndUpdate
-
 	Usuario.findByIdAndUpdate(id, actualizar, (error, usuarioactualizado)=>{
 
 		if(error){
@@ -215,11 +165,11 @@ function cambiarcontrasena(req,res,next){
 			//'http://' + req.headers.host + '/reset/' + token + '\n\n' +
 			var mailOptions = {
 				to: user.email,
-				from: 'cambiarcontrasena@docenthelper.me',
+				from: 'cambiarcontrasena@docenthelper.com',
 				subject: 'Cambio Contraseña de Docent Helper',
 				text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
 				  'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-				  'http://localhost:3000/reset/' + token + '\n\n' +
+				  'http://docentHelper.com/reset/' + token + '\n\n' +
 				  'If you did not request this, please ignore this email and your password will remain unchanged.\n'
 			  };
 			  smtpTransport.sendMail(mailOptions, function(err) {
@@ -254,7 +204,7 @@ function guardarCambio(req,res){
 	async.waterfall([
 		function(done) {
 			let { data , token } = req.body.data;
-			
+
 		  Usuario.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
 			if (!user) {
 				res.status(500).send({error : 'El token enviado es inválido o no coíncide.'}); 
@@ -308,7 +258,6 @@ module.exports = {
 	controladorusuario,
 	crearUsuario,
 	loginUsuario,
-	getusuario,
 	actualizarusuario,
 	cambiarcontrasena,
 	reset,
