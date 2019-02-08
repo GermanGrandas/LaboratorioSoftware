@@ -3,8 +3,8 @@ import {Header,Segment, Container,Grid, GridColumn,Image} from 'semantic-ui-reac
 
 const Footer = ()=>(
 
-    <Segment inverted vertical style={{ padding: '5em 0em' }}>
-        <Container>
+    <Segment inverted color='grey' secondary vertical style={{ padding: '5em 0em' }}>
+        <Container >
         <Grid divided inverted stackable>
           <GridColumn width={7}>
                 <Header

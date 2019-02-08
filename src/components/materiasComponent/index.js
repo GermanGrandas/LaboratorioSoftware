@@ -18,13 +18,11 @@ const ListItem = ({update})=>(
 );
 
 class Materias extends Component{
-    state = { menuVisible: false , activeItem : 'home',modalOpen: false,user : ''}
+    state = { menuVisible: false , activeItem : 'home',modalOpen: false,user :null}
 
-    async componentWillMount(){
-        let {user} = this.props;
-        if(user === "" | user === undefined){
-            this.setState({user : localStorage.user});
-        }
+    async componentDidMount(){
+        let {user} = localStorage;
+        this.setState({user});
     }
   handleClick = () => {
         this.setState({ menuVisible: !this.state.menuVisible })
@@ -45,7 +43,8 @@ class Materias extends Component{
   close = ()=> this.setState({modalOpen : false})
   render() {
     const { menuVisible,activeItem,modalOpen } = this.state
-    const { logout,user} = this.props
+    const { logout} = this.props;
+    let {user } = localStorage;
     return (
         <div>
         <TopHeader changeClick={this.handleClick} logout={logout}/>
