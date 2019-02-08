@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 import api from '../../api';
 import './index.css';
 
-const colors = ['#372734','#36B4E1','#DB933A','#FDD654','#F4682D','#F0CC05','#F3E8CC','#021A5A','#0539A6']
 class Materias extends Component{
     state = {
         user : '',
@@ -16,11 +15,21 @@ class Materias extends Component{
             user = localStorage.user
             this.setState({user});
             api.materias.getMaterias(user).then(materias=>{
-                this.setState({materias});
+                if(!materias.error){
+                    this.setState({materias});
+                }else{
+                    console.log(materias);
+                }
             });
         }else{
             api.materias.getMaterias(user).then(materias=>{
-                this.setState({materias});
+                if(!materias.error){
+                    this.setState({materias});
+                }else{
+                    console.log(materias);
+                }
+                
+                
             });
         }
     }
@@ -34,20 +43,28 @@ class Materias extends Component{
         });
     }
     renderList = materias =>{
-        return materias.map(item =>{
-            let color = colors[Math.floor(Math.random() * colors.length)];
-            return(
-                <Link to={`/materia/${item.nombre}` } key={item.codigo} className="materia_item">
-                    <Segment compact inverted style={{backgroundColor : color}} className='box'>
-                        <Header 
-                            as='h3'
-                            content={item.nombre}
-                            textAlign='center'
-                        />
-                    </Segment>
-                </Link>
+        console.log(materias.length === 0);
+        
+        if(materias.length === 0){
+            return (
+                <div></div>
             )
-        })
+        }else{
+            return materias.map(item =>{
+                return(
+                    <Link to={`/materia/${item.nombre}` } key={item.codigo} className="materia_item">
+                        <Segment compact inverted className='box'>
+                            <Header 
+                                as='h3'
+                                content={item.nombre}
+                                textAlign='center'
+                            />
+                        </Segment>
+                    </Link>
+                )
+            })
+        }
+        
     }
     render(){
         let {materias} = this.state;

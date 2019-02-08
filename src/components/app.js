@@ -48,6 +48,7 @@ class Main extends Component {
         }
     }
 	render(){
+        let {user} = this.state;
 		return (
 			<div>
                 <SpecialRoute path='/' exact
@@ -61,10 +62,10 @@ class Main extends Component {
                     
                 <AdminRoute
                     user={this.state.user}
-                    path='/materia/:id' render={props => <Materia {...props} user={this.state.user.userC} logout={this.logout}/>}/>
+                    path='/materia/:id' render={props => <Materia {...props} user={user.userC} logout={this.logout}/>}/>
                 <AdminRoute path='/home' exact
-                    user={this.state.user}
-                    render={props => (<Materias {...props} user={this.state.user.userC} logout={this.logout}/>)}/>
+                    user={user}
+                    render={props => (<Materias {...props} user={user.userC} logout={this.logout}/>)}/>
                
 			</div>
 		);
