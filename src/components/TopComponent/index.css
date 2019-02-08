@@ -1,10 +1,31 @@
-body{
-	margin: 0 0;
+.containerHeader {
+	display: flex;
+	height: 40vh;
+	width: 100vw;
+	max-height: 50%;
+	max-width: 100%;
+	background-color: #8C4F3D;
 }
+
+img {
+	flex: 0;
+	width: 12vw;
+	height: 12vw;
+	margin: auto 6vw auto 0;
+	border-radius: 50%;
+	background-size: contain;
+}
+
+header {
+	flex: 1;
+	margin: auto 5vw;
+	color: #F3E8CC;
+}
+
 .center {
-	position: absolute;
-	top: 40%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	flex: 1;
+	color: #F3E8CC;
+	text-align: center;
+	vertical-align: middle;
 }
 

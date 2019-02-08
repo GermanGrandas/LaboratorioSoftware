@@ -1,4 +1,26 @@
 
+main {
+    display: flex;
+    margin: 1em;
+    padding: 1em;
+}
+
+.descripcion {
+    width: 30%;
+    height: 40vw;
+    min-width: 20%;
+    max-width: 100%;
+    border-radius: 5%;
+    box-shadow: -0.3em -0.3em #584C36;
+    padding: 0.3em;
+    font-size: 1.2rem;
+    word-wrap: break-word;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #BE8C5D;
+    color: #F3E8CC;
+}
+
 .list{
     height: 100%;
     
@@ -8,79 +30,60 @@
     padding: 30;
 }
 
-.login{
-    height : 600px
+
+.nav{
+    display: flex;
+    flex: 1;
+    width: 100%;
+    margin: 3em;
+    background-color: #F3E8CC;
 }
+
+.list-nav {
+    display: flex;
+}
+
+.list-item {
+    flex: 1;
+    font-size: 3vw;
+    text-align: center;
+}
+
+.list-item:hover {
+    background-color: #F0CC05;
+}
+
+.login-form{
+    display: block;
+    width: 40vw;
+    min-width: 20vw;
+    max-width: 70vw;
+    height : 60%;
+    min-height: 60%;
+    max-height: 100%;
+    margin: 1em;
+}
+
 .signUp{
-    height : 900px  
+    display: block;
+    flex: 1;
 }
 
 
-@media (min-width:1281px) { 
-    /* hi-res laptops and desktops */ 
-    .homeContainer > .login-form > .grid > .column{
-        top: 60%
-    }
-    .login-form > .rec > .column{
-        top: 30%
-    }
-}
-@media (min-width:1025px) and (max-width : 1281px){ 
-    /* big landscape tablets, laptops, and desktops */ 
-    .homeContainer > .login-form > .grid > .column{
-        top: 800%
-    }
-    .login-form > .rec > .column{
-        top:  30%
-    }
-}
-@media (min-width:961px) and (max-width : 1025px) { 
-    /* tablet, landscape iPad, lo-res laptops ands desktops */ 
-    .homeContainer > .login-form > .grid > .column{
-        top: 60%
-    }
-    .login-form > .rec > .column{
-        top:  30%
-    }
-}
+@media screen and (max-width:30em) {
+    main { display: block; }
 
-@media (min-width:641px) and (max-width : 960px) { 
-    /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ 
-    .homeContainer > .login-form > .grid > .column{
-        top: 20vh
+    .descripcion { 
+        display: block;
+        width: 100%;
     }
-    .login-form > .rec > .column{
-        top:  30%
-    }
-    .signUp{
-        height : 1100px  
-    }
-}
-@media (min-width:480px) and (max-width : 640px) { 
-    /* smartphones, Android phones, landscape iPhone */ 
-    .homeContainer > .login-form > .grid > .column{
-        top: 30%
-    }
-    .login-form > .rec > .column{
-        top:  30%
-    }
-    .signUp{
-        height : 1100px  
-    }
-}
+    .nav { display: flex; }
 
-@media (min-width:320px) and (max-width : 479px)  { 
-    /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */ 
-    .homeContainer > .login-form > .grid > .column{
-        top: 50vh
-    }
-    .signUp > .grid>.homeContainer >.login-form > .grid > .column{
-        top: 90vh
-    }
-    .login-form > .rec > .column{
-        top: 70%
-    }
-    .signUp{
-        height : 1100px  
+    .login-form { 
+        display: block;
+        width: 70vw;
+        position: relative;
+        right: 1em;
+        margin: 2em;
     }
 }

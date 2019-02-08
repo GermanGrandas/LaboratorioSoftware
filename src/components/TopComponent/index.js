@@ -1,23 +1,20 @@
 import React from 'react';
-import {Header,Segment} from 'semantic-ui-react';
 import './index.css';
-
 
 const TopComp = ()=>{
     return(
-            <Segment  style={{ height: 400, backgroundColor :'#372734'}}  inverted  vertical >
-                <Header
+                <div class={'containerHeader'}>
+                <header
                     as='h1'
-                    content='Docent Helper'
-                    className='center'
-                    textAlign='center'
-                    inverted
+                    
                     style={{
-                        fontSize: '4em',
+                        top: '50',
+                        fontSize: '7vw',
                         fontFamily: "'Courgette','Pacifico'",
                     }}
-                />
-            </Segment>
+                >DocentHelper</header>
+                <img src={require('../images/logo_docent.png')} alt='Logo DocentHelper' />
+                </div> 
         
     )
 }
