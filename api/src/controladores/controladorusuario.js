@@ -1,127 +1,166 @@
+"use strict"
+
+function controladorusuario(req,res){
+
+	res.status(200).send({mensaje: "probando controlador de usuarios"})
+}
+
+//nodemailer sirve para enviar correos electronicos
+
+var nodemailer = require("nodemailer");
+
 
 var Usuario= require("../modelos/modelousuarios.js");
-var crypto = require('crypto');
-var token = require('../token/token');
-//var correoautenticacion = require("../token/tokencorreo.js");
+
 //para poder encriptar 
 var bcrypt = require("bcrypt-nodejs");
-var nodemailer = require("nodemailer");
-var async = require('async');
-var passport = require('passport');
 
-var LocalStrategy = require('passport-local').Strategy;
+//importamos token
 
-passport.use('login',new LocalStrategy({usernameField: 'credentials[email]',passwordField: 'credentials[password]'},function(email, password, done) {	
-	Usuario.findOne({ email:email}, function(err, user) {
-	  if (err) return done(err);
-	  if (!user) return done(null, false, { message: 'Email Incorrecto.' });
-	  user.comparePassword(password, function(err, isMatch) {
-		if (isMatch) {
-		  return done(null, user);
-		} else {
-		  return done(null, false, { message: 'Contraseña Incorrecta.'});
-		}
-	  });
-	});
-  }));
+var token = require("../tokens/token.js");
 
-passport.serializeUser(function(user, done) {
-	done(null, user.id);
-});
-  
-passport.deserializeUser(function(id, done) {
-	Usuario.findById(id, function(err, user) {
-	  done(err, user);
-	});
-  });
+var tokenemail = require("../tokens/tokencorreo.js");
 
 function controladorusuario(req,res){
 	res.status(200).send({mensaje: "probando controlador de usuarios"})
 }
 
-function crearUsuario(req,res,next){
-			var usuario = new Usuario();
+function crearUsuario(req,res){
 
-			var parametros = req.body;
-			var {user} = parametros;
-			usuario.Tdocumento= user.Tdocumento;
-			usuario.documento= user.documento;
-			usuario.nombre = user.nombre;
-			usuario.apellido = user.apellido;
-			usuario.genero = user.genero;
-			usuario.fNacimiento = user.fechaNacimiento;
-			usuario.pNacimiento = user.paisNacimiento;
-			usuario.dNacimiento = user.regionNacimiento;
-			usuario.cNacimiento = user.ciudadNacimiento;
-			usuario.email = user.email;
-			usuario.username= usuario.nombre+"."+usuario.apellido;
+	var usuario = new Usuario();
 
-			if(!user.password){
-				res.status(500).json({error :'No se encontró una contraseña'});
-		  	return;
-				
-			}else{
-				usuario.password=user.password;
+	var parametros = req.body;
+	//console.log(parametros)
+	usuario.nombre = parametros.nombre;
+	var nombre= usuario.nombre;
+	usuario.apellido= parametros.apellido;
+	var apellido= usuario.apellido;
+	usuario.documento= parametros.documento;
+	usuario.tipodedocumento= parametros.tipodedocumento;
+	usuario.email= parametros.email;
+	usuario.username= usuario.nombre+"."+usuario.apellido;
+	var username= usuario.username;
+	var bool= true;
+	
+	Usuario.findOne({apellido:apellido, nombre:nombre}, (error, usuarioencontrado)=>{
+		if(error){
+			res.status(500).send({mensaje: "error al encontrar al usuario"})
+		}
+		else{
+			if(usuarioencontrado.username != null){
+				console.log("hola mundo");
+				username = usuario.username+String(Math.floor(Math.random()*999) + 100);
+				console.log(username);
+				bool=false;
+				//console.log(usuarioencontrado);
+
 			}
-			Promise.all([
-				Usuario.findOne({email:usuario.email}),
-				Usuario.findOne({documento : usuario.documento}),
-				Usuario.findOne({username : usuario.username})
-			]).then(([r1,r2,r3])=>{
-				if(r1) {
-					res.status(500).send({error: "El email ingresado ya se encuentra registrado"});
-					return
-				}else if(r2){
-					res.status(500).send({error: "El Documento ingresado ya se encuentra registrado"});
-					return
-				}else if(r3){
-					usuario.username = usuario.username+String(Math.floor(Math.random()*999) + 100);
-					usuario.save((err, usuarioguardado)=>{
-						if (err){
+		}
+		
+		}
+	)
+	console.log("hello world")
+	usuario.username= username;
+	console.log(usuario.username);
+	if(bool){
+
+		if(parametros.password){
+			console.log("otra prueba")
+			bcrypt.hash(parametros.password, null, null, function(error, hash){
+
+				usuario.password=hash;
+				if (parametros.nombre != null){
+					usuario.save((error, usuarioguardado)=>{
+						if (error){
 							res.status(500).send({mensaje: "hubo un error en el guardado de usuario"})
-							return
+							console.log("aqui esta el problema")
 						}
 						else{
-							res.status(200).send({usuarioguardado});
-					}});
-				}
-				else{
-					usuario.save((err, usuarioguardado)=>{
-						if (err){
-							res.status(500).send({mensaje: "hubo un error en el guardado de usuario"})
-							return
-						}
-						else{
-							res.status(200).send({usuarioguardado});
+							res.status(200).send({usuarioguardado})
+
 						}
 					})
 				}
-			});
-}
-
-
-function loginUsuario(req,res,next){
-	passport.authenticate('login', function(err, user, info) {
-		if (err) return next(err)
-		if (!user) {
-			res.status(500).json({error :info});
-		  return;
+			})
 		}
-		req.logIn(user, function(err) {
-		  if (err) return next(err);
-			res.status(200).json({token: token.crearToken(user),user : user.username});
-			return;
-		});
-	  })(req, res, next);
+	}
+	}
+
+function loginUsuario(req,res){
+	var parametros = req.body;
+	var nombre=parametros.nombre;
+	var apellido=parametros.apellido;
+	var password= parametros.password;
+
+	//metodo FindOne me permite seleccionar un dato que este en la base de datos, recibe como primer parametro los valores que queremos que busque coincidencia y una funcion flecha
+	Usuario.findOne({nombre:nombre}, (error, usuarioencontrado)=>{
+		if(error){
+			res.status(500).send({mensaje: "error al encontrar al usuario"})
+		}
+
+		else{
+			
+			if(!nombre){
+				res.status(404).send({mensaje: " el usuario no existe o no ha sido creado"})
+			}
+			else{
+				//res.status(200).send({usuarioencontrado})
+				bcrypt.compare(password, usuarioencontrado.password, function(error, ok){
+					
+
+					if (ok){
+						//res.status(200).send({usuarioencontrado})
+
+						if(parametros.token){
+							res.status(200).send({token: token.crearToken(usuarioencontrado)})
+						}
+					}
+					else{
+						res.status(404).send({mensaje: "El usuario no ha podido ingresar"})
+					}
+				})
+			}
+		}
+	})
+
+
 }
+
+function getusuario(req,res){
+	console.log("hola munod")
+	Usuario.find({nombre:"jhoan"},(error, resp) =>{
+		if (error){
+			res.status(500).send({mensaje: "error"})
+		}
+
+		else{
+			console.log(resp)
+			res.status(200).json(resp)
+		}
+	})
+}
+
 
 function actualizarusuario(req,res){
+	//llamamos por parametro el atributo que queremos modificar
+	console.log("hola mundo")
+
 	var id = req.params.id;
+
+
+	//tomamos los datos del formulario
 	var actualizar = req.body;
-	if(id !== req.usuariotoken.sub){
+
+	if(id != req.usuariotoken.sub){
+
+		console.log(id)
 		console.log(req.usuariotoken.sub)
+
 		return res.status(500).send({mensaje: "no tienes permisos para actualizar este usuario"})
 	}
+
+	//recorremos la base de datos con el metodo findByIdAndUpdate
+
 	Usuario.findByIdAndUpdate(id, actualizar, (error, usuarioactualizado)=>{
 
 		if(error){
@@ -139,139 +178,103 @@ function actualizarusuario(req,res){
 	})
 }
 
-function cambiarcontrasena(req,res,next){
-	async.waterfall([
-		function(done) {
-		  crypto.randomBytes(20, function(err, buf) {
-			var token = buf.toString('hex');
-			done(err, token);
-		  });
-		},
-		function(token, done) {
 
-			Usuario.findOne({ email: req.body.credentials.email }, function(err, user) {
-			  if (!user) {
-				//req.flash('error', 'No account with that email address exists.');
-					res.status(404).send({mensaje: "No existe un usuario con ese correo"});
-					return;
-			  }
-			  user.resetPasswordToken = token;
-			  user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-	  
-			  user.save(function(err) {
-				done(err, token, user);
-			  });
-			});
-		  },
-		  function(token, user, done) {
-			var smtpTransport = nodemailer.createTransport({
-			  service: 'Gmail',
-			  auth: {
-				user: 'nodejs1234npmstart@gmail.com',
-				pass: '1234jhoan'
-			  },
-			  tls: {
-				  rejectUnauthorized : false
-			  }
-			});
-			//'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-			var mailOptions = {
-				to: user.email,
-				from: 'cambiarcontrasena@docenthelper.com',
-				subject: 'Cambio Contraseña de Docent Helper',
-				text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-				  'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-				  'http://docentHelper.com/reset/' + token + '\n\n' +
-				  'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-			  };
-			  smtpTransport.sendMail(mailOptions, function(err) {
-				//req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
-				if(user){
-					res.status(200).send({Mensaje: "Se ha enviado un correo a la dirección de email proporcionada"});
-					return;
-				}
-				done(err, 'done');
-			  });
+function cambiarcontrasena(req,res){
+	var parametros = req.body;
+	var correo = parametros.email;
+	
+
+
+	Usuario.find({email:correo}, (error,correoencontrado)=>{
+		if(error){
+			res.status(404).send({mensaje: "no se puede acceder a la peticion"})
+		}
+		else{
+			if(!correoencontrado){
+				res.status(500).send({mensaje:"el correo no existe en la base de datos"})
 			}
-		  ], function(err) {
-			if (err) return next(err);
-				res.status(400).send({Mensaje: "Algo ha ocurrido"});
-				return;
-		  });
+			else{
+				//definimos el transporte
+				var transporter = nodemailer.createTransport({
+					service: 'Gmail',
+					auth:{
+						user: 'nodejs1234npmstart@gmail.com',
+						pass: '1234jhoan'
+					},
+					tls: {
+						rejectUnauthorized : false
+					}
+				}
+			);
+				//definimos el destino
+				var mailOption = {
+					from: 'nodejs',
+					to: 'mansleobenitez@gmail.com',
+					subjet: 'test',
+					text: "omita este mensaje"
+				};
+
+				//enviamos el email
+
+				transporter.sendMail(mailOption, function(error, info){
+					if(error){
+						console.log(error)
+						res.status(500).send({correoencontrado})
+					}
+					else{
+						console.log("mensaje enviado")
+						res.status(200).json({correoencontrado})
+					}
+				})
+
+			}
+
+		}
+	})
+
+
 }
+
+
+function Deleteusuario(req, res){
+	var id = req.params.id;
+	console.log(id);
+	console.log("hola mundo")
+	if(id != req.usuariotoken.sub){
+	return res.status(500).send({mensaje: "no tienes permisos para actualizar este usuario"})	
+	}
+
+	//recorremos la base de datos  por el metodo findByIdAndRemove
+
+	Usuario.findByIdAndRemove(id, (error, usuarioBorrado)=>{
+		if(error){
+			res.status(500).send({mensaje: "error al borrar el usuario"})
+		}
+		else{
+			if(!usuarioBorrado){
+				res.status(404).send({mensaje:" no se ha podido borrar al usuario"})
+			}
+
+			else{
+				res.status(200).send(usuarioBorrado)
+			}
+		}
+	}
+)
+
+}
+
+
 
 
 //exportamos los metodos
-function reset(req,res){
-	Usuario.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-		if (!user) {
-			res.status(500).send({error : 'Password reset token is invalid or has expired.'}); 
-		}
-		res.status(200).send({message : 'Ok'})
-	  });
-}
 
-function guardarCambio(req,res){
-	
-	async.waterfall([
-		function(done) {
-			let { data , token } = req.body.data;
-
-		  Usuario.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-			if (!user) {
-				res.status(500).send({error : 'El token enviado es inválido o no coíncide.'}); 
-				return;
-			}
-			
-			user.password = data;
-			user.resetPasswordToken = undefined;
-			user.resetPasswordExpires = undefined;
-	
-			user.save(function(err) {
-			  req.logIn(user, function(err) {
-					done(err, user);
-			  	});
-				});
-		  });
-		},
-		function(user, done) {
-		  var smtpTransport = nodemailer.createTransport({
-			service: 'Gmail',
-			  auth: {
-				user: 'nodejs1234npmstart@gmail.com',
-				pass: '1234jhoan'
-			  },
-			  tls: {
-				  rejectUnauthorized : false
-			  }
-		  });
-		  var mailOptions = {
-			to: user.email,
-			from: 'cambiarcontrasena@docenthelper.me',
-			subject: 'Cambio Contraseña de Docent Helper',
-			text: 'Hello,\n\n' +
-			  'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
-		  };
-		  smtpTransport.sendMail(mailOptions, function(err) {
-			if(user){
-				res.status(200).send({Message : 'La contraseña ha sido cambiada correctamente'});
-				return;
-			}
-			done(err);
-		  });
-		}
-	  ], function(err) {
-				if (err) return err;
-				res.status(500).send({message : 'Algo ha ocurrido'});
-				return
-	  });
-}
 module.exports = {
 	controladorusuario,
 	crearUsuario,
 	loginUsuario,
+	getusuario,
 	actualizarusuario,
 	cambiarcontrasena,
-	reset,
-	guardarCambio
+	Deleteusuario
 }

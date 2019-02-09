@@ -8,12 +8,14 @@ var api = express.Router();
 
 api.get("/estudiantes", ControladorDeEstudiantes.controlestudiantes);
 
-api.post("/crear-estudiante", ControladorDeEstudiantes.crearestudiantes);
+api.post("/crear-estudiante", ControladorDeEstudiantes.crearEstudiante);
 
-api.get("/estudiante",ControladorDeEstudiantes.getestudiante);
+api.post("/matricular-estudiante",ControladorDeEstudiantes.matricularestudiante);
 
-api.put("/actualizar-estudiantes/:id", ControladorDeEstudiantes.actualizarestudiante);
+//api.get("/estudiante",ControladorDeEstudiantes.getestudiante);
 
-api.delete("/eliminar-estudiante/:id", ControladorDeEstudiantes.Eliminarestudiante);
+//api.put("/actualizar-estudiantes/:id", ControladorDeEstudiantes.actualizarestudiante);
+
+//api.delete("/eliminar-estudiante/:id", ControladorDeEstudiantes.Eliminarestudiante);
 
 module.exports=api;
