@@ -1,3 +1,14 @@
+header {
+    display: block;
+    width: 100vw;
+    height: 20vh;
+    max-width: 500em;
+}
+
+.bodyMaterias {
+    background-color: rgba(235, 235, 235, 0.5);
+}
+
 .materias_container{
     min-height: 400px;
 }

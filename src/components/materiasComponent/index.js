@@ -46,9 +46,9 @@ class Materias extends Component{
     const { logout} = this.props;
     let {user } = localStorage;
     return (
-        <div>
+        <div class='bodyMaterias'>
         <TopHeader changeClick={this.handleClick} logout={logout}/>
-        <Sidebar.Pushable as={Segment}>
+        <Sidebar.Pushable as={Segment} style={{backgroundColor:'rgba(235, 235, 235, 0.5)'}}>
           <Sidebar
             as={Menu}
             animation='overlay'
@@ -80,10 +80,10 @@ class Materias extends Component{
           </Sidebar>
 
           <Sidebar.Pusher dimmed={menuVisible} onClick={this.handleClick2}>
-            <Segment basic style={{margin : '0 0'}}>
+            <Segment basic style={{backgroundColor:'rgba(235, 235, 235, 0.5)'}}>
                 {
                     activeItem === 'home' ?
-                        <Segment basic>
+                        <Segment style={{backgroundColor:'rgba(235, 235, 235, 0.5)'}}>
                             <Grid centered>
                                 <Grid.Row verticalAlign='middle'>
                                     <Header 
