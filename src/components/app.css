@@ -1,21 +1,23 @@
 
 main {
     display: flex;
-    margin: 1em;
-    padding: 1em;
+    padding: 1.5em;
 }
 
 .descripcion {
+    flex: none;
     width: 30%;
-    height: 40vw;
-    min-width: 20%;
-    max-width: 100%;
+    height: 30%;
+    max-width: 80em;
+    max-height: 50em;
+    margin-right: 4vw;
+    border: solid 0.01em;
     border-radius: 5%;
-    box-shadow: -0.3em -0.3em #584C36;
-    padding: 0.3em;
+    box-shadow: 0.3em 0.3em rgba(88, 76, 54, 0.6);
+    padding: 0.5em 0 0.5em 1.5em;
     font-size: 1.2rem;
     word-wrap: break-word;
-    text-align: center;
+    text-align: left;
     vertical-align: middle;
     background-color: #BE8C5D;
     color: #F3E8CC;
@@ -27,56 +29,75 @@ main {
 }
 
 .ui.list a{
-    padding: 30;
+    display: flex;
 }
 
 
 .nav{
     display: flex;
-    flex: 1;
-    width: 100%;
-    margin: 3em;
-    background-color: #F3E8CC;
+    flex: 2;
+    width: 70vw;
+    max-width: 80vw;
+    max-height: 30vh;
 }
 
 .list-nav {
     display: flex;
+    width: 100%;
 }
 
 .list-item {
     flex: 1;
-    font-size: 3vw;
+    max-width: 12em;
+    border-radius: 10%;
+    margin: 0.5em;
+    font-size: 1.5em;
+    border: solid 0.01em rgba(88, 76, 54);
     text-align: center;
+    background-color: rgba(243, 232, 204);
 }
 
 .list-item:hover {
-    background-color: #F0CC05;
+    background-color: rgba(240, 204, 5, 0.8);
+}
+
+.list-item:active {
+    background-color: rgba(240, 204, 5, 0.6)
 }
 
 .login-form{
-    display: block;
+    display: flex;
     width: 40vw;
     min-width: 20vw;
     max-width: 70vw;
     height : 60%;
     min-height: 60%;
     max-height: 100%;
-    margin: 1em;
 }
 
 .signUp{
-    display: block;
+    display: flex;
     flex: 1;
 }
 
+.button {
+    background-color: rgba(190, 140, 93);
+}
 
-@media screen and (max-width:30em) {
+
+@media screen and (max-width:40em) {
+    .containerHeader { height: 30vh;  }
+
+    img { margin: 0.7em auto 0.7em auto;  }
+
     main { display: block; }
 
     .descripcion { 
         display: block;
         width: 100%;
+        margin-bottom: 4vh;
     }
+
     .nav { display: flex; }
 
     .login-form { 

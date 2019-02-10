@@ -26,15 +26,23 @@ class App extends Component{
                 <TopComp/>
                 <main>
                 <div class='descripcion'>
-                Ingresa ya a DocentHelper
+                Ingresa ya a DocentHelper y haz uso de todos los beneficios que tenemos para ofrecerte en la administración de tus materias.
+                <br /><br />
+                <ul>
+                    <li>Administra tus cursos más facilmente</li>
+                    <li>Establece tu cronograma</li>
+                    <li>Orgaiza el contenido de tus materias</li>
+                    <li>Haz informes de grupos con facilidad</li>
+                    <li>Lleva un orden de asistencia</li>
+                </ul>
                 </div>
                 <Segment vertical>   
                     <Grid stackable columns={2}>
                         <Grid.Row >
                             <Grid.Column className='nav'>
                                 <List className='list-nav'>
-                                    <List.Item as={Link} name='login' to='#' onClick={this.update} style={{color:'#584C36'}} className='list-item'>Ingresar</List.Item>
-                                    <List.Item as={Link} name='sign' to='#' onClick={this.update} style={{color:'#584C36'}} className='list-item'>Registrarse</List.Item>
+                                    <List.Item as={Link} name='login' to='#' onClick={this.update} style={{color:'rgba(88, 76, 54)'}} className='list-item'>Ingresar</List.Item>
+                                    <List.Item as={Link} name='sign' to='#' onClick={this.update} style={{color:'rgba(88, 76, 54)'}} className='list-item'>Registrarse</List.Item>
                                 </List>
                             </Grid.Column>
                         </Grid.Row>

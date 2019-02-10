@@ -67,11 +67,11 @@ class LoginForm extends Component {
 		return (
 			<div className='login-form'>
 				
-				<Grid className='login-form'>
-					<Grid.Column style={{ maxWidth: '100%' }}>
+				<Grid>
+					<Grid.Column style={{ maxWidth: '300em' }}>
 						<Header as='h2' content='Ingresar'/>
 						<Form error={Object.keys(errors).length !== 0 ? true : false} onSubmit={this.handleSubmit}>
-							<Segment stacked>
+							<Segment stacked style={{display:'block'}}>
 								<Form.Input
 									fluid
 									required
@@ -84,7 +84,8 @@ class LoginForm extends Component {
 									error={errors.documento ? true : false}
 									
 									value={data.documento}
-									onChange={this.handleStringChange}/>
+									onChange={this.handleStringChange}
+								/>
 								
 								<Form.Input 
 									fluid
@@ -117,7 +118,7 @@ class LoginForm extends Component {
 										sitekey={captchaProd}
 										onChange={this.onChangeCaptcha}
 										className="captcha"
-									/>
+								/>
 								</Form.Field >
 								{
 									Object.keys(errors).length !== 0 ?
@@ -131,7 +132,7 @@ class LoginForm extends Component {
 								<Button 
 									type="submit"
 									fluid
-									color='google plus'
+									style={{backgroundColor:'rgba(190, 140, 93)'}}
 								>Ingresar</Button>
 							</Segment>
 						</Form>
