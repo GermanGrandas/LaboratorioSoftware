@@ -1,3 +1,7 @@
+body {
+    background-color: rgba(235, 235, 235, 0.5);
+}
+
 
 main {
     display: flex;
@@ -15,6 +19,7 @@ main {
     border-radius: 5%;
     box-shadow: 0.3em 0.3em rgba(88, 76, 54, 0.6);
     padding: 0.5em 0 0.5em 1.5em;
+    margin-top: 5em;
     font-size: 1.2rem;
     word-wrap: break-word;
     text-align: left;
@@ -69,10 +74,9 @@ main {
     display: flex;
     width: 40vw;
     min-width: 20vw;
-    max-width: 70vw;
-    height : 60%;
-    min-height: 60%;
-    max-height: 100%;
+    max-width: 300em;
+    max-height: 500em;
+    margin: auto;
 }
 
 .signUp{
@@ -80,8 +84,8 @@ main {
     flex: 1;
 }
 
-.button {
-    background-color: rgba(190, 140, 93);
+footer {
+    background-color: rgba(140, 79, 61);
 }
 
 
@@ -95,6 +99,37 @@ main {
     .descripcion { 
         display: block;
         width: 100%;
+        margin-top: 4vh;
+        margin-bottom: 4vh;
+    }
+
+    .nav { display: flex; }
+
+    .login-form { 
+        display: block;
+        width: 70vw;
+        position: relative;
+        right: 1em;
+        margin: 2em;
+    }
+}
+
+
+@media screen and (max-width:20em) {
+    .containerHeader { height: 25vh;  }
+
+    img {
+        width: 15vw;
+        height: 15vw; 
+        margin: 0.7em auto 1.5em auto;  
+    }
+
+    main { display: block; }
+
+    .descripcion { 
+        display: block;
+        width: 100%;
+        margin-top: 4vh;
         margin-bottom: 4vh;
     }
 

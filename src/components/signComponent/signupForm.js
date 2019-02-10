@@ -267,7 +267,7 @@ class SignForm extends Component {
 											value={data.genero}
 											onChange={this.handleGeneroChange}
 									/>
-									<Form.Field width='5'>
+									<Form.Field>
 										<label id="font" htmlFor="fechaNacimiento">
 											Fecha Nacimiento
 										</label>
@@ -281,7 +281,7 @@ class SignForm extends Component {
 										/>
 									</Form.Field>
 								</Form.Group>
-								<Form.Group widths='equal'>
+								<Form.Group style={{display:'block'}}>
 									<Form.Select
 												fluid
 												required
@@ -291,7 +291,7 @@ class SignForm extends Component {
 												options={this.countryData.pais}
 												search
 												searchInput={{ id: 'form-select-control-cn' }}
-										/>
+									/>
 									<Form.Select
 											fluid
 											required
@@ -315,9 +315,7 @@ class SignForm extends Component {
 											
 									/>
 								</Form.Group>
-								<Form.Field error={errors.captcha ? true : false}
-									style={{margin : '5px'}}
-								>
+								<Form.Field error={errors.captcha ? true : false}>
 									<ReCAPTCHA
 										ref="recaptcha"
 										sitekey={captchaProd}
@@ -338,7 +336,11 @@ class SignForm extends Component {
 								<Button 
 									type="submit" 
 									fluid 
-									style={{backgroundColor:'rgba(190, 140, 93)'}}
+									style={{
+										width:'10em',
+										maxWidth:'30em',
+										backgroundColor:'rgba(190, 140, 93)'
+									}}
 								>Registrarse</Button>
 							</Segment>
 						</Form>

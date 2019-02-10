@@ -104,7 +104,11 @@ class Recuperar extends Component{
 								}
                                 <Button 
                                     type="submit"
-                                    color='google plus'
+                                    style={{
+										width:'10em',
+										maxWidth:'30em',
+										backgroundColor:'rgba(190, 140, 93)'
+									}}
                                 >Recuperar</Button>
 							</Segment>
 						</Form>

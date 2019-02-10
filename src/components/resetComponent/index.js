@@ -77,7 +77,7 @@ class ChangePassword extends Component{
         return(
             <div>
                 <TopComponent />
-                <div style={{ height: 500}} className='login-form'>
+                <div className='login-form'>
 				<Grid textAlign='center' className='rec' style={{ height: '100%'}} verticalAlign='middle'>
 					<Grid.Column style={{ maxWidth: 560 }}>
 						<Header as='h2' content='Recuperar Contraseña' className="header" style={{marginTop: 40,}}/>
@@ -126,6 +126,11 @@ class ChangePassword extends Component{
                                 <Button 
                                     type="submit"
                                     positive
+                                    style={{
+										width:'10em',
+										maxWidth:'30em',
+										backgroundColor:'rgba(190, 140, 93)'
+									}}
                                 >Guardar</Button>
 							</Segment>
 						</Form>

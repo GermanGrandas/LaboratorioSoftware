@@ -132,7 +132,11 @@ class LoginForm extends Component {
 								<Button 
 									type="submit"
 									fluid
-									style={{backgroundColor:'rgba(190, 140, 93)'}}
+									style={{
+										width:'10em',
+										maxWidth:'30em',
+										backgroundColor:'rgba(190, 140, 93)'
+									}}
 								>Ingresar</Button>
 							</Segment>
 						</Form>

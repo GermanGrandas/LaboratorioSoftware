@@ -23,7 +23,7 @@ const Heading = ({changeClick,logout})=>(
         </Menu>
         <Header
             as='h1'
-            content='Docent Helper'
+            content='DocentHelper'
             textAlign ='center'
             inverted
             style={{
