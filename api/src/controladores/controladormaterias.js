@@ -24,7 +24,7 @@ function crearMateria(req,res){
 				return
 			}
 			else{
-				Usuario.findOne({email : user},function(err,usuario){
+				Usuario.findOne({username : user},function(err,usuario){
 					
 					if(err) {
 						res.status(500).send({error : 'algo ha ocurrido'});
@@ -67,7 +67,7 @@ function crearMateria(req,res){
 
 function getMaterias(req,res) {
 	let {data} = req.body;
-	Usuario.findOne({email : data}, function(err,usuario){
+	Usuario.findOne({username : data}, function(err,usuario){
 		if(err) {
 			res.status(500).send({error : 'algo ha ocurrido'});
 			return;
@@ -97,7 +97,7 @@ function getMateria(req,res) {
 			res.status(500).send({error : 'No se encontró la materia'});
 			return
 		}else{
-			Usuario.findOne({email : data.user}, (err,usuario)=>{
+			Usuario.findOne({username : data.user}, (err,usuario)=>{
 				if(err) {
 					res.status(500).send({error : 'algo ha ocurrido'});
 					return;

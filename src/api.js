@@ -10,5 +10,6 @@ export default {
     materias :{
         create : data => axios.post(`/api/crear-materia`,{data}).then(res => res.data).catch(err=> err.response.data),
         getMaterias : data => axios.post(`/api/materias`,{data}).then(res=>res.data).catch(err=> err.response.data),
+        getMateria : data => axios.post(`/api/getMateria`,{data}).then(res=>res.data).catch(err=> err.response.data),
     }
 };
