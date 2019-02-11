@@ -13,12 +13,10 @@ class Materia extends Component{
             user = localStorage.user
             this.setState({user});
             api.materias.getMateria({materiaName : this.props.match.params.id,user}).then(materia=>{
-                console.log(materia)
                 this.setState({materia});
             });
         }else{
             api.materias.getMateria({materiaName : this.props.match.params.id,user}).then(materia=>{
-                console.log(materia)
                 this.setState({materia});
             });
         }

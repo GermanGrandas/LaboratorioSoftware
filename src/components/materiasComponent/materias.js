@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import {Segment,Header,Grid, Icon} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
+
 import api from '../../api';
+import Materia from './materia';
+
 import './index.css';
 
 class Materias extends Component{
     state = {
         user : '',
+        renderAllMaterias : true,
         materias : []
     }
     async componentWillMount(){
@@ -43,8 +47,6 @@ class Materias extends Component{
         });
     }
     renderList = materias =>{
-        console.log(materias.length === 0);
-        
         if(materias.length === 0){
             return (
                 <div></div>
@@ -66,30 +68,37 @@ class Materias extends Component{
         }
         
     }
+    handle2 = ()=>{ this.setState({renderAllMaterias : !this.state.renderAllMaterias})}
     render(){
-        let {materias} = this.state;
+        let {materias,renderAllMaterias} = this.state;
         let {handle} = this.props;
         return(
             <Segment basic >
-                <Grid>
-                    <Grid.Row>
-                        <Grid.Column floated='left'>
-                            <Icon size='big' onClick={()=>{handle('back');}}
-                                link name='arrow alternate circle left outline'/>
-                        </Grid.Column>                        
-                    </Grid.Row>
-                    <Grid.Row textAlign='center'>
-                        <Grid.Column>
-                            <Header 
-                                as='h1'
-                                content='Materias'
-                            />
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row className="materias_container">
-                        {this.renderList(materias)}
-                    </Grid.Row>
-                </Grid>                
+                {
+                    renderAllMaterias ?
+                        <Grid>
+                            <Grid.Row>
+                                <Grid.Column floated='left'>
+                                    <Icon size='big' onClick={()=>{handle('back');}}
+                                        link name='arrow alternate circle left outline'/>
+                                </Grid.Column>                        
+                            </Grid.Row>
+                            <Grid.Row textAlign='center'>
+                                <Grid.Column>
+                                    <Header 
+                                        as='h1'
+                                        content='Materias'
+                                    />
+                                </Grid.Column>
+                            </Grid.Row>
+                            <Grid.Row className="materias_container">
+                                {this.renderList(materias)}
+                            </Grid.Row>
+                        </Grid>:
+                        <Materia handleChange={this.handle2}/>
+                }
+                    
+                                
             </Segment>
         )
     }
