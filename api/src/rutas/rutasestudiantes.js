@@ -12,6 +12,8 @@ api.post("/crear-estudiante", ControladorDeEstudiantes.crearEstudiante);
 
 api.post("/matricular-estudiante",ControladorDeEstudiantes.matricularestudiante);
 
+api.post("/desvincular-estudiante", ControladorDeEstudiantes.desvincularestudiante);
+
 //api.get("/estudiante",ControladorDeEstudiantes.getestudiante);
 
 //api.put("/actualizar-estudiantes/:id", ControladorDeEstudiantes.actualizarestudiante);

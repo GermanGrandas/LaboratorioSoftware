@@ -84,11 +84,11 @@ function crearEstudiante(req,res){
 	console.log(parametros);
 	Promise.all([
 			Estudiantes.findOne({documentoestudiante: parametros.documentoestudiante}),
-			Materias.findOne({codigodemateria:parametros.codigodemateria})
+			Materias.findOne({codigodemateria:parametros.codigomateria})
 		]).then(([r1,r2])=>{
 			if(r1){
 				if(r2){
-					res.status(500).send({mensaje:"materia no creada"})
+					res.status(500).send({mensaje:"materia y estudiante ya creados. Proceda a matricular al estudiante"})
 					return
 					}
 				}
@@ -111,6 +111,7 @@ function crearEstudiante(req,res){
 						estudiante.correo= parametros.correo;
 						//fotodelestudiante esto en standby
 						estudiante.materiapertenece = materiaencontrada._id;
+						estudiante.materiapertenece.nombremateria=materiaencontrada.nombredemateria;
 						estudiante.save((error,estudiantecreado)=>{
 							if(error){
 								res.status(500).send({mensaje:"error al crear estudiante"})
@@ -125,6 +126,51 @@ function crearEstudiante(req,res){
 			}
 			
 		});
+}
+
+
+function desvincularestudiante(req,res){
+	var	parametros= req.body;
+	console.log("hola");
+	Promise.all([
+			Estudiantes.findOne({documentoestudiante: parametros.documentoestudiante}),
+			Materias.findOne({codigodemateria:parametros.codigodemateria})
+		]).then(([r1,r2])=>{
+			if(r2){
+				if(r1){
+					if(r1.materiapertenece.indexOf(r2._id)>-1){
+						console.log(r1.materiapertenece.indexOf(r2._id));
+						r1.materiapertenece.splice(r1.materiapertenece.indexOf(r2._id),1);
+						Estudiantes.findByIdAndUpdate(r1._id,r1, (error, estudiantedesvinculado)=>{
+							if(error){
+								res.status(500).send({error: "hubo un error"})
+								return
+							}
+							else if(!estudiantedesvinculado){
+								res.status(404).send({mensaje:"no se ha podido matricular el estudiante"})
+							}
+							else{
+								res.status(200).send(estudiantedesvinculado)
+							}
+						})	
+						
+					}
+					else{
+						res.status(500).send({mensaje:"este estudiante no esta matriculado en esta materia"})
+						return;
+					}
+				}
+				else{
+					res.status(500).send({mensaje:"este estudiante no existe en la base de datos"})
+					return;
+				}
+			}
+			else{
+				res.status(500).send({mensaje:"este codigo de materia no existe"})
+				return;
+			}
+	})
+
 }	
 
 
@@ -226,6 +272,7 @@ function Eliminarestudiante (req,res){
 module.exports = {
 	controlestudiantes,
 	crearEstudiante,
-	matricularestudiante
+	matricularestudiante,
+	desvincularestudiante
 	
 }
