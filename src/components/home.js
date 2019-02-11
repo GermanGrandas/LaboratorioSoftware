@@ -29,7 +29,7 @@ class App extends Component{
                 Ingresa ya a DocentHelper y haz uso de todos los beneficios que tenemos para ofrecerte en la administración de tus materias.
                 <br /><br />
                 <ul>
-                    <li>Administra tus cursos más facilmente</li>
+                    <li>Administra tus cursos facilmente</li>
                     <li>Establece tu cronograma</li>
                     <li>Orgaiza el contenido de tus materias</li>
                     <li>Haz informes de grupos con facilidad</li>

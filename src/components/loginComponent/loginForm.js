@@ -117,7 +117,10 @@ class LoginForm extends Component {
 										ref="recaptcha"
 										sitekey={captchaProd}
 										onChange={this.onChangeCaptcha}
-										className="captcha"
+										style={{
+											display:'block',
+											zIndex:'1'
+										}}
 								/>
 								</Form.Field >
 								{

@@ -76,7 +76,7 @@ main {
     min-width: 20vw;
     max-width: 300em;
     max-height: 500em;
-    margin: auto;
+    margin: 1.2em auto 1.2em auto;
 }
 
 .signUp{

@@ -1,12 +1,33 @@
-header {
+.headerHome {
     display: block;
     width: 100vw;
     height: 20vh;
-    max-width: 500em;
+    max-width: 300em;
 }
 
-.bodyMaterias {
-    background-color: rgba(235, 235, 235, 0.5);
+.logoHome {
+    flex: 1;
+    width: 4vw;
+    height: 4vw;
+    max-width: 4em;
+    max-height: 4em;
+    min-width: 1.5em;
+    min-height: 1.5em;
+    margin: auto;
+    background-size: contain;
+}
+
+.headerContainer {
+    display: flex;
+    max-width: 40em;
+    margin: auto 0 auto auto;
+}
+
+h2 {
+    flex: 1;
+    margin: auto;
+    font-family: Courgette;
+    font-size: 2em;
 }
 
 .materias_container{
@@ -44,4 +65,9 @@ header {
     box-sizing: border-box;
     border-left: 1px solid #b9b9b9;
     padding: 0px 20px;
+}
+
+
+@media screen and (max-width: 30em) {
+    h2 { font-size: 1em; }
 }
