@@ -109,7 +109,7 @@ class SignForm extends Component {
 	};
 	validate = (data) => {
 		const errors = {};
-		let reg =/[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}/;
+		let reg =/^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]+(([',. -][a-zA-Z ñÑáéíóúÁÉÍÓÚüÜ])?[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]*)*$/;
 		if (!isEmail(data.email)) errors.email = 'Email invalido';
 		if (!data.documento) errors.documento = 'Debe ingresar el documento';
 		if (!data.nombre) errors.nombre = 'Debe ingresar un nombre';
@@ -160,21 +160,21 @@ class SignForm extends Component {
 		}
 		return (
 			<div className='login-form'>
-				<Grid textAlign='center' style={{ height: '100%',width : '90%'}} verticalAlign='middle'>
-					<Grid.Column style={{ maxWidth: 900 }}>
-						<Header as='h2' content='Registrarse' className="header"/>
-						<Form size='massive' error={Object.keys(errors).length !== 0 ? true : false} onSubmit={this.handleSubmit}>
+				<Grid>
+					<Grid.Column style={{ maxWidth:'300em'}}>
+						<Header as='h2' content='Registrarse'/>
+						<Form error={Object.keys(errors).length !== 0 ? true : false} onSubmit={this.handleSubmit}>
 							<Segment stacked>
-								<Form.Group widths='equal'>
+								<Form.Group style={{display:'block'}}>
 									<Form.Select
-											fluid
-											required
-											options={documentOp}
-											placeholder='Tipo De Documento'
-											error={errors.Tdocumento ? true : false}
-											value={data.Tdocumento}
-											onChange={this.handleSelectChange}
-										/>
+										fluid
+										required
+										options={documentOp}
+										placeholder='Tipo De Documento'
+										error={errors.Tdocumento ? true : false}
+										value={data.Tdocumento}
+										onChange={this.handleSelectChange}
+									/>
 									<Form.Input
 										fluid
 										required
@@ -202,7 +202,7 @@ class SignForm extends Component {
 									/>
 									
 								</Form.Group>
-								<Form.Group widths='equal'>
+								<Form.Group style={{display:'block'}}>
 									<Form.Input
 										fluid
 										required
@@ -228,7 +228,7 @@ class SignForm extends Component {
 										onChange={this.handleStringChange}
 									/>
 								</Form.Group>
-								<Form.Group widths='equal'>
+								<Form.Group style={{display:'block'}}>
 									<Form.Input
 										fluid
 										required
@@ -254,7 +254,7 @@ class SignForm extends Component {
 										onChange={this.handleStringChange}
 									/>
 								</Form.Group>
-								<Form.Group widths='equal'>
+								<Form.Group style={{display:'block'}}>
 									<Form.Field
 											fluid
 											required
@@ -267,7 +267,7 @@ class SignForm extends Component {
 											value={data.genero}
 											onChange={this.handleGeneroChange}
 									/>
-									<Form.Field width='5'>
+									<Form.Field>
 										<label id="font" htmlFor="fechaNacimiento">
 											Fecha Nacimiento
 										</label>
@@ -281,7 +281,7 @@ class SignForm extends Component {
 										/>
 									</Form.Field>
 								</Form.Group>
-								<Form.Group widths='equal'>
+								<Form.Group style={{display:'block'}}>
 									<Form.Select
 												fluid
 												required
@@ -291,7 +291,7 @@ class SignForm extends Component {
 												options={this.countryData.pais}
 												search
 												searchInput={{ id: 'form-select-control-cn' }}
-										/>
+									/>
 									<Form.Select
 											fluid
 											required
@@ -315,13 +315,11 @@ class SignForm extends Component {
 											
 									/>
 								</Form.Group>
-								<Form.Field error={errors.captcha ? true : false}
-									style={{margin : '5px'}}
-								>
+								<Form.Field error={errors.captcha ? true : false}>
 									<ReCAPTCHA
 										ref="recaptcha"
 										sitekey={captchaProd}
-										size='compact'
+										size='normal'
 										onChange={this.onChangeCaptcha}
 										className="captcha"
 									/>
@@ -335,7 +333,15 @@ class SignForm extends Component {
 									/> : <div></div>
 								}
 								
-								<Button size='large' type="submit" fluid color='google plus'>Registrarse</Button>
+								<Button 
+									type="submit" 
+									fluid 
+									style={{
+										width:'10em',
+										maxWidth:'30em',
+										backgroundColor:'rgba(190, 140, 93)'
+									}}
+								>Registrarse</Button>
 							</Segment>
 						</Form>
 					</Grid.Column>

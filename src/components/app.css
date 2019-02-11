@@ -1,3 +1,32 @@
+body {
+    background-color: rgba(235, 235, 235, 0.5);
+}
+
+
+main {
+    display: flex;
+    padding: 1.5em;
+}
+
+.descripcion {
+    flex: none;
+    width: 30%;
+    height: 30%;
+    max-width: 80em;
+    max-height: 50em;
+    margin-right: 4vw;
+    border: solid 0.01em;
+    border-radius: 5%;
+    box-shadow: 0.3em 0.3em rgba(88, 76, 54, 0.6);
+    padding: 0.5em 0 0.5em 1.5em;
+    margin-top: 5em;
+    font-size: 1.2rem;
+    word-wrap: break-word;
+    text-align: left;
+    vertical-align: middle;
+    background-color: #BE8C5D;
+    color: #F3E8CC;
+}
 
 .list{
     height: 100%;
@@ -5,43 +34,112 @@
 }
 
 .ui.list a{
-    padding: 30;
+    display: flex;
 }
 
-.login{
-    height : 600px
+
+.nav{
+    display: flex;
+    flex: 2;
+    width: 70vw;
+    max-width: 80vw;
+    max-height: 30vh;
 }
+
+.list-nav {
+    display: flex;
+    width: 100%;
+}
+
+.list-item {
+    flex: 1;
+    max-width: 12em;
+    border-radius: 10%;
+    margin: 0.5em;
+    font-size: 1.5em;
+    border: solid 0.01em rgba(88, 76, 54);
+    text-align: center;
+    background-color: rgba(243, 232, 204);
+}
+
+.list-item:hover {
+    background-color: rgba(240, 204, 5, 0.8);
+}
+
+.list-item:active {
+    background-color: rgba(240, 204, 5, 0.6)
+}
+
+.login-form{
+    display: flex;
+    width: 40vw;
+    min-width: 20vw;
+    max-width: 300em;
+    max-height: 500em;
+    margin: auto;
+}
+
 .signUp{
-    height : 900px  
-}
-.homeContainer > .login-form > .grid > .column{
-    top: 60%
+    display: flex;
+    flex: 1;
 }
 
-.login-form > .rec > .column{
-    top: 85%
+footer {
+    background-color: rgba(140, 79, 61);
 }
 
-  @media only screen and (min-width :500px ) and (max-width: 800px) {
-    .homeContainer > .login-form > .grid > .column{
-        top: 10vh
-       }
-    .login-form > .rec > .column{
-        top: 35%
-    }
-    .signUp{
-        height : 1100px  
-    }
-  }
 
-  @media only screen and (min-width :200px ) and (max-width: 500px) {
-    .homeContainer > .login-form > .grid > .column{
-        top: 10vh
+@media screen and (max-width:40em) {
+    .containerHeader { height: 30vh;  }
+
+    img { margin: 0.7em auto 0.7em auto;  }
+
+    main { display: block; }
+
+    .descripcion { 
+        display: block;
+        width: 100%;
+        margin-top: 4vh;
+        margin-bottom: 4vh;
     }
-    .login-form > .rec > .column{
-        top: 35%
+
+    .nav { display: flex; }
+
+    .login-form { 
+        display: block;
+        width: 70vw;
+        position: relative;
+        right: 1em;
+        margin: 2em;
     }
-    .signUp{
-        height : 1100px  
+}
+
+
+@media screen and (max-width:20em) {
+    .containerHeader { height: 25vh;  }
+
+    img {
+        width: 15vw;
+        height: 15vw; 
+        margin: 0.7em auto 1.5em auto;  
     }
-  }
+
+    main { display: block; }
+
+    .descripcion { 
+        display: block;
+        width: 100%;
+        margin-top: 4vh;
+        margin-bottom: 4vh;
+    }
+
+    .nav { display: flex; }
+
+    .login-form { 
+        display: block;
+        width: 70vw;
+        position: relative;
+        right: 1em;
+        margin: 2em;
+    }
+}

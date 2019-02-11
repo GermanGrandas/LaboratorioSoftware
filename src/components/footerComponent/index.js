@@ -3,15 +3,16 @@ import {Header,Segment, Container,Grid, GridColumn,Image} from 'semantic-ui-reac
 
 const Footer = ()=>(
 
-    <Segment inverted vertical style={{ padding: '5em 0em' }}>
-        <Container>
+    <footer>
+    <Segment vertical style={{ padding: '5em 0em' }}>
+        <Container >
         <Grid divided inverted stackable>
           <GridColumn width={7}>
                 <Header
                     as='h4'
                     content='Made by a group of noobs'
                     inverted
-                    style={{fontFamily: 'Pacifico',fontSize: '1.5em'}}
+                    style={{fontFamily: 'Courgette',fontSize: '1.5em'}}
                 />
           </GridColumn>
           <Grid.Row>
@@ -40,6 +41,7 @@ const Footer = ()=>(
         </Grid>
         </Container>
     </Segment>
+    </footer>
 )
 
 export default Footer;

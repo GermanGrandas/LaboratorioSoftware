@@ -11,7 +11,7 @@
 
 # production
 /build
-/development
+
 # misc
 .DS_Store
 .env.local
@@ -28,4 +28,10 @@ yarn.lock
 *.svg
 *.ttf
 
-src
+*.chunk.js
+*.chunk.js.map
+
+*.chunk.*
+*.chunk.*
+config.md
+package-lock.json

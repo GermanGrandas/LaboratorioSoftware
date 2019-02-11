@@ -21,6 +21,7 @@ var usuarioschema = Schema({
 	pNacimiento : String,
 	dNacimiento : String,
 	cNacimiento : String,
+	username: String,
 	resetPasswordToken: String,
   resetPasswordExpires: Date
 })

@@ -6,8 +6,9 @@ import HomeComponent from './home';
 import RecuperarPage from './recuperarComponent';
 import AdminRoute from './adminroute';
 import Materias from './materiasComponent';
+import Materia from './materiasComponent/materia';
 import ChangePassword from './resetComponent';
-
+import SpecialRoute from './specialRoute';
 
 
 
@@ -38,7 +39,7 @@ class Main extends Component {
         localStorage.removeItem('testToken');
         localStorage.removeItem('user');
     }
-    componentWillMount(){
+    async componentWillMount(){
         if(localStorage.testToken){
             this.setState({user : {token: localStorage.testToken,userC : localStorage.user}});
             setAuthorizationHeader(localStorage.testToken);
@@ -47,18 +48,24 @@ class Main extends Component {
         }
     }
 	render(){
+        let {user} = this.state;
 		return (
 			<div>
-                <Route path='/' exact 
+                <SpecialRoute path='/' exact
+                    user={this.state.user}
                     render={props => (<HomeComponent {...props} login={this.login}/>)}/>
+                
                 <Route path='/reset/:token'  
                     render={props => (<ChangePassword {...props}/>)}/>
                 <Route path='/recuperar' exact 
                     render={props => (<RecuperarPage {...props} saveToken={this.login}/>)}/>
-                
-                <AdminRoute path='/home' exact
+                    
+                <AdminRoute
                     user={this.state.user}
-                    render={props => (<Materias {...props} user={this.state.user.userC} logout={this.logout}/>)}/>
+                    path='/materia/:id' render={props => <Materia {...props} user={user.userC} logout={this.logout}/>}/>
+                <AdminRoute path='/home' exact
+                    user={user}
+                    render={props => (<Materias {...props} user={user.userC} logout={this.logout}/>)}/>
                
 			</div>
 		);
@@ -67,24 +74,8 @@ class Main extends Component {
 
 export default Main;
 
-/*  
- <AdminRoute path='/home' exact
-                    user={this.state.user}
-                    render={props => (<Materias {...props} user={this.state.user.userC} logout={this.logout}/>)}/>
-<Route path='/home' exact 
-                    render={props => (<Materias {...props} user={this.state.user.userC} logout={this.logout}/>)}/>
-    
-    <Route path='/recuperar' exact 
-                    render={props => (<RecuperarPage {...props} saveToken={this.login}/>)}/>
-                <Route path='/changePassword' exact 
-                    render={props => (<ChangePassword {...props}/>)}/>
-                    
-                
+/*
+    <Route path='/' exact 
+                    render={props => (<HomeComponent {...props} login={this.login}/>)}/>
 
-                <AdminRoute path='/crearMateria' exact
-                    user={this.state.user}
-                    render={props => (<CrearMateria {...props} user={this.state.user.userC} logout={this.logout}/>)}/>
-
-
-                    */
-                   
+*/

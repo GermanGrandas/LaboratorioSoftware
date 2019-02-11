@@ -6,32 +6,43 @@ import TopComp from './TopComponent';
 import FooterComp from './footerComponent';
 import Login from './loginComponent';
 import Sign from './signComponent';
+import './reset.css'
 import './app.css';
 
 
 class App extends Component{
     state = {
-		e : "login"
-	}
-	update = (e)=>{        
+        e : "login"
+    }
+    update = (e)=>{        
         this.setState({e : e.target.name});
     }
     updateS = (e)=>{        
         this.setState({e});
-	}
+    }
     render(){
         return(
             <Segment vertical>
                 <TopComp/>
-                <Segment vertical 
-                    className ={this.state.e ==='login' ? 'login' : 'signUp'}
-                >   
+                <main>
+                <div class='descripcion'>
+                Ingresa ya a DocentHelper y haz uso de todos los beneficios que tenemos para ofrecerte en la administración de tus materias.
+                <br /><br />
+                <ul>
+                    <li>Administra tus cursos más facilmente</li>
+                    <li>Establece tu cronograma</li>
+                    <li>Orgaiza el contenido de tus materias</li>
+                    <li>Haz informes de grupos con facilidad</li>
+                    <li>Lleva un orden de asistencia</li>
+                </ul>
+                </div>
+                <Segment vertical>   
                     <Grid stackable columns={2}>
                         <Grid.Row >
-                            <Grid.Column floated='right' style={{padding:20}}>
-                                <List link  horizontal size='massive'>
-                                    <List.Item as={Link} name='login' to='#' onClick={this.update}>Ingresar</List.Item>
-                                    <List.Item as={Link} name='sign' to='#' onClick={this.update}>Registrarse</List.Item>
+                            <Grid.Column className='nav'>
+                                <List className='list-nav'>
+                                    <List.Item as={Link} name='login' to='#' onClick={this.update} style={{color:'rgba(88, 76, 54)'}} className='list-item'>Ingresar</List.Item>
+                                    <List.Item as={Link} name='sign' to='#' onClick={this.update} style={{color:'rgba(88, 76, 54)'}} className='list-item'>Registrarse</List.Item>
                                 </List>
                             </Grid.Column>
                         </Grid.Row>
@@ -46,6 +57,7 @@ class App extends Component{
                     </Grid>
                     
                 </Segment>
+                </main>
                 <FooterComp/>
             </Segment>
         )

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Button,Modal,Form, Message,Segment} from 'semantic-ui-react';
+import {Button,Form, Message,Segment} from 'semantic-ui-react';
 import {DatesRangeInput,TimeInput} from 'semantic-ui-calendar-react';
 
 import api from '../../api';
@@ -19,7 +19,6 @@ class NuevaMateria extends Component{
             creditos : '',
             teoPrac: ''
 		},
-		modalOpen: false,
 		errors: {}
     };
     componentDidUpdate(prevProps){
@@ -33,10 +32,24 @@ class NuevaMateria extends Component{
 		});
     };
     submit = data =>{
-        api.materias.create(data).then(data=> {            
+        api.materias.create(data).then(data=> {
+            console.log(data);
             if(!data.error){
-                this.props.update();
-                this.setState({modalOpen : false});
+                this.props.closeModal();
+                this.setState({data: {
+                    codigo: '',
+                    nombre: '',
+                    tipoM: '',
+                    grado: '',
+                    year: '',
+                    datesRange : '',
+                    institucion : '',
+                    hInicio : '',
+                    hFin:'',
+                    dias : '',
+                    creditos : '',
+                    teoPrac: ''
+                }})
             }else{
                 this.setState({errors : {input : data.error}});
             }
@@ -95,9 +108,9 @@ class NuevaMateria extends Component{
         }
 		return errors;
 	};
-    handleModal = () => this.setState({ modalOpen: !this.state.modalOpen })
     render(){
         const { data, errors} = this.state;
+        const {closeModal} = this.props;
         let errorsList = [];
         const today = new Date(Date.now());
         const Mopt = [{key:'s',value:'secundaria',text:'Secundaria'},{key: 'u',value:'universidad',text:'Universidad'}]
@@ -108,13 +121,10 @@ class NuevaMateria extends Component{
 				key=> errorsList.push(errors[key]));
 		}
         return(
-            <Modal trigger={<Button onClick={this.handleModal} circular icon='add'/>} size='large' open={this.state.modalOpen} onClose={this.handleClose}>
-                <Modal.Header>Crear una Materia</Modal.Header>
-                <Modal.Content>
-					<Form size='big' error={Object.keys(errors).length !== 0 ? true : false} onSubmit={this.handleSubmit}>
-						<Segment stacked>
-                            <Form.Group widths='equal'>
-                                <Form.Input
+				<Form size='big' error={Object.keys(errors).length !== 0 ? true : false} onSubmit={this.handleSubmit}>
+					<Segment stacked>
+                        <Form.Group widths='equal'>
+                            <Form.Input
                                     fluid
                                     icon='id badge outline'
                                     iconPosition='left'
@@ -212,7 +222,7 @@ class NuevaMateria extends Component{
                                         id="creditos"
                                         type="number"
                                         min = '1'
-                                        max='6'
+                                        max='16'
                                         placeholder='Créditos'
                                         error={errors.creditos ? true : false}
                                         name="creditos"
@@ -274,15 +284,13 @@ class NuevaMateria extends Component{
                                 <Button.Or text='o'/>
                                 <Button
                                     color='red'
-                                    onClick={this.handleModal}
+                                    onClick={()=>closeModal()}
                                 >Cancelar</Button>
 
                                 </Button.Group>
                                 	
-							</Segment>
-						</Form>
-                </Modal.Content>
-            </Modal>
+						</Segment>
+					</Form>
         )
     }
 }

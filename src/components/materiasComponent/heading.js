@@ -3,11 +3,23 @@ import React from 'react';
 import {Segment,Header,Menu,Icon, Dropdown} from 'semantic-ui-react';
 
 const Heading = ({changeClick,logout})=>(
-    <Segment style={{ height: 100}}  inverted vertical>
+    <header>
+    <Segment style={{ position:'fixed', zIndex:'10', width:'100vw'}}  inverted vertical>
         <Menu secondary inverted attached="top">
             <Menu.Item onClick={changeClick}>
             <Icon name="sidebar" size='big'/>
             </Menu.Item>
+            <Header
+                as='h1'
+                content='DocentHelper'
+                textAlign ='center'
+                inverted
+                style={{
+                    
+                    fontFamily: "Courgette,Pacifico",
+                    marginBottom: 0,
+                }}
+            />
             <Menu.Menu position='right'>           
                 <Dropdown item icon='user' size='big' simple>
                     <Dropdown.Menu>
@@ -21,20 +33,8 @@ const Heading = ({changeClick,logout})=>(
                 </Dropdown>
             </Menu.Menu>         
         </Menu>
-        <Header
-            as='h1'
-            content='Docent Helper'
-            textAlign ='center'
-            inverted
-            style={{
-                position: 'absolute',
-                top: '40%',
-                left: '50%',
-                transform: 'translate(-50%, -80%)',
-                fontFamily: "Courgette,Pacifico",
-                marginBottom: 0,
-            }}
-        />
+        
     </Segment>
+    </header>
   )
 export default Heading;

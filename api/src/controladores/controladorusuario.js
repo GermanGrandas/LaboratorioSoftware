@@ -54,7 +54,8 @@ function crearUsuario(req,res,next){
 			usuario.dNacimiento = user.regionNacimiento;
 			usuario.cNacimiento = user.ciudadNacimiento;
 			usuario.email = user.email;
-			
+			usuario.username= usuario.nombre+"."+usuario.apellido;
+
 			if(!user.password){
 				res.status(500).json({error :'No se encontró una contraseña'});
 		  	return;
@@ -64,14 +65,25 @@ function crearUsuario(req,res,next){
 			}
 			Promise.all([
 				Usuario.findOne({email:usuario.email}),
-				Usuario.findOne({documento : usuario.documento})
-			]).then(([r1,r2])=>{
+				Usuario.findOne({documento : usuario.documento}),
+				Usuario.findOne({username : usuario.username})
+			]).then(([r1,r2,r3])=>{
 				if(r1) {
 					res.status(500).send({error: "El email ingresado ya se encuentra registrado"});
 					return
 				}else if(r2){
 					res.status(500).send({error: "El Documento ingresado ya se encuentra registrado"});
 					return
+				}else if(r3){
+					usuario.username = usuario.username+String(Math.floor(Math.random()*999) + 100);
+					usuario.save((err, usuarioguardado)=>{
+						if (err){
+							res.status(500).send({mensaje: "hubo un error en el guardado de usuario"})
+							return
+						}
+						else{
+							res.status(200).send({usuarioguardado});
+					}});
 				}
 				else{
 					usuario.save((err, usuarioguardado)=>{
@@ -97,7 +109,7 @@ function loginUsuario(req,res,next){
 		}
 		req.logIn(user, function(err) {
 		  if (err) return next(err);
-			res.status(200).json({token: token.crearToken(user),user : user.email});
+			res.status(200).json({token: token.crearToken(user),user : user.username});
 			return;
 		});
 	  })(req, res, next);
