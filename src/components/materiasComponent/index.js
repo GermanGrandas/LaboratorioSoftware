@@ -5,6 +5,7 @@ import {Segment,Menu,Header,Sidebar, Card, Grid,Icon, List, Modal} from 'semanti
 import TopHeader from './heading';
 import MainMaterias from  './materias';
 import NewMat from './nuevaMateria';
+import Student from '../studentsComponent';
 
 const ListItem = ({update})=>(
     <List.Item name='crear' onClick={()=>{
@@ -16,6 +17,7 @@ const ListItem = ({update})=>(
         </List.Content>
     </List.Item>
 );
+
 
 class Materias extends Component{
     state = { menuVisible: false , activeItem : 'home',modalOpen: false,user :null}
@@ -120,6 +122,8 @@ class Materias extends Component{
                                                 <Icon name='group' circular size='tiny'/>
                                                 <Header.Content>Estudiantes</Header.Content>
                                             </Header>
+                                            <Student modalOpen={modalOpen} handleItemClick={this.handleItemClick} handleModal={this.handleModal} close={this.close} user={user}/>
+                                            
                                         </Card>
                                     </Card.Group>
                                 </Grid.Row>

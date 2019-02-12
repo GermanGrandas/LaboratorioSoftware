@@ -25,7 +25,7 @@ class App extends Component{
             <Segment vertical>
                 <TopComp/>
                 <main>
-                <div class='descripcion'>
+                <div className='descripcion'>
                 Ingresa ya a DocentHelper
                 </div>
                 <Segment vertical>   
