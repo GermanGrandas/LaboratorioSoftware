@@ -3,10 +3,11 @@ import React from 'react';
 import {Segment,Menu,Icon, Dropdown} from 'semantic-ui-react';
 
 const Heading = ({changeClick,logout})=>(
-    <div class='headerHome'>
+    <div className='headerHome'>
     <Segment style={{
             display:'block',
             width:'100vw',
+            maxWidth:'150em',
             padding:'1em',
             position:'fixed',
             zIndex:'1',
@@ -16,7 +17,7 @@ const Heading = ({changeClick,logout})=>(
             <Menu.Item onClick={changeClick} style={{flex:'none'}}>
             <Icon name="sidebar" size='normal'/>
             </Menu.Item>
-            <div class='headerContainer'>
+            <div className='headerContainer'>
             <img class='logoHome' src={require('../images/logo_docent.png')} alt='Logo DocentHelper' />
             <h2>DocentHelper</h2>
             </div>

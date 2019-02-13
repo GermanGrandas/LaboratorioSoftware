@@ -10,7 +10,7 @@ const ListItem = ({update})=>(
     <List.Item name='crear' onClick={()=>{
         update();
     }}>
-        <Icon name='pencil alternate' size='large'/>
+        <Icon name='pencil alternate' size='normal'/>
         <List.Content verticalAlign='middle'>
             <List.Header>Crear una Nueva Materia</List.Header>
         </List.Content>
@@ -46,7 +46,7 @@ class Materias extends Component{
     const { logout} = this.props;
     let {user } = localStorage;
     return (
-        <div class='bodyMaterias'>
+        <div className='bodyMaterias'>
         <TopHeader changeClick={this.handleClick} logout={logout}/>
         <Sidebar.Pushable as={Segment} style={{backgroundColor:'rgba(235, 235, 235, 0.5)'}}>
           <Sidebar
@@ -80,20 +80,20 @@ class Materias extends Component{
           </Sidebar>
 
           <Sidebar.Pusher dimmed={menuVisible} onClick={this.handleClick2}>
-            <Segment basic style={{backgroundColor:'rgba(235, 235, 235, 0.5)'}}>
+            <Segment basic style={{backgroundColor:'rgba(233, 233, 233)'}}>
                 {
                     activeItem === 'home' ?
-                        <Segment style={{backgroundColor:'rgba(235, 235, 235, 0.5)'}}>
+                        <Segment style={{backgroundColor:'rgba(233, 233, 233)'}}>
                             <Grid centered>
                                 <Grid.Row verticalAlign='middle'>
                                     <Header 
-                                        as='h1'
+                                        as='h2'
                                         content={`Bienvenido ${user}`}
                                     />
                                 </Grid.Row>
                                 <Grid.Row>
                                     <Card.Group centered>
-                                        <Card  color='red' style={{height : 400, width : 500}}>
+                                        <Card style={{height : 400, width : 500}}>
                                             <Header as='h3' icon style={{margin : '10 0',padding: 30}}>
                                                 <Icon name='book' circular size='tiny'/>
                                                 <Header.Content>Materias</Header.Content>
@@ -115,7 +115,7 @@ class Materias extends Component{
                                                 </List>
                                             </Card.Content>
                                         </Card>
-                                        <Card color='orange' style={{height : 400, width : 500}}>
+                                        <Card style={{height : 400, width : 500}}>
                                             <Header as='h3' icon style={{margin : '10 0', padding: 30,}}>
                                                 <Icon name='group' circular size='tiny'/>
                                                 <Header.Content>Estudiantes</Header.Content>
