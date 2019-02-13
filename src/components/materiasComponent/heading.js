@@ -9,8 +9,6 @@ const Heading = ({changeClick,logout})=>(
             width:'100vw',
             maxWidth:'150em',
             padding:'1em',
-            position:'fixed',
-            zIndex:'1',
             backgroundColor:'rgba(140, 79, 61)'
         }} inverted vertical>
         <Menu secondary inverted attached="top" style={{display:'flex'}}>

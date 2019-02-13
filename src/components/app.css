@@ -99,9 +99,11 @@ footer {
 @media screen and (max-width: 64em) {
     .containerHeader { height: 42vh; }
 
-    header { font-size: 2.7em; }
+    header { 
+        font-size: 2.7em; 
+    }
 
-    img { margin: 1.8em auto 1.8em auto; }
+    img { margin: auto; }
 
     main { display: block; }
 

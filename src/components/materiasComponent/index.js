@@ -48,10 +48,9 @@ class Materias extends Component{
     return (
         <div className='bodyMaterias'>
         <TopHeader changeClick={this.handleClick} logout={logout}/>
-        <Sidebar.Pushable as={Segment} style={{backgroundColor:'rgba(235, 235, 235, 0.5)'}}>
+        <Sidebar.Pushable as={Segment} style={{display:'block', backgroundColor:'rgba(235, 235, 235, 0.5)'}}>
           <Sidebar
             as={Menu}
-            animation='overlay'
             icon='labeled'
             inverted
             vertical
