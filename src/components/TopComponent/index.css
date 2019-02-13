@@ -1,25 +1,27 @@
 .containerHeader {
 	display: block;
-	height: 50vh;
 	width: 100vw;
+	height: 50vh;
+	max-width: 150em;
 	max-height: 50em;
-	max-width: 300em;
-	padding: 1px;
-	background-color: rgba(140, 79, 61, 0.97);
+	padding: 0.1em;
+	background-color: rgba(140, 79, 61);
 }
 
 img {
 	display: block;
-	width: 10vw;
-	height: 10vw;
+	max-width: 10vw;
+	max-height: 10vw;
+	min-width: 5vw;
+	min-height: 5vw;
 	margin: 2em auto 2em auto;
-	border-radius: 50%;
 	background-size: contain;
 }
 
 header {
 	display: block;
-	margin: auto;
+	font-family: Courgette, Pacifico;
+	font-size: 3em;
 	color: #FFFFFF;
 }
 

@@ -17,7 +17,7 @@ const Heading = ({changeClick,logout})=>(
             <Icon name="sidebar" size='normal'/>
             </Menu.Item>
             <div class='headerContainer'>
-            <img class='logoHome'src={require('../images/logo_docent.png')} alt='Logo DocentHelper' />
+            <img class='logoHome' src={require('../images/logo_docent.png')} alt='Logo DocentHelper' />
             <h2>DocentHelper</h2>
             </div>
             <Menu.Menu position='right' style={{flex:'none'}}>           
