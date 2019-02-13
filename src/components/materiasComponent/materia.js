@@ -22,7 +22,7 @@ class Materia extends Component{
         }
     }
     handle =()=>{
-        this.props.history.push('/home');
+        this.props.history.push('/materias');
     }
     render(){
         let {logout} = this.props;

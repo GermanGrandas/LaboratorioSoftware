@@ -5,12 +5,12 @@ import axios from 'axios';
 import HomeComponent from './home';
 import RecuperarPage from './recuperarComponent';
 import AdminRoute from './adminroute';
-import Materias from './materiasComponent';
+import IndexMaterias from './materiasComponent';
 import Materia from './materiasComponent/materia';
 import ChangePassword from './resetComponent';
 import SpecialRoute from './specialRoute';
-
-
+import Estudiantes from './studentsComponent/estudiantes';
+import Materias from './materiasComponent/materias';
 
 const setAuthorizationHeader = (token = null) =>{
     if(token){
@@ -61,12 +61,19 @@ class Main extends Component {
                     render={props => (<RecuperarPage {...props} saveToken={this.login}/>)}/>
                     
                 <AdminRoute
-                    user={this.state.user}
-                    path='/materia/:id' render={props => <Materia {...props} user={user.userC} logout={this.logout}/>}/>
+                    user={this.state.user} exact
+                    path='/materias/:id' render={props => <Materia {...props} user={user.userC} logout={this.logout}/>}/>
                 <AdminRoute path='/home' exact
                     user={user}
-                    render={props => (<Materias {...props} user={user.userC} logout={this.logout}/>)}/>
-               
+                    render={props => (<IndexMaterias {...props} user={user.userC} logout={this.logout}/>)}/>
+                <AdminRoute 
+                    user={user} path='/estudiantes' exact
+                    render={props =>(<Estudiantes {...props} user={user.userC} logout={this.logout}/>)}
+                />
+                <AdminRoute 
+                    user={user} path='/materias' exact
+                    render={props =>(<Materias {...props} user={user.userC} logout={this.logout}/>)}
+                />
 			</div>
 		);
 	}
