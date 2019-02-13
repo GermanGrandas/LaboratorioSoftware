@@ -6,6 +6,7 @@ import TopHeader from './heading';
 import MainMaterias from  './materias';
 import NewMat from './nuevaMateria';
 import Student from '../studentsComponent';
+import Estudiantes from '../studentsComponent/estudiantes';
 
 const ListItem = ({update})=>(
     <List.Item name='crear' onClick={()=>{
@@ -20,7 +21,7 @@ const ListItem = ({update})=>(
 
 
 class Materias extends Component{
-    state = { menuVisible: false , activeItem : 'home',modalOpen: false,user :null}
+    state = { menuVisible: false , activeItem : 'home',modalOpenM: false,modalOpenE: false,user :null}
 
     async componentDidMount(){
         let {user} = localStorage;
@@ -33,6 +34,8 @@ class Materias extends Component{
         this.setState({ menuVisible: false })
     }
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+  handleEstudiantesClick = ()=>{this.props.history.push(`/estudiantes`);}
   handleItem = name =>{
       let {activeItem} = this.state
       if(name === 'back'){
@@ -41,10 +44,11 @@ class Materias extends Component{
         this.setState({ activeItem})
       }
   }
-  handleModal = () => this.setState({ modalOpen: true })
-  close = ()=> this.setState({modalOpen : false})
+  handleModalM = () => this.setState({ modalOpenM: true })
+  handleModalE = () => this.setState({ modalOpenE: true })
+  close = ()=> this.setState({modalOpenM : false,modalOpenE : false})
   render() {
-    const { menuVisible,activeItem,modalOpen } = this.state
+    const { menuVisible,activeItem,modalOpenM, modalOpenE } = this.state
     const { logout} = this.props;
     let {user } = localStorage;
     return (
@@ -81,7 +85,7 @@ class Materias extends Component{
             />
           </Sidebar>
 
-          <Sidebar.Pusher dimmed={menuVisible} onClick={this.handleClick2}>
+          <Sidebar.Pusher dimmed={menuVisible} onClick={this.handleClick2} style={{height : '80vh'}}>
             <Segment basic style={{margin : '0 0'}}>
                 {
                     activeItem === 'home' ?
@@ -102,7 +106,7 @@ class Materias extends Component{
                                             </Header>
                                             <Card.Content>
                                                 <List size='large' animated selection relaxed divided>
-                                                    <Modal trigger={<ListItem update={this.handleModal}/>} open={modalOpen} onClose={this.close}>
+                                                    <Modal trigger={<ListItem update={this.handleModalM}/>} open={modalOpenM} onClose={this.close}>
                                                     <Modal.Header>Crear una Nueva Materia</Modal.Header>
                                                     <Modal.Content>
                                                         <NewMat user={user} closeModal={this.close}/>
@@ -122,7 +126,7 @@ class Materias extends Component{
                                                 <Icon name='group' size='big'/>
                                                 <Header.Content>Estudiantes</Header.Content>
                                             </Header>
-                                            <Student modalOpen={modalOpen} handleItemClick={this.handleItemClick} handleModal={this.handleModal} close={this.close} user={user}/>
+                                            <Student modalOpen={modalOpenE} handleItemClick={this.handleEstudiantesClick} handleModal={this.handleModalE} close={this.close} user={user}/>
                                             
                                         </Card>
                                     </Card.Group>
@@ -131,21 +135,12 @@ class Materias extends Component{
                         </Segment>
                         
                          : activeItem === 'materias' ?
-                            <Segment vertical style={{height : 500}} >
-                                <MainMaterias user={user} handle={this.handleItem}/>
+                            <Segment vertical>
+                                <MainMaterias user={user} item={activeItem} handle={this.handleItem}/>
                             </Segment >    : 
                         activeItem === 'estudiantes' ?
-                            <Segment vertical style={{height : 500}}>
-                                <Grid>
-                                    <Grid.Row>
-                                    <Grid.Column textAlign='center'>
-                                        <Header 
-                                            as='h1'
-                                            content='Estudiantes'
-                                        />
-                                    </Grid.Column>
-                                    </Grid.Row>
-                                </Grid>
+                            <Segment vertical>
+                                <Estudiantes user={user} item={activeItem} handle={this.handleItem}/>
                             </Segment>
                          : <div></div>
 

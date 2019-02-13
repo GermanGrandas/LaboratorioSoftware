@@ -23,9 +23,9 @@ class NuevoEstudiante extends Component{
         }
         api.materias.getMaterias(user).then(materiasR=>{
             let {materias} = this.state;
-            let x = materiasR.map( (x,i) =>{
+            let x = materiasR.map( (x) =>{
                 let materiasDict = {}
-                materiasDict['key'] = i+1;
+                materiasDict['key'] = x['nombre'];
                 materiasDict['text'] = x['nombre']
                 materiasDict['value'] = x['nombre']
                 return materiasDict
@@ -56,7 +56,7 @@ class NuevoEstudiante extends Component{
                     telefono: '',
                     direccion: '',
                     correo : '',
-                    materiapertenece : ''
+                    materiapertenece : []
                 }})
             }else{
                 this.setState({errors : {input : data.error}});
@@ -76,6 +76,8 @@ class NuevoEstudiante extends Component{
 		}
     };
     handleSelectChange = (e,{value}) =>{
+        console.log(value);
+        
 		this.setState({ data: { ...this.state.data, materiapertenece: value } });
 	}
     handleChange = (event, {name, value}) => {
@@ -176,6 +178,7 @@ class NuevoEstudiante extends Component{
                                     materias === undefined ? 
                                     <div></div>: 
                                     <Form.Select fluid options={materias[0]} placeholder='Materia a la que pertenece'
+                                        multiple clearable
                                         error={errors.materiapertenece ? true : false}
                                         value={data.materiapertenece}
                                         onChange={this.handleSelectChange}
