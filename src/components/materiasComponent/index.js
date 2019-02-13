@@ -97,7 +97,7 @@ class Materias extends Component{
                                     <Card.Group centered>
                                         <Card  color='red' style={{height : 400, width : 500}}>
                                             <Header as='h3' icon style={{margin : '10 0',padding: 30}}>
-                                                <Icon name='book' circular size='tiny'/>
+                                                <Icon name='book' size='big'/>
                                                 <Header.Content>Materias</Header.Content>
                                             </Header>
                                             <Card.Content>
@@ -119,7 +119,7 @@ class Materias extends Component{
                                         </Card>
                                         <Card color='orange' style={{height : 400, width : 500}}>
                                             <Header as='h3' icon style={{margin : '10 0', padding: 30,}}>
-                                                <Icon name='group' circular size='tiny'/>
+                                                <Icon name='group' size='big'/>
                                                 <Header.Content>Estudiantes</Header.Content>
                                             </Header>
                                             <Student modalOpen={modalOpen} handleItemClick={this.handleItemClick} handleModal={this.handleModal} close={this.close} user={user}/>

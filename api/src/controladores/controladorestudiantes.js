@@ -80,51 +80,41 @@ function matricularestudiante(req,res){
 
 
 function crearEstudiante(req,res){
-	var parametros = req.body;
-	console.log(parametros);
+	var parametros = req.body.data;
 	Promise.all([
-			Estudiantes.findOne({documentoestudiante: parametros.documentoestudiante}),
-			Materias.findOne({codigodemateria:parametros.codigomateria})
-		]).then(([r1,r2])=>{
+			Estudiantes.findOne({documentoestudiante: parametros.codigo}),
+			Materias.findOne({nombre:parametros.materiapertenece})
+		]).then( ([r1,r2])=>{
 			if(r1){
-				if(r2){
-					res.status(500).send({mensaje:"materia y estudiante ya creados. Proceda a matricular al estudiante"})
-					return
-					}
-				}
+				res.status(500).send({error:"El estudiante ya fue creado."})
+				return
+			}else if(!r2){
+				res.status(500).send({error:"La materia no existe"})
+				return
+			}
 			else{
-				Materias.findOne({codigodemateria: parametros.codigomateria}, function(err, materiaencontrada){
-					if(err){
-						res.status(500).send({error:"ha habido un error"})
-					}
-					else if(!materiaencontrada){
-						res.status(500).send({mensaje: "no se ha encontrado una materia con ese código"})
+				var estudiante = new Estudiantes();
+				estudiante.documentoestudiante = parametros.codigo;
+				console.log(parametros);
+				estudiante.nombre=parametros.nombre;
+				estudiante.apellido= parametros.apellido;
+				estudiante.telefono=parametros.telefono;
+				estudiante.direccion=parametros.direccion;
+				estudiante.correo= parametros.correo;
+				//fotodelestudiante esto en standby
+				estudiante.materiapertenece = r2._id;
+				estudiante.save((error,estudiantecreado)=>{
+					if(error){
+						res.status(500).send({mensaje:"error al crear estudiante"})
+						return;
 					}
 					else{
-						var estudiante = new Estudiantes();
-						estudiante.documentoestudiante = parametros.documentoestudiante;
-						console.log(parametros);
-						estudiante.nombre=parametros.nombre;
-						estudiante.apellido= parametros.apellido;
-						estudiante.telefono=parametros.telefono;
-						estudiante.direccion=parametros.direccion;
-						estudiante.correo= parametros.correo;
-						//fotodelestudiante esto en standby
-						estudiante.materiapertenece = materiaencontrada._id;
-						estudiante.materiapertenece.nombremateria=materiaencontrada.nombredemateria;
-						estudiante.save((error,estudiantecreado)=>{
-							if(error){
-								res.status(500).send({mensaje:"error al crear estudiante"})
-								return;
-							}
-							else{
-								res.status(200).send({estudiantecreado})
-								return;
-							}
-					});
-				}});
+						res.status(200).send({estudiantecreado})
+						return;
+					}
+		
+				});
 			}
-			
 		});
 }
 

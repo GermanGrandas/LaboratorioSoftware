@@ -136,7 +136,6 @@ class SignForm extends Component {
 		}
 		if(data.password.length < 8) errors.password = 'La contraseña debe ser mínimo de 8 Caracteres';
 		if (data.passwordValidation !== data.password) {
-			errors.passwordValidation = 'Las contraseñas no coínciden';
 			errors.password = 'Las contraseñas no coínciden';
 		}
 		return errors;

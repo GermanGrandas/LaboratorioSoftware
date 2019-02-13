@@ -9,7 +9,7 @@ const ListItem = ({update})=>(
     }}>
         <Icon name='pencil alternate' size='large'/>
         <List.Content verticalAlign='middle'>
-            <List.Header>Crear una Nueva Materia</List.Header>
+            <List.Header>Crear un Nuevo Estudiante</List.Header>
         </List.Content>
     </List.Item>
 );
