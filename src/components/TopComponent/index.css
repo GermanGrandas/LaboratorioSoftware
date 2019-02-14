@@ -1,30 +1,31 @@
 .containerHeader {
-	display: block;
+	display: flex;
+	flex-flow: column wrap;
+	align-items: center;
+	justify-content: space-evenly;
 	width: 100vw;
 	height: 50vh;
 	max-width: 150em;
 	max-height: 15em;
 	padding: 0.1em;
-	text-align: center;
-	--webkit--text-align: center;
 	background-color: rgba(140, 79, 61);
 }
 
 img {
-	display: block;
+	flex: 1;
+	width: 10vw;
+	height: 10vw;
 	max-width: 6em;
-	max-height: 10vw;
-	min-width: 5vw;
-	min-height: 5vw;
-	margin: 2em auto 2em auto;
+	max-height: 6em;
+	min-width: 3em;
+	min-height: 3em;
 	background-size: contain;
 }
 
 header {
-	display: block;
+	flex: 1;
 	font-family: Courgette, Pacifico;
 	font-size: 3em;
-	text-align: center;
 	color: #FFFFFF;
 }
 
