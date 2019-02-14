@@ -139,7 +139,7 @@ class ChangePassword extends Component{
 						</Message>
 					</Grid.Column>
 				</Grid>
-			</div>
+				</div>
             <Footer />
             </div>
         );

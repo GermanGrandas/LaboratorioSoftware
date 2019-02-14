@@ -1,4 +1,3 @@
-
 var Usuario= require("../modelos/modelousuarios.js");
 var crypto = require('crypto');
 var token = require('../token/token');

@@ -1,31 +1,30 @@
 body {
-    background-color: rgba(235, 235, 235, 0.5);
+    max-width: 150em;
+    background-color: rgba(233, 233, 233);
 }
 
 
 main {
     display: flex;
-    padding: 1.5em;
+    padding: 1em;
 }
 
 .descripcion {
     flex: none;
-    width: 30%;
-    height: 30%;
-    max-width: 80em;
-    max-height: 50em;
-    margin-right: 4vw;
+    width: 20em;
+    max-width: 60em;
+    min-width: 10em;
     border: solid 0.01em;
     border-radius: 5%;
+    margin: 0 auto auto auto;
     box-shadow: 0.3em 0.3em rgba(88, 76, 54, 0.6);
     padding: 0.5em 0 0.5em 1.5em;
-    margin-top: 5em;
     font-size: 1.2rem;
     word-wrap: break-word;
     text-align: left;
     vertical-align: middle;
     background-color: #BE8C5D;
-    color: #F3E8CC;
+    color: #FFFFFF;
 }
 
 .list{
@@ -72,11 +71,10 @@ main {
 
 .login-form{
     display: flex;
-    width: 40vw;
-    min-width: 20vw;
-    max-width: 300em;
-    max-height: 500em;
-    margin: auto;
+    width: 50vw;
+    min-width: 10em;
+    max-width: 70em;
+    margin-left: auto;
 }
 
 .signUp{
@@ -89,57 +87,75 @@ footer {
 }
 
 
-@media screen and (max-width:40em) {
-    .containerHeader { height: 30vh;  }
 
-    img { margin: 0.7em auto 0.7em auto;  }
-
-    main { display: block; }
-
-    .descripcion { 
-        display: block;
-        width: 100%;
-        margin-top: 4vh;
-        margin-bottom: 4vh;
-    }
-
-    .nav { display: flex; }
-
-    .login-form { 
-        display: block;
-        width: 70vw;
-        position: relative;
-        right: 1em;
-        margin: 2em;
-    }
+@media screen and (max-width: 150em) {
+    header { font-size: 4.5em; }
 }
 
+@media screen and (max-width: 75em) {
+    header { font-size: 3em; }
+}
 
-@media screen and (max-width:20em) {
-    .containerHeader { height: 25vh;  }
+@media screen and (max-width: 64em) {
+    .containerHeader { height: 42vh; }
 
-    img {
-        width: 15vw;
-        height: 15vw; 
-        margin: 0.7em auto 1.5em auto;  
+    header { 
+        font-size: 2.7em; 
     }
+
+    img { margin: auto; }
 
     main { display: block; }
 
-    .descripcion { 
-        display: block;
-        width: 100%;
-        margin-top: 4vh;
-        margin-bottom: 4vh;
-    }
+    .descripcion { width: 35em; }
 
-    .nav { display: flex; }
+    .login-form { margin: auto auto auto auto; }
+}
 
-    .login-form { 
-        display: block;
-        width: 70vw;
-        position: relative;
-        right: 1em;
-        margin: 2em;
-    }
+@media screen and (max-width: 48em) {
+    .containerHeader { height: 35vh; }
+
+    header { font-size: 2.5em; }
+
+    img { margin: 1.5em auto 1.5em auto; }
+
+    .descripcion { width: 25em; }
+
+    .login-form { margin: auto auto auto auto; }
+}
+
+@media screen and (max-width: 37.5em) {
+    .containerHeader { height: 30vh; }
+
+    header { font-size: 2.3em; }
+
+    img { margin: 1.2em auto 1.2em auto; }
+
+    .descripcion { width: 20em; }
+
+    .login-form { margin: auto 10em auto auto; }
+}
+
+@media screen and (max-width: 30em) {
+    .containerHeader { height: 25vh; }
+
+    header { font-size: 2em; }
+
+    img { margin: 1em auto 1em auto; }
+
+    .descripcion { width: 15em; }
+
+    .login-form { margin: auto 10em auto auto; }
+}
+
+@media screen and (max-width: 20em) {
+    .containerHeader { height: 20vh; }
+
+    header { font-size: 1.6em; }
+
+    img { margin: 0.8em auto 0.8em auto; }
+
+    .descripcion { width: 12em; }
+
+    .login-form { margin: auto 6em auto auto; }
 }

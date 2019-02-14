@@ -5,20 +5,23 @@ import {Segment,Menu,Header,Sidebar, Card, Grid,Icon, List, Modal} from 'semanti
 import TopHeader from './heading';
 import MainMaterias from  './materias';
 import NewMat from './nuevaMateria';
+import Student from '../studentsComponent';
+import Estudiantes from '../studentsComponent/estudiantes';
 
 const ListItem = ({update})=>(
     <List.Item name='crear' onClick={()=>{
         update();
     }}>
-        <Icon name='pencil alternate' size='large'/>
+        <Icon name='pencil alternate' size='normal'/>
         <List.Content verticalAlign='middle'>
             <List.Header>Crear una Nueva Materia</List.Header>
         </List.Content>
     </List.Item>
 );
 
+
 class Materias extends Component{
-    state = { menuVisible: false , activeItem : 'home',modalOpen: false,user :null}
+    state = { menuVisible: false , activeItem : 'home',modalOpenM: false,modalOpenE: false,user :null}
 
     async componentDidMount(){
         let {user} = localStorage;
@@ -31,6 +34,8 @@ class Materias extends Component{
         this.setState({ menuVisible: false })
     }
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+  handleEstudiantesClick = ()=>{this.props.history.push(`/estudiantes`);}
   handleItem = name =>{
       let {activeItem} = this.state
       if(name === 'back'){
@@ -39,19 +44,19 @@ class Materias extends Component{
         this.setState({ activeItem})
       }
   }
-  handleModal = () => this.setState({ modalOpen: true })
-  close = ()=> this.setState({modalOpen : false})
+  handleModalM = () => this.setState({ modalOpenM: true })
+  handleModalE = () => this.setState({ modalOpenE: true })
+  close = ()=> this.setState({modalOpenM : false,modalOpenE : false})
   render() {
-    const { menuVisible,activeItem,modalOpen } = this.state
+    const { menuVisible,activeItem,modalOpenM, modalOpenE } = this.state
     const { logout} = this.props;
     let {user } = localStorage;
     return (
-        <div class='bodyMaterias'>
+        <div className='bodyMaterias'>
         <TopHeader changeClick={this.handleClick} logout={logout}/>
-        <Sidebar.Pushable as={Segment} style={{backgroundColor:'rgba(235, 235, 235, 0.5)'}}>
+        <Sidebar.Pushable as={Segment} style={{display:'block', backgroundColor:'rgba(235, 235, 235, 0.5)'}}>
           <Sidebar
             as={Menu}
-            animation='overlay'
             icon='labeled'
             inverted
             vertical
@@ -78,29 +83,28 @@ class Materias extends Component{
                 icon='student'
             />
           </Sidebar>
-
           <Sidebar.Pusher dimmed={menuVisible} onClick={this.handleClick2}>
-            <Segment basic style={{backgroundColor:'rgba(235, 235, 235, 0.5)'}}>
+            <Segment basic style={{backgroundColor:'rgba(233, 233, 233)'}}>
                 {
                     activeItem === 'home' ?
-                        <Segment style={{backgroundColor:'rgba(235, 235, 235, 0.5)'}}>
+                        <Segment style={{backgroundColor:'rgba(233, 233, 233)'}}>
                             <Grid centered>
                                 <Grid.Row verticalAlign='middle'>
                                     <Header 
-                                        as='h1'
+                                        as='h2'
                                         content={`Bienvenido ${user}`}
                                     />
                                 </Grid.Row>
                                 <Grid.Row>
                                     <Card.Group centered>
-                                        <Card  color='red' style={{height : 400, width : 500}}>
+                                        <Card style={{height : 400, width : 500}}>
                                             <Header as='h3' icon style={{margin : '10 0',padding: 30}}>
-                                                <Icon name='book' circular size='tiny'/>
+                                                <Icon name='book' size='big'/>
                                                 <Header.Content>Materias</Header.Content>
                                             </Header>
                                             <Card.Content>
                                                 <List size='large' animated selection relaxed divided>
-                                                    <Modal trigger={<ListItem update={this.handleModal}/>} open={modalOpen} onClose={this.close}>
+                                                    <Modal trigger={<ListItem update={this.handleModalM}/>} open={modalOpenM} onClose={this.close}>
                                                     <Modal.Header>Crear una Nueva Materia</Modal.Header>
                                                     <Modal.Content>
                                                         <NewMat user={user} closeModal={this.close}/>
@@ -115,11 +119,13 @@ class Materias extends Component{
                                                 </List>
                                             </Card.Content>
                                         </Card>
-                                        <Card color='orange' style={{height : 400, width : 500}}>
+                                        <Card style={{height : 400, width : 500}}>
                                             <Header as='h3' icon style={{margin : '10 0', padding: 30,}}>
-                                                <Icon name='group' circular size='tiny'/>
+                                                <Icon name='group' size='big'/>
                                                 <Header.Content>Estudiantes</Header.Content>
                                             </Header>
+                                            <Student modalOpen={modalOpenE} handleItemClick={this.handleEstudiantesClick} handleModal={this.handleModalE} close={this.close} user={user}/>
+                                            
                                         </Card>
                                     </Card.Group>
                                 </Grid.Row>
@@ -127,21 +133,12 @@ class Materias extends Component{
                         </Segment>
                         
                          : activeItem === 'materias' ?
-                            <Segment vertical style={{height : 500}} >
-                                <MainMaterias user={user} handle={this.handleItem}/>
+                            <Segment vertical>
+                                <MainMaterias user={user} item={activeItem} handle={this.handleItem}/>
                             </Segment >    : 
                         activeItem === 'estudiantes' ?
-                            <Segment vertical style={{height : 500}}>
-                                <Grid>
-                                    <Grid.Row>
-                                    <Grid.Column textAlign='center'>
-                                        <Header 
-                                            as='h1'
-                                            content='Estudiantes'
-                                        />
-                                    </Grid.Column>
-                                    </Grid.Row>
-                                </Grid>
+                            <Segment vertical>
+                                <Estudiantes user={user} item={activeItem} handle={this.handleItem}/>
                             </Segment>
                          : <div></div>
 

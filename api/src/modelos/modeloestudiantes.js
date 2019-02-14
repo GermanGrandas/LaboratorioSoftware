@@ -15,7 +15,8 @@ var estudianteschema = Schema({
 	telefono: String,
 	direccion: String,
 	correo: String,
-	fotodelestudiante: String
+	fotodelestudiante: String,
+	materiapertenece : [{type : Schema.Types.ObjectId, ref : 'materias'}]
 })
 
-module.exports = mongoose.model("Estudiantes", estudianteschema);
+module.exports = mongoose.model("estudiante", estudianteschema);

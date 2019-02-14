@@ -1,27 +1,26 @@
 
 import React from 'react';
-import {Segment,Header,Menu,Icon, Dropdown} from 'semantic-ui-react';
+import {Segment,Menu,Icon, Dropdown} from 'semantic-ui-react';
 
 const Heading = ({changeClick,logout})=>(
-    <header>
-    <Segment style={{ position:'fixed', zIndex:'10', width:'100vw'}}  inverted vertical>
-        <Menu secondary inverted attached="top">
-            <Menu.Item onClick={changeClick}>
-            <Icon name="sidebar" size='big'/>
+    <div className='headerHome'>
+    <Segment style={{
+            display:'block',
+            width:'100vw',
+            maxWidth:'150em',
+            padding:'1em',
+            backgroundColor:'rgba(140, 79, 61)'
+        }} inverted vertical>
+        <Menu secondary inverted attached="top" style={{display:'flex'}}>
+            <Menu.Item onClick={changeClick} style={{flex:'none'}}>
+            <Icon name="sidebar" size='normal'/>
             </Menu.Item>
-            <Header
-                as='h1'
-                content='DocentHelper'
-                textAlign ='center'
-                inverted
-                style={{
-                    
-                    fontFamily: "Courgette,Pacifico",
-                    marginBottom: 0,
-                }}
-            />
-            <Menu.Menu position='right'>           
-                <Dropdown item icon='user' size='big' simple>
+            <div className='headerContainer'>
+            <img class='logoHome' src={require('../images/logo_docent.png')} alt='Logo DocentHelper' />
+            <h2>DocentHelper</h2>
+            </div>
+            <Menu.Menu position='right' style={{flex:'none'}}>           
+                <Dropdown item icon='user' size='normal' simple>
                     <Dropdown.Menu>
                         <Dropdown.Item>
                             Configuración
@@ -33,8 +32,7 @@ const Heading = ({changeClick,logout})=>(
                 </Dropdown>
             </Menu.Menu>         
         </Menu>
-        
     </Segment>
-    </header>
+    </div>
   )
 export default Heading;
