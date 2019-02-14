@@ -68,8 +68,8 @@ class Recuperar extends Component{
         return(
             <div>
                 <TopComponent />
-                <div style={{ height: 500}} className='login-form'>
-				<Grid textAlign='center' className='rec' style={{ height: '100%'}} verticalAlign='middle'>
+                <div className='login-form'>
+				<Grid textAlign='center' className='rec' verticalAlign='middle'>
 					<Grid.Column style={{ maxWidth: 500 }}>
 						<Header as='h2' content='Recuperar Contraseña' className="header"/>
 						<Form size='large' error={Object.keys(errors).length !== 0 ? true : false} onSubmit={this.handleSubmit}>
