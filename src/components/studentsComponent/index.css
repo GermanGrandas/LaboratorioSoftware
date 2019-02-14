@@ -1,3 +1,39 @@
+body {
+    max-width: 150em;
+    background-color: rgba(233, 233, 233);
+}
+
+.headerHome {
+    display: block;
+    width: 100vw;
+    max-width: 150em;
+}
+
+.logoHome    {
+    flex: 1;
+    width: 4vw;
+    height: 4vw;
+    max-width: 3em;
+    max-height: 3em;
+    min-width: 1.5em;
+    min-height: 1.5em;
+    margin: auto;
+    background-size: contain;
+}
+
+.headerContainer {
+    display: flex;
+    max-width: 40em;
+    margin: auto 0 auto auto;
+}
+
+h2 {
+    flex: 1;
+    margin: auto;
+    font-family: Courgette;
+    font-size: 2.1em;
+}
+
 .materias_container{
     min-height: 400px;
 }
@@ -33,4 +69,31 @@
     box-sizing: border-box;
     border-left: 1px solid #b9b9b9;
     padding: 0px 20px;
+}
+
+@media screen and (max-width: 150em) {
+    h2 { font-size: 2.5em; }
+}
+
+@media screen and (max-width: 75em) {
+}
+
+@media screen and (max-width: 64em) {
+    h2 { font-size: 1.7em; }
+}
+
+@media screen and (max-width: 48em) {
+    h2 { font-size: 1.5em; }
+}
+
+@media screen and (max-width: 37.5em) {
+    h2 { font-size: 1.4em; }
+}
+
+@media screen and (max-width: 30em) {
+    h2 { font-size: 1.2em; }
+}
+
+@media screen and (max-width: 20em) {
+    h2 { font-size: 0.8em; }
 }
