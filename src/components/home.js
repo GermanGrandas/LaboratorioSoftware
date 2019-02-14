@@ -27,14 +27,14 @@ class App extends Component{
                 <main>
                 <div className='descripcion'>
                 Ingresa ya a DocentHelper y haz uso de todos los beneficios que tenemos para ofrecerte en la administración de tus materias.
-                <br /><br />
-                <ul>
-                    <li>Administra tus cursos facilmente</li>
-                    <li>Establece tu cronograma</li>
-                    <li>Organiza el contenido de tus materias</li>
-                    <li>Haz informes de grupos con facilidad</li>
-                    <li>Lleva un orden de asistencia</li>
-                </ul>
+                    <br /><br />
+                    <ul>
+                        <li>Administra tus cursos facilmente</li>
+                        <li>Establece tu cronograma</li>
+                        <li>Organiza el contenido de tus materias</li>
+                        <li>Haz informes de grupos con facilidad</li>
+                        <li>Lleva un orden de asistencia</li>
+                    </ul>
                 </div>
                 <div className='login-form'>
                 <Segment vertical>   

@@ -103,8 +103,12 @@ class Estudiantes extends Component{
                         }                
                         </Segment> : 
                         <div>
-                        <Segment style={{ height: 100}}  inverted vertical>
+                        <Segment style={{ height: 100,backgroundColor:'rgba(140, 79, 61)'}}  inverted vertical>
                         <Menu secondary inverted attached="top">
+                            <div className='headerContainer'>
+                                <img class='logoHome' src={'../images/logo_docent.png'} alt='Logo DocentHelper' />
+                                <h2>DocentHelper</h2>
+                            </div>
                             <Menu.Menu position='right'>           
                             <Dropdown item icon='user' size='big' simple>
                                 <Dropdown.Menu>
@@ -118,20 +122,6 @@ class Estudiantes extends Component{
                             </Dropdown>
                             </Menu.Menu>
                         </Menu>
-                        <Header
-                            as='h1'
-                            content='Docent Helper'
-                            textAlign ='center'
-                            inverted
-                            style={{
-                                position: 'absolute',
-                                top: '40%',
-                                left: '50%',
-                                transform: 'translate(-50%, -80%)',
-                                fontFamily: "Courgette,Pacifico",
-                                marginBottom: 0,
-                            }}
-                        />
                         </Segment>
                         <Segment basic >
                         {

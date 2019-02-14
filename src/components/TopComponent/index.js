@@ -4,7 +4,7 @@ import './index.css';
 const TopComp = ()=>{
     return(
                 <div className={'containerHeader'}>
-                <div><img src={require('../images/logo_docent.png')} alt='Logo DocentHelper' /></div>
+                <div><img src={'../images/logo_docent.png'} alt='Logo DocentHelper' /></div>
                 <div><header
                     as='h1'
                 >DocentHelper</header></div>
