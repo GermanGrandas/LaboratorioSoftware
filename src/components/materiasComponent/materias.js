@@ -54,6 +54,7 @@ class Materias extends Component{
         }else{
             return materias.map(item =>{
                 return(
+                    <div>
                     <Link to={`/materias/${item.nombre}` } key={item.codigo} className="materia_item">
                         <Segment compact inverted className='box'>
                             <Header 
@@ -63,6 +64,7 @@ class Materias extends Component{
                             />
                         </Segment>
                     </Link>
+                    </div>
                 )
             })
         }
@@ -95,8 +97,10 @@ class Materias extends Component{
                                             />
                                         </Grid.Column>
                                     </Grid.Row>
-                                    <Grid.Row className="materias_container">
+                                    <Grid.Row>
+                                        <div className="materias_container">
                                         {this.renderList(materias)}
+                                        </div>
                                     </Grid.Row>
                                 </Grid>:
                                 <Materia handleChange={this.handle2}/>
