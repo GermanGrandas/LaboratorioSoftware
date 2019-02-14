@@ -68,8 +68,8 @@ class LoginForm extends Component {
 			<div className='login-form'>
 				
 				<Grid>
-					<Grid.Column style={{ maxWidth: '300em' }}>
-						<Header as='h2' content='Ingresar'/>
+					<Grid.Column style={{ maxWidth: '100em' }}>
+						<Header as='h2' content='Ingresar' style={{textAlign:'center'}}/>
 						<Form error={Object.keys(errors).length !== 0 ? true : false} onSubmit={this.handleSubmit}>
 							<Segment stacked style={{display:'block'}}>
 								<Form.Input

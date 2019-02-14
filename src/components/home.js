@@ -31,7 +31,7 @@ class App extends Component{
                 <ul>
                     <li>Administra tus cursos facilmente</li>
                     <li>Establece tu cronograma</li>
-                    <li>Orgaiza el contenido de tus materias</li>
+                    <li>Organiza el contenido de tus materias</li>
                     <li>Haz informes de grupos con facilidad</li>
                     <li>Lleva un orden de asistencia</li>
                 </ul>

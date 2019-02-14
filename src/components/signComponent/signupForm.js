@@ -160,8 +160,8 @@ class SignForm extends Component {
 		return (
 			<div className='login-form'>
 				<Grid>
-					<Grid.Column style={{ maxWidth:'300em'}}>
-						<Header as='h2' content='Registrarse'/>
+					<Grid.Column style={{ maxWidth:'100em'}}>
+						<Header as='h2' content='Registrarse' style={{textAlign:'center'}}/>
 						<Form error={Object.keys(errors).length !== 0 ? true : false} onSubmit={this.handleSubmit}>
 							<Segment stacked>
 								<Form.Group style={{display:'block'}}>
