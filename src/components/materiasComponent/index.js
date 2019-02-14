@@ -12,7 +12,7 @@ const ListItem = ({update})=>(
     <List.Item name='crear' onClick={()=>{
         update();
     }}>
-        <Icon name='pencil alternate' size='normal'/>
+        <Icon name='pencil alternate' size='large'/>
         <List.Content verticalAlign='middle'>
             <List.Header>Crear una Nueva Materia</List.Header>
         </List.Content>
@@ -58,11 +58,11 @@ class Materias extends Component{
           <Sidebar
             as={Menu}
             icon='labeled'
-            inverted
             vertical
             visible={menuVisible}
             width='thin'
             pointing
+            style={{backgroundColor:'rgba(233, 233, 233)'}}
           >
             <Menu.Item 
                 name='home'
@@ -133,11 +133,11 @@ class Materias extends Component{
                         </Segment>
                         
                          : activeItem === 'materias' ?
-                            <Segment vertical>
+                            <Segment vertical style={{height : '80vh', overflow : 'hidden'}}>
                                 <MainMaterias user={user} item={activeItem} handle={this.handleItem}/>
                             </Segment >    : 
                         activeItem === 'estudiantes' ?
-                            <Segment vertical>
+                            <Segment vertical style={{height : '80vh',overflow : 'hidden'}}>
                                 <Estudiantes user={user} item={activeItem} handle={this.handleItem}/>
                             </Segment>
                          : <div></div>

@@ -54,8 +54,8 @@ class Materias extends Component{
         }else{
             return materias.map(item =>{
                 return(
-                    <div style={{margin:'1em'}}>
-                    <Link to={`/materias/${item.nombre}` } key={item.codigo} className="materia_item">
+                    <div key={item.codigo} style={{margin:'1em'}}>
+                    <Link to={`/materias/${item.nombre}` }  className="materia_item">
                         <Segment compact inverted className='box'>
                             <Header 
                                 as='h3'
@@ -110,7 +110,7 @@ class Materias extends Component{
                         <Segment style={{ height: 100,backgroundColor:'rgba(140, 79, 61)'}}  inverted vertical>
                         <Menu secondary inverted attached="top">
                             <div className='headerContainer'>
-                                <img class='logoHome' src={'../images/logo_docent.png'} alt='Logo DocentHelper' />
+                                <img className='logoHome' src={'../images/logo_docent.png'} alt='Logo DocentHelper' />
                                 <h2>DocentHelper</h2>
                             </div>
                             <Menu.Menu position='right'>           

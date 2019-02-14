@@ -1,75 +1,67 @@
 import React,{ Component } from 'react';
-import {Segment,Header,Menu,Icon, Dropdown,Grid,Table} from 'semantic-ui-react';
+import {Segment,Header,Menu,Icon, Dropdown,Grid,Table as Tabla} from 'semantic-ui-react';
 
+import Table  from '../studentsComponent/table';
 import api from '../../api';
 import './index.css';
 
 class Materia extends Component{
-    state = {materia : []}
+    state = {materia : [],estudiantes : []}
 
-    async componentDidMount(){
-        let {user} = this.props;
-        if(user === "" | user === undefined){
-            user = localStorage.user
-            this.setState({user});
+    componentDidMount(){
+        let {user} = localStorage;
             api.materias.getMateria({materiaName : this.props.match.params.id,user}).then(materia=>{
                 this.setState({materia});
             });
-        }else{
-            api.materias.getMateria({materiaName : this.props.match.params.id,user}).then(materia=>{
-                this.setState({materia});
-            });
-        }
     }
     handle =()=>{
         this.props.history.push('/materias');
     }
-    keysMap = materia =>{
-        let keys = Object.keys(materia);
-        let values = Object.values(materia);
-        console.log(keys);
-        console.log(materia['grado']);
+    keysMap = (materia,keys) =>(
         
-        return(
-            <div>
-                <Table.Header>
-                    <Table.Row>
+                <Tabla.Header>
+                    <Tabla.Row>
                         {
-                            keys.map( (x) =>{
-                                //console.log(x);
-                                
-                                let item = x === 'estudiantes' | materia['grado'] === '' | materia['universidad'] === '' ?
-                                <div></div> : <Table.HeaderCell key={x+'i'}>{x}</Table.HeaderCell>
-                                return item
-                            })
-                        }
-                    </Table.Row>
-                </Table.Header>
-            </div>
-            
+                        keys.map( (x) =>{
+                            let item = undefined;
+                            if(!(x === 'estudiantes' | x === '__v' | materia[x] === '')){
+                                item = <Tabla.HeaderCell key={x}>{x}</Tabla.HeaderCell>
+                            }
+                            return item
+                        })
+                    }
+                </Tabla.Row>
+            </Tabla.Header>
         )
-    }
-    itemsMap = (item,i) =>(
-        <Table.Row>
+    
+    itemsMap = (item) =>(
+        <Tabla.Body>
+            <Tabla.Row>
             {
                 item.map(x=>(
-                    <Table.Cell key={x}>{x}</Table.Cell>
+                    <Tabla.Cell key={x}>{x}</Tabla.Cell>
                 ))
             }
-        </Table.Row>
+            </Tabla.Row>
+        </Tabla.Body>
+        
     )
-    tableMap = materia =>(
-        <Table>
-            {this.keysMap(materia)}
-        </Table>
-    )
+    tableMap = materia =>{
+        let keys = Object.keys(materia);
+        let values = Object.values(materia);
+        delete values[0]
+        delete values[10]
+        delete values[11]
+        return(
+            <Tabla>
+                {this.keysMap(materia,keys)}
+                {this.itemsMap(values)}
+            </Tabla>
+    )}
     render(){
         let {logout} = this.props;
         let {materia} = this.state;
-        console.log(materia);
-        delete materia['_id']
-        delete materia['creator']
-        console.log(materia);
+        let estudiantes = materia.estudiantes;
         return(
             <div>
                 <Segment style={{ height: 100,backgroundColor:'rgba(140, 79, 61)'}}  inverted vertical>
@@ -107,12 +99,11 @@ class Materia extends Component{
                                     content={materia.nombre}
                                 />
                             </Grid.Column>
-                        </Grid.Row>
-                            {this.tableMap(materia)}
+                        </Grid.Row>   
                         <Grid.Row>
-                            <Grid.Column>
-                            </Grid.Column>   
+                            {this.tableMap(materia)}
                         </Grid.Row>
+                        
                         <Grid.Row textAlign='center'>
                             <Grid.Column>
                                 <Header 
@@ -121,7 +112,9 @@ class Materia extends Component{
                                 />
                             </Grid.Column>
                         </Grid.Row>
-                        
+                        <Grid.Row>
+                            <Table estudiantes={estudiantes} materia/>
+                        </Grid.Row>
                     </Grid>                
                 </Segment>
             </div>

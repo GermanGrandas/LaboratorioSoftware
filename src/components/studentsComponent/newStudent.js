@@ -44,8 +44,8 @@ class NuevoEstudiante extends Component{
 			data: { ...this.state.data, [e.target.name]: e.target.value }
 		});
     };
-    submit = data =>{
-        api.estudiantes.create(data).then(data=> {
+    submit = (data,user) =>{
+        api.estudiantes.create({data,user}).then(data=> {
             console.log(data);
             if(!data.error){
                 this.props.closeModal();
@@ -72,7 +72,7 @@ class NuevoEstudiante extends Component{
             if(user === "" | user === undefined){
                 user = localStorage.user
             }
-			this.submit(this.state.data);
+			this.submit(this.state.data,user);
 		}
     };
     handleSelectChange = (e,{value}) =>{
@@ -213,7 +213,7 @@ class NuevoEstudiante extends Component{
                                 <Button 
                                     type="submit"
                                     color='green'
-                                >Guardar Materia</Button>
+                                >Guardar Estudiante</Button>
                                 <Button.Or text='o'/>
                                 <Button
                                     color='red'

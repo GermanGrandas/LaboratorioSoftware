@@ -6,7 +6,7 @@ var ControladorDeEstudiantes = require("../controladores/controladorestudiantes.
 
 var api = express.Router();
 
-api.get("/estudiantes", ControladorDeEstudiantes.controlestudiantes);
+api.post("/estudiantes", ControladorDeEstudiantes.controlestudiantes);
 
 api.post("/crear-estudiante", ControladorDeEstudiantes.crearEstudiante);
 
@@ -14,6 +14,9 @@ api.post("/matricular-estudiante",ControladorDeEstudiantes.matricularestudiante)
 
 api.post("/desvincular-estudiante", ControladorDeEstudiantes.desvincularestudiante);
 
+api.post("/actualizarAsistencia",ControladorDeEstudiantes.actualizarAsistencia);
+
+api.post("/estudiantesXmateria", ControladorDeEstudiantes.estudiantesMateria);
 //api.get("/estudiante",ControladorDeEstudiantes.getestudiante);
 
 //api.put("/actualizar-estudiantes/:id", ControladorDeEstudiantes.actualizarestudiante);

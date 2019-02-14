@@ -1,8 +1,9 @@
 "use strict"
 var Materias = require("../modelos/modelomaterias.js");
 var Usuario= require("../modelos/modelousuarios.js");
+var Estudiantes = require("../modelos/modeloestudiantes.js");
 
-var async = require('async');
+
 
 function controlmaterias(req,res){
 
@@ -89,34 +90,53 @@ function getMaterias(req,res) {
 
 function getMateria(req,res) {
 	let {data} = req.body;
-	Materias.findOne({nombre : data.materiaName}, (err,materia)=>{
-		if(err) {
-			res.status(500).send({error : 'algo ha ocurrido'});
-			return;
-		}else if(!materia){
-			res.status(500).send({error : 'No se encontró la materia'});
-			return
-		}else{
-			Usuario.findOne({username : data.user}, (err,usuario)=>{
-				if(err) {
-					res.status(500).send({error : 'algo ha ocurrido'});
+	Materias.findOne({nombre : data.materiaName})
+	.populate({path : 'creator' ,select: 'username'})
+	.populate('estudiantes')
+	.exec(
+		(err,results)=>{
+			if(err) {
+				res.status(500).send({error : 'algo ha ocurrido'});
+				return;
+			}
+			else{
+				let {user} = data;
+				if(results.creator.username === user){
+					let datos = {}
+					datos['estudiantes'] = results['estudiantes'].map(
+						item =>{
+							let dictData = {}
+							dictData['documentoEstudiante'] = item['documentoestudiante']
+							dictData['nombre'] = item['nombre']
+							dictData['apellido'] = item['apellido']
+							dictData['telefono'] = item['telefono']
+							dictData['direccion'] = item['direccion']
+							dictData['correo'] = item['correo']
+							dictData['asistencia'] = item['asistencia']
+							return dictData
+						}
+					)
+					datos['codigo'] = results['codigo']
+					datos['nombre'] = results['nombre']
+					datos['año'] = results['year']
+					datos['rangoFechas'] = results['datesRange']
+					datos['tipoMateria'] = results['tipoM']
+					datos['dias'] = results['dias']
+					datos['horaInicio'] = results['hInicio']
+					datos['horaFin'] = results['hFin']
+					datos['institución'] = results['institucion']
+					datos['grado'] = results['grado']
+					res.status(200).send(datos);
 					return;
-				}else if(!usuario){
-					res.status(500).send({error : 'usuario no encontrado'});
-					return
 				}else{
-					if(materia.creator.equals(usuario._id)){
-						res.status(200).send(materia);
-						return;
-					}else{
-						res.status(500).send({error: "La materia no es del usuario ingresado"});
-						return;
-					}
+					res.status(500).send({error: "La materia no es del usuario ingresado"});
+					return;
 				}
-			});
+			}
 		}
-	});
-}
+	)
+}						
+					
 module.exports = {
 	controlmaterias,
 	crearMateria,

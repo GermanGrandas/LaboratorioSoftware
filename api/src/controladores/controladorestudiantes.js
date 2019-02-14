@@ -1,46 +1,53 @@
 "use strict"
 
-function controlestudiantes(req,res){
-	res.status(200).send({mensaje:"probando controlador de estudiantes para diferenciar del de materias y usuarios"})
-}
+
 
 var Materias = require("../modelos/modelomaterias.js")
 var Estudiantes = require("../modelos/modeloestudiantes.js");
+var Usuario= require("../modelos/modelousuarios.js");
 
-/*
-function crearEstudiantes(req,res){
-	var parametros=req.body;
-	Promise.all([
-			Estudiantes.findOne({documentoestudiante: parametros.documentoestudiante})
-		]).then(([r1])=>{
-			if(r1){
-				res.status(500).send({error: "el codigo de estudiante ya se encuentra registrado"})
-				return
-			}
-			else{
-				var estudiante = new Estudiantes();
-				estudiante.documentoestudiante = parametros.documentoestudiante;
-				console.log(parametros);
-				estudiante.nombre=parametros.nombre;
-				estudiante.apellido= parametros.apellido;
-				estudiante.telefono=parametros.telefono;
-				estudiante.direccion=parametros.direccion;
-				estudiante.correo= parametros.correo;
-				//fotodelestudiante esto en standby
-				estudiante.materiapertenece = materiaencontrada._id;
-				estudiante.save((error,estudiantecreado)=>{
-					if(error){
-						res.status(500).send({mensaje:"error al crear estudiante"})
-						return;
-					}
-					else{
-						res.status(200).send({estudiantecreado})
-						return;
-					}
-				});
-			}});
+function actualizarAsistencia(req,res) {
+	var parametro = req.body;
+	console.log(parametro);
 }
-*/
+
+function controlestudiantes(req,res){
+	var parametros= req.body.user;
+	var usuario = null;
+	Usuario.findOne({username : parametros},(err,result)=>{
+		if(err){
+			res.status(500).send({err : "algo ha ocurrido"})
+			return
+		}else{
+			usuario = result._id
+			Estudiantes.find({creator : usuario}).populate({path : 'materiapertenece' ,select: 'nombre'}).exec(
+				(err, results)=>{
+					if(err){
+						res.status(500).send({err : "algo ha ocurrido"})
+						return
+					}else{
+						let x = results.map(item=>{
+							let dicti = {}
+							dicti['documentoestudiante'] = item['documentoestudiante']
+							dicti['nombre'] = item['nombre']
+							dicti['apellido'] = item['apellido']
+							dicti['telefono'] = item['telefono']
+							dicti['direccion'] = item['direccion']
+							dicti['correo'] = item['correo']
+							dicti['asistencia'] = item['asistencia']
+							dicti['materias'] = item['materiapertenece'].map( item=>{
+								return item.nombre
+							});
+							return dicti
+						});
+						res.status(200).send(x)
+						return									
+					}
+				}
+			);
+		}
+	});	
+}
 
 function matricularestudiante(req,res){
 	var parametros= req.body;
@@ -80,37 +87,54 @@ function matricularestudiante(req,res){
 
 
 function crearEstudiante(req,res){
-	var parametros = req.body.data;
+	var parametros = req.body.data.data;
+	var user = req.body.data.user
 	Promise.all([
 			Estudiantes.findOne({documentoestudiante: parametros.codigo}),
-			Materias.findOne({nombre:parametros.materiapertenece})
-		]).then( ([r1,r2])=>{
+			Materias.findOne({nombre:parametros.materiapertenece}),
+			Usuario.findOne({username : user})
+		]).then( ([r1,r2,r3])=>{
 			if(r1){
 				res.status(500).send({error:"El estudiante ya fue creado."})
 				return
 			}else if(!r2){
 				res.status(500).send({error:"La materia no existe"})
 				return
+			}else if(!r3){
+				res.status(500).send({error:"El usuario no existe"})
+				return
 			}
 			else{
 				var estudiante = new Estudiantes();
 				estudiante.documentoestudiante = parametros.codigo;
-				console.log(parametros);
 				estudiante.nombre=parametros.nombre;
 				estudiante.apellido= parametros.apellido;
 				estudiante.telefono=parametros.telefono;
 				estudiante.direccion=parametros.direccion;
 				estudiante.correo= parametros.correo;
+				estudiante.asistencia = 0;
 				//fotodelestudiante esto en standby
 				estudiante.materiapertenece = r2._id;
+				estudiante.creator = r3._id;
 				estudiante.save((error,estudiantecreado)=>{
 					if(error){
-						res.status(500).send({mensaje:"error al crear estudiante"})
+						res.status(500).send({err:"error al crear estudiante"})
 						return;
 					}
 					else{
-						res.status(200).send({estudiantecreado})
-						return;
+						var estudiantesList = r2.estudiantes;
+						estudiantesList.push(estudiantecreado._id);
+						Materias.findOneAndUpdate({_id :r2._id},{estudiantes : estudiantesList},
+							(err,result)=>{
+								if(err){
+									res.status(500).send({error:"error al vincular el estudiante"})
+									return;
+								}else{
+									res.status(200).send('ok');
+									return;
+								}
+							})
+						
 					}
 		
 				});
@@ -164,7 +188,10 @@ function desvincularestudiante(req,res){
 }	
 
 
-
+function estudiantesMateria(req,res){
+	var params = req.body
+	console.log(params);
+}
 
 
 /*
@@ -263,6 +290,7 @@ module.exports = {
 	controlestudiantes,
 	crearEstudiante,
 	matricularestudiante,
-	desvincularestudiante
-	
+	desvincularestudiante,
+	actualizarAsistencia,
+	estudiantesMateria
 }

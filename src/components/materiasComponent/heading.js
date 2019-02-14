@@ -13,14 +13,14 @@ const Heading = ({changeClick,logout})=>(
         }} inverted vertical>
         <Menu secondary inverted attached="top" style={{display:'flex'}}>
             <Menu.Item onClick={changeClick} style={{flex:'none'}}>
-            <Icon name="sidebar" size='normal'/>
+            <Icon name="sidebar" size='big'/>
             </Menu.Item>
             <div className='headerContainer'>
-            <img class='logoHome' src={'../images/logo_docent.png'} alt='Logo DocentHelper' />
+            <img className='logoHome' src={'../images/logo_docent.png'} alt='Logo DocentHelper' />
             <h2>DocentHelper</h2>
             </div>
             <Menu.Menu position='right' style={{flex:'none'}}>           
-                <Dropdown item icon='user' size='normal' simple>
+                <Dropdown item icon='user' size='large' simple>
                     <Dropdown.Menu>
                         <Dropdown.Item>
                             Configuración
