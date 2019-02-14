@@ -47,26 +47,25 @@ h2 {
     -o-flex-wrap: wrap !important;
     flex-wrap: wrap !important;
 
-    -webkit-justify-content: space-around !important;
-    -moz-justify-content: space-around !important;
-    -ms-justify-content: space-around !important;
-    -o-justify-content: space-around !important;
-    justify-content: space-around !important;
+    -webkit-justify-content: spece-between !important;
+    -moz-justify-content: spece-between !important;
+    -ms-justify-content: spece-between !important;
+    -o-justify-content: spece-between !important;
+    justify-content: spece-between !important;
 
-    -webkit-align-content: space-around !important;
-    -moz-align-content: space-around !important;
-    -ms-align-content: space-around !important;
-    -o-align-content: space-around !important;
-    align-content: space-around !important;
+    -webkit-align-content: strech !important;
+    -moz-align-content: strech !important;
+    -ms-align-content: strech !important;
+    -o-align-content: strech !important;
+    align-content: strech !important;
 }
 
 .box {
     flex: 1;
     max-width: 10em !important;
-    min-width: 5em !important;
+    min-width: 3em !important;
     max-height: 10em !important;
-    min-height: 5em !important;
-    margin: 0.1em;
+    min-height: 2em !important;
     background-color: rgba(243, 232, 204) !important;
 }
 
@@ -99,8 +98,10 @@ h2 {
 
 @media screen and (max-width: 30em) {
     h2 { font-size: 1.2em; }
+
+    .box h3 { font-size: 0.8em !important; }
 }
 
 @media screen and (max-width: 20em) {
-    h2 { font-size: 0.8em; }
+    h2 { font-size: 0.02em; }
 }

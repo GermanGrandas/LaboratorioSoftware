@@ -54,7 +54,7 @@ class Materias extends Component{
         }else{
             return materias.map(item =>{
                 return(
-                    <div>
+                    <div style={{margin:'1em'}}>
                     <Link to={`/materias/${item.nombre}` } key={item.codigo} className="materia_item">
                         <Segment compact inverted className='box'>
                             <Header 
