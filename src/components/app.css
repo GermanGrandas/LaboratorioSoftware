@@ -6,17 +6,21 @@ body {
 
 main {
     display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: center;
     padding: 1em;
 }
 
 .descripcion {
-    flex: none;
+    flex: 1 1;
     width: 20em;
     max-width: 60em;
     min-width: 10em;
+    max-height: 15em;
+    min-height: 5em;
     border: solid 0.01em;
     border-radius: 5%;
-    margin: 0 auto auto auto;
     box-shadow: 0.3em 0.3em rgba(88, 76, 54, 0.6);
     padding: 0.5em 0 0.5em 1.5em;
     font-size: 1.2rem;
@@ -47,17 +51,20 @@ main {
 
 .list-nav {
     display: flex;
-    width: 100%;
+    flex: 1;
+    justify-content: space-around !important;
 }
 
 .list-item {
     flex: 1;
     max-width: 12em;
+    min-width: 6em;
     border-radius: 10%;
     margin: 0.5em;
     font-size: 1.5em;
     border: solid 0.01em rgba(88, 76, 54);
     text-align: center;
+    color: rgba(88, 76, 54) !important;
     background-color: rgba(243, 232, 204);
 }
 
@@ -69,12 +76,20 @@ main {
     background-color: rgba(240, 204, 5, 0.6)
 }
 
-.login-form{
+.login-form {
     display: flex;
+    flex: 2;
+    flex-flow: column nowrap !important;
+    justify-content: center !important;
+    align-items: center !important;
     width: 50vw;
     min-width: 10em;
     max-width: 70em;
-    margin-left: auto;
+}
+
+.homeContainer {
+    display: flex;
+    flex: 1 !important;
 }
 
 .signUp{
@@ -105,11 +120,9 @@ footer {
 
     img { margin: auto; }
 
-    main { display: block; }
+    main { flex-flow: row wrap; }
 
     .descripcion { width: 35em; }
-
-    .login-form { margin: auto auto auto auto; }
 }
 
 @media screen and (max-width: 48em) {
@@ -119,9 +132,9 @@ footer {
 
     img { margin: 1.5em auto 1.5em auto; }
 
-    .descripcion { width: 25em; }
+    main { flex-flow: column wrap; }
 
-    .login-form { margin: auto auto auto auto; }
+    .descripcion { width: 25em; }
 }
 
 @media screen and (max-width: 37.5em) {
@@ -131,9 +144,9 @@ footer {
 
     img { margin: 1.2em auto 1.2em auto; }
 
-    .descripcion { width: 20em; }
+    main { flex-flow: column wrap; }
 
-    .login-form { margin: auto 10em auto auto; }
+    .descripcion { width: 20em; }
 }
 
 @media screen and (max-width: 30em) {
@@ -143,9 +156,9 @@ footer {
 
     img { margin: 1em auto 1em auto; }
 
-    .descripcion { width: 15em; }
+    main { flex-flow: column wrap; }
 
-    .login-form { margin: auto 10em auto auto; }
+    .descripcion { width: 15em; }
 }
 
 @media screen and (max-width: 20em) {
@@ -155,7 +168,7 @@ footer {
 
     img { margin: 0.8em auto 0.8em auto; }
 
-    .descripcion { width: 12em; }
+    main { flex-flow: column wrap; }
 
-    .login-form { margin: auto 6em auto auto; }
+    .descripcion { width: 12em; }
 }

@@ -36,17 +36,18 @@ class App extends Component{
                     <li>Lleva un orden de asistencia</li>
                 </ul>
                 </div>
+                <div className='login-form'>
                 <Segment vertical>   
                     <Grid stackable columns={2}>
                         <Grid.Row >
                             <Grid.Column className='nav'>
                                 <List className='list-nav'>
-                                    <List.Item as={Link} name='login' to='#' onClick={this.update} style={{color:'rgba(88, 76, 54)'}} className='list-item'>Ingresar</List.Item>
-                                    <List.Item as={Link} name='sign' to='#' onClick={this.update} style={{color:'rgba(88, 76, 54)'}} className='list-item'>Registrarse</List.Item>
+                                    <List.Item as={Link} name='login' to='#' onClick={this.update}  className='list-item'>Ingresar</List.Item>
+                                    <List.Item as={Link} name='sign' to='#' onClick={this.update}  className='list-item'>Registrarse</List.Item>
                                 </List>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row centered className='homeContainer'>
+                        <Grid.Row className='homeContainer'>
         
                                 {
                                     this.state.e ==='login' ? <Login history={this.props.history} login={this.props.login}/> : <Sign update={this.updateS} history={this.props.history}/>
@@ -57,6 +58,7 @@ class App extends Component{
                     </Grid>
                     
                 </Segment>
+                </div>
                 </main>
                 <FooterComp/>
             </Segment>
