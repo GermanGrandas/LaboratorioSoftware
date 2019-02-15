@@ -97,7 +97,7 @@ class Materias extends Component{
                                 </Grid.Row>
                                 <Grid.Row>
                                     <Card.Group centered>
-                                        <Card style={{height : 400, width : 500}}>
+                                        <Card className='card'>
                                             <Header as='h3' icon style={{margin : '10 0',padding: 30}}>
                                                 <Icon name='book' size='big'/>
                                                 <Header.Content>Materias</Header.Content>
@@ -119,7 +119,7 @@ class Materias extends Component{
                                                 </List>
                                             </Card.Content>
                                         </Card>
-                                        <Card style={{height : 400, width : 500}}>
+                                        <Card className='card'>
                                             <Header as='h3' icon style={{margin : '10 0', padding: 30,}}>
                                                 <Icon name='group' size='big'/>
                                                 <Header.Content>Estudiantes</Header.Content>
