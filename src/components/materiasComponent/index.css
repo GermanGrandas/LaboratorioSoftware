@@ -75,6 +75,13 @@ h2 {
 }
 
 
+.card {
+    width: 40vw !important;
+    max-width: 100em !important;
+    min-width: 18em !important;
+}
+
+
 
 @media screen and (max-width: 150em) {
     h2 { font-size: 2.5em; }
