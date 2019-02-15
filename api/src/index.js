@@ -24,7 +24,7 @@ CARGAR RUTAS
 var rutaUsuario = require("./rutas/rutasusuarios.js");
 var rutaMaterias = require ("./rutas/rutasmaterias.js");
 var rutaEstudiantes = require("./rutas/rutasestudiantes.js")
-
+var rutaAsistencia = require("./rutas/rutaasistencia.js")
 
 /*==================================
 RUTAS BASE
@@ -38,7 +38,7 @@ app.get('/*', (req, res) => {
 app.use("/api", rutaUsuario);
 app.use("/api", rutaMaterias);
 app.use("/api", rutaEstudiantes);
-
+app.use("/api", rutaAsistencia);
 var port = process.env.PORT || 4000;
 
 //conexion

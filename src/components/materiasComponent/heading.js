@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {Segment,Menu,Icon, Dropdown} from 'semantic-ui-react';
+import {Segment,Menu,Icon, Button} from 'semantic-ui-react';
 
 const Heading = ({changeClick,logout})=>(
     <div className='headerHome'>
@@ -19,20 +19,19 @@ const Heading = ({changeClick,logout})=>(
             <img className='logoHome' src={'../images/logo_docent.png'} alt='Logo DocentHelper' />
             <h2>DocentHelper</h2>
             </div>
-            <Menu.Menu position='right' style={{flex:'none'}}>           
-                <Dropdown item icon='user' size='large' simple>
-                    <Dropdown.Menu>
-                        <Dropdown.Item>
-                            Configuración
-                        </Dropdown.Item>
-                        <Dropdown.Item onClick={logout}>
-                            Salir
-                        </Dropdown.Item>
-                    </Dropdown.Menu>    
-                </Dropdown>
-            </Menu.Menu>         
+            <Menu.Item
+                position='right'
+            >
+                <Button content='Salir' onClick={logout} inverted/>
+        </Menu.Item>   
         </Menu>
     </Segment>
     </div>
   )
 export default Heading;
+
+/*
+        <Dropdown.Item>
+            Configuración
+        </Dropdown.Item>
+*/

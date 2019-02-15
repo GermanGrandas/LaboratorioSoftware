@@ -16,5 +16,10 @@ export default {
         create : data => axios.post(`/api/crear-estudiante`,{data}).then(res => res.data).catch(err=> err.response.data),
         getEstudiantes : user => axios.post(`/api/estudiantes`,{user}).then(res=>res.data).catch(err=> err.response.data),
         getEstudianteMateria : materia =>axios.post(`/api/estudiantesXmateria`,{materia}).then(res=>res.data).catch(err=> err.response.data),
+    },
+    asistencia : {
+        getAsistencia : estudiante => axios.post(`/api/getAsistencia`,{estudiante}).then(res=>res.data).catch(err=> err.response.data),
+        updateAsistencia : estudiante => axios.post(`/api/updateAsistencia`,{estudiante}).then(res=>res.data).catch(err=> err.response.data),
+        createAsistencia : estudiante => axios.post(`/api/createAsistencia`,{estudiante}).then(res=>res.data).catch(err=> err.response.data),
     }
 };

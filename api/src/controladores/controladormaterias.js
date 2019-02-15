@@ -1,9 +1,6 @@
 "use strict"
 var Materias = require("../modelos/modelomaterias.js");
 var Usuario= require("../modelos/modelousuarios.js");
-var Estudiantes = require("../modelos/modeloestudiantes.js");
-
-
 
 function controlmaterias(req,res){
 

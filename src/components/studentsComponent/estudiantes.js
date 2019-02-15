@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Segment,Header,Grid, Icon,Menu,Dropdown} from 'semantic-ui-react';
+import {Segment,Header,Grid, Icon,Menu,Button} from 'semantic-ui-react';
 
 import Table from './table';
 import api from '../../api';
@@ -38,7 +38,7 @@ class Estudiantes extends Component{
                         {
                             renderAllMaterias ?
                                 <Grid>
-                                    <Grid.Row>
+                                    <Grid.Row> 
                                         <Grid.Column floated='left'>
                                             <Icon size='big' onClick={handle ? ()=>{handle('back');} : ()=>{this.props.history.push('/home');}}
                                                 link name='arrow alternate circle left outline'/>
@@ -53,7 +53,7 @@ class Estudiantes extends Component{
                                         </Grid.Column>
                                     </Grid.Row>
                                     <Grid.Row>
-                                        <Table estudiantes={estudiantes}/>
+                                        <Table estudiantes={estudiantes} materia={false}/>
                                     </Grid.Row>                                    
                                 </Grid>: <div></div>
                                 
@@ -62,22 +62,21 @@ class Estudiantes extends Component{
                         <div>
                         <Segment style={{ height: 100,backgroundColor:'rgba(140, 79, 61)'}}  inverted vertical>
                         <Menu secondary inverted attached="top">
+                            <Menu.Item 
+                                position='left'
+                            >
+                                <Button icon='home' onClick={()=>{this.props.history.push('/home');}} inverted/>
+                                     
+                            </Menu.Item>
                             <div className='headerContainer'>
-                            <img className='logoHome' src={'../images/logo_docent.png'} alt='Logo DocentHelper' />
+                                <img className='logoHome' src={'../images/logo_docent.png'} alt='Logo DocentHelper' />
                                 <h2>DocentHelper</h2>
                             </div>
-                            <Menu.Menu position='right'>           
-                            <Dropdown item icon='user' size='big' simple>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item>
-                                        Configuración
-                                    </Dropdown.Item>
-                                    <Dropdown.Item onClick={logout}>
-                                        Salir
-                                    </Dropdown.Item>
-                                </Dropdown.Menu>    
-                            </Dropdown>
-                            </Menu.Menu>
+                            <Menu.Item
+                                position='right'
+                            >
+                                <Button content='Salir' onClick={logout} inverted/>
+                            </Menu.Item>
                         </Menu>
                         </Segment>
                         <Segment basic >
@@ -99,7 +98,7 @@ class Estudiantes extends Component{
                                         </Grid.Column>
                                     </Grid.Row>
                                     <Grid.Row>
-                                        <Table estudiantes={estudiantes}/>
+                                        <Table estudiantes={estudiantes} materia={false}/>
                                     </Grid.Row>
                                 </Grid>:
                                 <div></div>
