@@ -28,14 +28,11 @@ yarn.lock
 *.svg
 *.ttf
 
-<<<<<<< HEAD
 *.chunk.js
 *.chunk.js.map
 
 *.chunk.*
 *.chunk.*
-=======
-
->>>>>>> b6dd8b22583810ce42c6c7b43d8097c7146e9c39
+yarn.lock
 config.md
 package-lock.json
