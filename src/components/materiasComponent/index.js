@@ -23,9 +23,9 @@ const ListItem = ({update})=>(
 
 
 class Materias extends Component{
-    state = { menuVisible: false , activeItem : 'home',modalOpenM: false,modalOpenE: false,modalOpenS: false,user :null}
+    state = { menuVisible: false , activeItem : 'home',modalOpenM: false,modalOpenE: false,user :null, planActivo : null}
 
-    async componentDidMount(){
+    componentDidMount(){
         let {user} = localStorage;
         this.setState({user});
     }
@@ -50,9 +50,12 @@ class Materias extends Component{
   handleModalE = () => this.setState({ modalOpenE: true })
   handleModalS = () => this.setState({ modalOpenS: true })
 
-  close = ()=> this.setState({modalOpenM : false,modalOpenE : false,modalOpenS : false})
+  handlePlanificador = (e,{name,id})=>{
+      this.setState({activeItem : name,planActivo : id})
+  }
+  close = ()=> this.setState({modalOpenM : false,modalOpenE : false})
   render() {
-    const { menuVisible,activeItem,modalOpenM, modalOpenE,modalOpenS } = this.state
+    const { menuVisible,activeItem,modalOpenM, modalOpenE,planActivo } = this.state
     const { logout} = this.props;
     let {user } = localStorage;
     return (
@@ -135,7 +138,7 @@ class Materias extends Component{
                                             <Header as='h3' icon style={{margin : '10 0', padding: 30,}}>
                                                 <Icon name='tags' size='big'/>
                                                 <Header.Content>Planificador</Header.Content>
-                                                <Scheduler modalOpen={modalOpenS} handleItemClick={this.handleItemClick} handleModal={this.handleModalS} close={this.close} user={user}/>
+                                                <Scheduler handleItemClick={this.handleItemClick} handlePlanificador={this.handlePlanificador} user={user}/>
                                             </Header>
                                         </Card>
                                     </Card.Group>
@@ -153,7 +156,7 @@ class Materias extends Component{
                             </Segment>
                          : activeItem === 'planificador' ?
                             <Segment vertical style={{height : '80vh',overflow : 'hidden'}}>
-                                <VerAgenda user={user} item={activeItem} handle={this.handleItem}/>
+                                <VerAgenda user={user} item={activeItem} handle={this.handleItem} activo={planActivo}/>
                             </Segment>
                          :<div></div>
 

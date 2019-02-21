@@ -23,6 +23,9 @@ export default {
         createAsistencia : estudiante => axios.post(`/api/createAsistencia`,{estudiante}).then(res=>res.data).catch(err=> err.response.data),
     },
     agenda : {
-        makeAgenda : materia => axios.post(`/api/makeAgenda`,{materia}).then(res=>res.data).catch(err=> err.response.data)
+        getAgenda : materia => axios.post(`/api/getAgenda`,{materia}).then(res=>res.data).catch(err=> err.response.data),
+        addEntry : materia => axios.post(`/api/addEntry`,{materia}).then(res=>res.data).catch(err=> err.response.data),
+        deleteEntry : materia => axios.post(`/api/deleteEntry`,{materia}).then(res=>res.data).catch(err=> err.response.data),
+        updateEntry : materia => axios.post(`/api/updateEntry`,{materia}).then(res=>res.data).catch(err=> err.response.data),
     }
 };

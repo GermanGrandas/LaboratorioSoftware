@@ -19,6 +19,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-agenda": "^0.0.8",
+    "react-big-calendar": "^0.20.3",
     "react-burger-menu": "^2.5.4",
     "react-date-picker": "^7.1.1",
     "react-dom": "^16.7.0",
