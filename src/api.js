@@ -21,5 +21,8 @@ export default {
         getAsistencia : estudiante => axios.post(`/api/getAsistencia`,{estudiante}).then(res=>res.data).catch(err=> err.response.data),
         updateAsistencia : estudiante => axios.post(`/api/updateAsistencia`,{estudiante}).then(res=>res.data).catch(err=> err.response.data),
         createAsistencia : estudiante => axios.post(`/api/createAsistencia`,{estudiante}).then(res=>res.data).catch(err=> err.response.data),
+    },
+    agenda : {
+        makeAgenda : materia => axios.post(`/api/makeAgenda`,{materia}).then(res=>res.data).catch(err=> err.response.data)
     }
 };

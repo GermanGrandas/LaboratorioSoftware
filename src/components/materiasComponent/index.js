@@ -7,6 +7,8 @@ import MainMaterias from  './materias';
 import NewMat from './nuevaMateria';
 import Student from '../studentsComponent';
 import Estudiantes from '../studentsComponent/estudiantes';
+import Scheduler from '../agendaComponent';
+import VerAgenda from '../agendaComponent/verAgenda';
 
 const ListItem = ({update})=>(
     <List.Item name='crear' onClick={()=>{
@@ -21,7 +23,7 @@ const ListItem = ({update})=>(
 
 
 class Materias extends Component{
-    state = { menuVisible: false , activeItem : 'home',modalOpenM: false,modalOpenE: false,user :null}
+    state = { menuVisible: false , activeItem : 'home',modalOpenM: false,modalOpenE: false,modalOpenS: false,user :null}
 
     async componentDidMount(){
         let {user} = localStorage;
@@ -46,9 +48,11 @@ class Materias extends Component{
   }
   handleModalM = () => this.setState({ modalOpenM: true })
   handleModalE = () => this.setState({ modalOpenE: true })
-  close = ()=> this.setState({modalOpenM : false,modalOpenE : false})
+  handleModalS = () => this.setState({ modalOpenS: true })
+
+  close = ()=> this.setState({modalOpenM : false,modalOpenE : false,modalOpenS : false})
   render() {
-    const { menuVisible,activeItem,modalOpenM, modalOpenE } = this.state
+    const { menuVisible,activeItem,modalOpenM, modalOpenE,modalOpenS } = this.state
     const { logout} = this.props;
     let {user } = localStorage;
     return (
@@ -127,6 +131,13 @@ class Materias extends Component{
                                             <Student modalOpen={modalOpenE} handleItemClick={this.handleEstudiantesClick} handleModal={this.handleModalE} close={this.close} user={user}/>
                                             
                                         </Card>
+                                        <Card className='card'>
+                                            <Header as='h3' icon style={{margin : '10 0', padding: 30,}}>
+                                                <Icon name='tags' size='big'/>
+                                                <Header.Content>Planificador</Header.Content>
+                                                <Scheduler modalOpen={modalOpenS} handleItemClick={this.handleItemClick} handleModal={this.handleModalS} close={this.close} user={user}/>
+                                            </Header>
+                                        </Card>
                                     </Card.Group>
                                 </Grid.Row>
                             </Grid>
@@ -140,7 +151,11 @@ class Materias extends Component{
                             <Segment vertical style={{height : '80vh',overflow : 'hidden'}}>
                                 <Estudiantes user={user} item={activeItem} handle={this.handleItem}/>
                             </Segment>
-                         : <div></div>
+                         : activeItem === 'planificador' ?
+                            <Segment vertical style={{height : '80vh',overflow : 'hidden'}}>
+                                <VerAgenda user={user} item={activeItem} handle={this.handleItem}/>
+                            </Segment>
+                         :<div></div>
 
                 }
             </Segment>
