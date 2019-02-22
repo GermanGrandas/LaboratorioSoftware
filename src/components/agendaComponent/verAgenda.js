@@ -32,18 +32,21 @@ class verAgenda extends Component{
     componentDidMount(){
         let {activo} = this.props;
         api.agenda.getAgenda(activo).then(res=>{
+            console.log(res);
             if(!res.error) {
                 //console.log(Date(res[0].endDateTime));
                 console.log(res);
                 res.map(
                     item =>{
-                        let dict = {}
-                        dict['_id'] = item['_id']
-                        dict['classes'] = item['classes']
-                        dict['name'] = item['name']
-                        dict['startDateTime'] = new Date(item['startDateTime'])
-                        dict['endDateTime'] = new Date(item['endDateTime'])
-                        this.setState({items : [...this.state.items , dict]});
+                        if(item !== null){
+                            let dict = {}
+                            dict['_id'] = item['_id']
+                            dict['classes'] = item['classes']
+                            dict['name'] = item['name']
+                            dict['startDateTime'] = new Date(item['startDateTime'])
+                            dict['endDateTime'] = new Date(item['endDateTime'])
+                            this.setState({items : [...this.state.items , dict]});
+                        }
                         return true
                     }
                 );

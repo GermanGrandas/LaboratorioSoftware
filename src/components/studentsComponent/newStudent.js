@@ -1,8 +1,20 @@
 import React, { Component } from 'react'
-import {Button,Form, Message,Segment} from 'semantic-ui-react';
+import {Button,Form, Message,Segment,Header,Icon} from 'semantic-ui-react';
 import isEmail from 'validator/lib/isEmail';
+import CsvParse from '@vtex/react-csv-parse'
 
 import api from '../../api';
+
+const keys = [
+    "codigo",
+    "nombre",
+    "apellido",
+    "telefono",
+    "direccion",
+    "materiapertenece",
+    'correo'
+]
+
 class NuevoEstudiante extends Component{
     state = {
 		data: {
@@ -14,7 +26,8 @@ class NuevoEstudiante extends Component{
             materiapertenece : ''
         },
         materias : [],
-		errors: {}
+        errors: {},
+        multipleStudents : []
     };
     componentDidMount(){
         let {user} = this.props;
@@ -85,6 +98,21 @@ class NuevoEstudiante extends Component{
           this.setState({data: { ...this.state.data, [name]: value }});
         }
     }
+    handleData = data => {
+        this.setState({multipleStudents: data })
+      }
+    saveStudents = ()=>{
+        let {multipleStudents} = this.state;
+        let {user} = localStorage;
+        console.log('guardando');
+        multipleStudents.map(
+            student =>{
+                console.log(student);
+                this.submit(student,user);
+                return true
+            }
+        );
+    }
 	validate = (data) => {
         const errors = {};
         if (!isEmail(data.correo)) errors.correo = 'Correo invalido';
@@ -107,6 +135,9 @@ class NuevoEstudiante extends Component{
 				key=> errorsList.push(errors[key]));
 		}
         return(
+                <div>
+                    
+                
 				<Form size='big' error={Object.keys(errors).length !== 0 ? true : false} onSubmit={this.handleSubmit}>
 					<Segment stacked>
                         <Form.Group widths='equal'>
@@ -224,6 +255,20 @@ class NuevoEstudiante extends Component{
                                 	
 						</Segment>
 					</Form>
+                    <Segment placeholder>
+                        <Header icon>
+                            <Icon name='file archive' />
+                            Agregar un archivo csv
+                        </Header>
+                        <CsvParse
+                            keys={keys}
+                            onDataUploaded={this.handleData}
+                            onError={this.handleError}
+                            render={onChange => <input type="file" onChange={onChange} />}
+                        />
+                        <Button principal content='Guardar' onClick={this.saveStudents}/>
+                    </Segment>
+                    </div>
         )
     }
 }
